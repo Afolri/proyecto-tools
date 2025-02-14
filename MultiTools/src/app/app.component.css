@@ -1,0 +1,146 @@
+@import url(https://db.onlinewebfonts.com/c/6c3edd04a03685b9890f2d2cbe81f8d3?family=Carnas+W03+Medium);
+
+@media only screen and (max-width: 1000px){
+  .container{
+    display: grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:auto auto 300px;
+  }
+  .primeritem{
+    grid-column: 2 /3;
+    grid-row: 2 /3;
+    align-content: center;
+    justify-content: center;
+  }
+  .segundoitem{
+    grid-column: 2 / 3;
+    grid-row:3 /span 2;
+    height: auto;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+/* Modificando animación teléfono*/
+  
+
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Carnas W03 Medium";
+  
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+ul {
+  position: static;
+}
+ul li {
+  list-style: none;
+  text-align: left;
+}
+ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 3em;
+  padding: 5px 20px;
+  display: inline-flex;
+  font-weight: 700;
+  transition: 0.2s;
+}
+ul:hover li a {
+  color: rgba(255, 255, 255, 0.133);
+}
+ul li:hover a {
+  color: #ffffff;
+  background: transparent;
+}
+ul li a:before {
+  content: "";
+  position: absolute;
+  top: 0%;
+  padding:1em 5em;
+  left: 10%;
+  display: flex;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  color: rgb(255, 255, 255);
+  z-index: 1;
+  opacity: 0;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 50px;
+  transition: letter-spacing 0.5s, top 0.2s;
+}
+ul li a:hover:before {
+  font-size: 20px;
+  content: attr(data-text);
+  opacity: 1;
+  top: 15%;
+  letter-spacing: 10px;
+  width: 2px;
+  height: 2px;
+}
+ul li:nth-child(6n + 1) a:before {
+  background: #0f4285;
+}
+ul li:nth-child(6n + 2) a:before {
+  background: #663c6e;
+}
+ul li:nth-child(6n + 3) a:before {
+  background: #1582fe;
+}
+ul li:nth-child(6n + 4) a:before {
+  background: #a29bfe;
+}
+ul li:nth-child(6n + 5) a:before {
+  background: #fd79a8;
+}
+ul li:nth-child(6n + 6) a:before {
+  background: #ffeaa7;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 200px repeat(4,1fr);
+    grid-template-rows:auto auto 300px;
+    gap: 20px;
+    margin: 20px;
+}
+
+.LOG_ESCOM
+{
+  grid-column: 4/6;
+  grid-row: 1/3;
+	background-image : url(../recursos/LOGO.svg);
+  height: 100%;
+  width: auto;
+  background-repeat: no-repeat;
+  z-index: 1;
+  background-size: contain;
+  align-items:center;
+  align-content: end;
+}
+
+.primeritem{
+  grid-column: 1 / 4;
+  grid-row: 1 / 3;
+}
+.segundoitem{
+  grid-column: 1 / 6;
+  grid-row:3 /  4;
+  height: auto;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+

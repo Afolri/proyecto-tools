@@ -1,0 +1,79 @@
+<p>organizardor-computadoras works!</p>
+<div class="container">
+    <form (submit)="enviarFormulario($event)">
+      <div class="item">
+        <label for="noserie">No serie del producto:</label>
+        <input type="text" id="noserie" name="noserie"  [(ngModel)]="productoGuardar.noserie"  required>
+      </div>
+      <div class="item">
+        <label for="estado_producto">Estado del producto:</label>
+        <input type="text" id="estado_producto" name="estado_producto"  [(ngModel)]="productoGuardar.estado_producto" required>
+      </div>
+      <div class="item">
+        <label for="marca">Selecciona una marca:</label>
+        <input list="marcas-list" id="marca" name="marca"  [(ngModel)]="productoGuardar.id_marca">
+        <datalist id="marcas-list">
+
+        @for(marca of marcas; track marca.id_marca){
+          <option value={{marca.id_marca}}>{{marca.nombre_marca}}</option>
+        }
+
+      </datalist>
+      
+      </div>
+      <div class="item">
+        <label for="id_procesador">Procesador:</label>
+        <input list="procesadores-list" id="procesador" name="procesador"  [(ngModel)]="productoGuardar.id_procesador" required>
+        <datalist id="procesadores-list">
+          @for(procesador of procesadores; track procesador.id_procesador){
+            <option value={{procesador.id_procesador}}>{{procesador.procesador}}</option>
+          }
+        </datalist>
+      </div>
+      <div class="item">
+        <label for="ram">Ram:</label>
+        <input type="text" id="ram" name="ram"  [(ngModel)]="productoGuardar.ram"  required>
+      </div>
+      <div class="item">
+        <label for="fecha_configuracion">Fecha de configuración:</label>
+        <input type="date" id="fecha_configuracion" name="fecha_configuracion"  [(ngModel)]="productoGuardar.fecha_configuracion" required>
+      </div>
+      <div class="item">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario"  [(ngModel)]="productoGuardar.usuario" required>
+      </div>
+
+      <br>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+  <div class="item" id="tabla">
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>No de serie</th>
+        <th>Estado del producto</th>
+        <th>Marca</th>
+        <th>Procesador</th>
+        <th>Ram</th>
+        <th>Fecha de Configuración</th>
+        <th>Usuario</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (producto of productos; track producto.id){
+        <tr>
+          <td>{{ producto.id }}</td>
+          <td>{{ producto.noserie }}</td>
+          <td>{{ producto.estado_producto }}</td>
+          <td>{{ producto.id_marca }}</td>
+          <td>{{ producto.id_procesador }}</td>
+          <td>{{ producto.ram }}</td>
+          <td>{{ producto.fecha_configuracion }}</td>
+          <td>{{ producto.usuario }}</td>
+        </tr> 
+      }
+    </tbody>
+  </table>
+  </div>

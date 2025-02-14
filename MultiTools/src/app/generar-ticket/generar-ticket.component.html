@@ -1,0 +1,53 @@
+<div class="contenedorpadre">
+  <div class = "contenedor1">
+    
+    <div *ngIf="camposInvalidos(miFormulario)" id="eerror">
+      Todos los campos son obligatorios.
+    </div>
+  </div>
+  <div class = "contenedor2">
+    <form #miFormulario="ngForm" (submit)="crearticket($event)">
+
+      <label id="tnumero_serie_producto">Número de serie / modelo del producto:</label>
+      
+
+      <div class="contenedortooltip">
+        <div class="tooltip">
+          <span><i class="fa fa-info-circle"></i></span>
+          <div class="tooltip-text">En caso de ser un kit de cámaras de caja favor de colocar la serie que tiene la caja</div>
+        </div>
+      </div>
+
+      
+      <input id="numero_serie_producto" type="text" name="numero_serie_producto" placeholder="Ingrese el numero de serie del producto" #numeroSerieCtrl="ngModel"
+      [(ngModel)]="productoGuardar.numero_serie_producto" required >
+
+      <label id="tnumerocompra">Numero Compra / Cotización:</label>
+      <input id="numerocompra" name="numerocompra" [(ngModel)]="productoGuardar.numero_compra_cot"  placeholder="Ingrese el numero de compra o cotización" #numerocompra="ngModel" required>
+
+      <label id="tnombre_cliente">Nombre:</label>
+      <input id="nombre_cliente" type="text" name="nombre_cliente" placeholder="Ingrese el nombre"
+      [(ngModel)]="clienteGuardar.nombre_cliente" #numeroSerieCtrl="ngModel" required >
+
+      <label id="tmail">Correo:</label>
+      <input id="mail" type="email" name="correo" [(ngModel)]="clienteGuardar.correo" placeholder="Ingrese su correo" #numeroSerieCtrl="ngModel" required>
+
+      <label id="ttelefono">Teléfono:</label>
+      <input id="telefono" type="text" name="telefono" [(ngModel)]="clienteGuardar.telefono" placeholder="Ingresse el telefono" #numeroSerieCtrl="ngModel"required>
+
+      <label id="tasunto">Asunto:</label>
+      <input id="asunto" type="text" name="asunto" [(ngModel)]="ticketGuardar.asunto" placeholder="Ingrese el asunto " #numeroSerieCtrl="ngModel" required>
+
+      <label id="tdescripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" [(ngModel)]="ticketGuardar.descripcion" rows="4" cols="50" placeholder="Ingrese la descripcion del problema" #numeroSerieCtrl="ngModel" required>
+
+      </textarea>
+
+
+      <button type="submit" class="item7" [disabled]="miFormulario.form.invalid">Enviar</button>
+    </form>
+  </div>
+    
+  
+    
+</div>

@@ -1,0 +1,240 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.contenedorpadre{
+    display:grid;
+    grid-template-rows: 7% auto;
+    grid-template-columns: auto;
+}
+.contenedor1{
+    position:relative;
+}
+.contenedor2{
+    grid-row: 2/3;
+    left: 50%;
+    padding:30px;
+    border-radius: 7px;
+    
+    background-color:hsl(211, 47%, 21%);
+}
+
+#eerror{
+    
+    vertical-align: middle;
+    grid-row: 1/2;
+    z-index: -1;
+    width: 50%;
+    height: 100%;
+    color:white;
+    background-color:hsl(353, 52%, 69%);
+    border-radius: 7px 7px 0px 0px;
+    animation: animacionalerta ease-in-out .2s;
+    
+}
+
+@keyframes animacionalerta {
+    from{
+        transform: translateY(20px);
+    }
+    to{
+        transform: translateY(0px);
+    }
+}
+form{
+    display: grid;
+    grid-template-columns: repeat(2,1fr) 4em repeat(2,1fr) ;
+    grid-template-rows:repeat(8,1fr) 2em;
+    width: auto;
+    gap: 20px;
+    font-weight: 700;
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+form input, form textarea{
+    background-color: rgba(92, 133, 133, 0.535);
+    color: white;
+}
+form:not(#descripcion){   
+    justify-content: center;
+    align-items: center;
+}
+form label{
+    text-align: right;
+}
+form input, textarea{
+    border-radius: 7px;
+    border: none;
+}
+form input:not(#descripcion){
+    height: 30px;
+    
+}
+#numero_serie_producto{
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+#tasunto{
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+#asunto{
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+}
+#tnombre_cliente{
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+}
+#nombre_cliente{
+    grid-column: 2 / 5;
+    grid-row: 3 / 4;
+}
+#tmail{
+    grid-column: 1 / 2;
+    grid-row: 4 / 5;
+}
+
+
+#mail{
+    grid-column: 2 / 5;
+    grid-row: 4 / 5;
+}
+
+#ttelefono{
+    grid-column: 1 / 2;
+    grid-row: 5 / 6;
+}
+
+#telefono{
+    grid-column: 2 / 4;
+    grid-row: 5 / 6;
+}
+#tdescripcion{
+    grid-column: 1 / 2;
+    grid-row: 6 / 7;
+    
+}
+#descripcion{
+    display:grid;
+    grid-column: 2 / 5;
+    grid-row: 6 / 9;
+    height:100%;
+    font-family:Arial, Helvetica, sans-serif;
+    resize: none;
+    
+}
+#tnumerocompra{
+    grid-column:4/5;
+    grid-row: 1 / 2;
+}
+#numerocompra{
+    grid-column: 5 / 6;
+    grid-row: 1 / 2;
+}
+.item7  {
+    background-color: rgb(63, 110, 63);
+    color:white;
+    font-weight: 600;
+    letter-spacing: 2px;
+    height: 100%;
+    border-radius: 7px;
+    border:none;
+    grid-column: 2 / 3;
+    grid-row: 9 / 10;              /* Conviertes el botón en contenedor flex */
+    justify-content: center;     /* Centra el contenido horizontalmente */
+    align-items: center;   
+    box-shadow: rgb(88, 92, 87) 5px 4px 8px .5px ;
+    cursor: pointer;
+}
+.item7:disabled{
+    background-color: rgba(70, 67, 67, 0.266);
+    color: rgb(142, 141, 141);
+    cursor: not-allowed;
+}
+input::placeholder, textarea::placeholder{
+    color:white;
+    opacity: 0.4;
+    
+}
+
+.fa {
+    color: rgb(111, 99, 204);
+    font-size: 1.5em;
+}
+
+.contenedortooltip{
+    grid-column:3/4 ;
+    grid-row: 1/ 2;
+}
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    font-size:.8em;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Estilos para navegadores basados en Webkit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra vertical */
+    height: 10px; /* Altura de la barra horizontal */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Color de fondo */
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #007bff; /* Color del "thumb" (la barra de desplazamiento) */
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Color más oscuro cuando pasas el mouse */
+  }
+  
+  /* Estilos para Firefox */
+  * {
+    scrollbar-width: thin; /* "auto" o "thin" */
+    scrollbar-color: #007bff #f1f1f1; /* Color del thumb y del fondo */
+  }
+  
+
+
+  

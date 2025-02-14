@@ -1,0 +1,42 @@
+<div class="item" id="tabla">
+    <table>
+      <thead>
+        <tr class="fila-titulos">
+            <th>numero ticket </th>
+            <th>asunto </th>
+            <th>descripcion </th>
+            <th>estado </th>
+            <th>cerrado </th>
+            <th>numero agente  </th>
+            <th>numero cliente </th>
+            <th>numero producto modelo </th>
+            <th>numero serie producto </th>
+            <th>numero compra cot </th>
+            <th>numero cliente </th>
+            <th>nombre  cliente </th>
+            <th>correo </th>
+            <th>telefono </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of tablatickets; track producto.numero_serie_producto){
+          <tr>
+            <td>{{ producto.numero_ticket }}</td>
+            <td>{{ producto.asunto }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.estado }}</td>
+            <td>{{ producto.cerrado }}</td>
+            <td>{{ producto.numero_agente  }}</td>
+            <td>{{ producto.numero_cliente }}</td>
+            <td>{{ producto.numero_producto_modelo }}</td>
+            <td>{{ producto.numero_serie_producto }}</td>
+            <td>{{ producto.numero_compra_cot }}</td>
+            <td>{{ producto.numero_cliente }}</td>
+            <td>{{ producto.nombre_cliente }}</td>
+            <td>{{ producto.correo }}</td>
+            <td>{{ producto.telefono }}</td>
+          </tr> 
+        }
+      </tbody>
+    </table>
+    </div>

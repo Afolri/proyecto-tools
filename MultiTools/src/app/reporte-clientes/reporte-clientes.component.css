@@ -1,0 +1,23 @@
+/*background-color:hsl(353, 52%, 69%);
+background-color:hsl(211, 47%, 21%);
+background-color:hsl(215, 64%, 46%);*/
+table{
+    color:white;
+    background-color: white;
+    border-radius: 3px;
+}
+.fila-titulos > th{
+    background-color:hsl(211, 47%, 21%);
+    color:white;
+    
+    border-radius: 7px 0px 7px 0px;
+}
+tbody{
+    background-color:hsl(215, 64%, 46%);
+}
+td{
+    padding: 10px;
+    max-width: 300px;
+    text-align:center;
+    
+}
