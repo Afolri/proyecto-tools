@@ -11,6 +11,6 @@ package escom.admin.servicioAlCliente.repositories;
 
     @Repository
     public interface ProductoTicketRepository extends JpaRepository<ProductoTicket, Long> {
-        Optional<ProductoTicket> findByNumeroSerieProducto(String numeroSerieProducto);
+        Optional<ProductoTicket> findByNumeroSerieModelo(String numeroSerieProducto);
 
     }

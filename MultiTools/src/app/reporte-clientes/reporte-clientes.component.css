@@ -1,6 +1,11 @@
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+
+
 /*background-color:hsl(353, 52%, 69%);
 background-color:hsl(211, 47%, 21%);
 background-color:hsl(215, 64%, 46%);*/
+
 table{
     color:white;
     background-color: white;
@@ -12,12 +17,63 @@ table{
     
     border-radius: 7px 0px 7px 0px;
 }
-tbody{
+tbody :not(input){
     background-color:hsl(215, 64%, 46%);
-}
-td{
-    padding: 10px;
-    max-width: 300px;
-    text-align:center;
     
 }
+td:not(input){
+    padding: 10px;
+    max-width: 300px;
+    min-width: 50px;
+    text-align:center;
+    cursor:context-menu;
+    
+}
+
+[class^="fa fa"]{
+    cursor: pointer;
+}
+[class^="fa fa"]:hover{ 
+    cursor: pointer;
+    color:hsl(353, 52%, 69%);
+}
+
+/*iconos */
+
+
+.editar{
+
+    background-color: hsl(211, 47%, 21%);
+    border-radius: 10px;
+    z-index: 3;
+    display: block;
+    position: absolute;
+    padding: 30px;
+    animation: aparecer ease-in-out .3s
+}
+@keyframes aparecer {
+    from{
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+    
+}
+.fondoFormulario{
+    z-index: 4;
+    background-color: rgba(0, 0, 0, 0.542);
+    position:fixed;
+    display:flex;
+    top:0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    align-items:center;
+    justify-content: space-around;
+    vertical-align: middle;
+    overflow-y: hidden;
+}
+

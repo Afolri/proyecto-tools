@@ -1,15 +1,19 @@
 package escom.admin.servicioAlCliente.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import escom.admin.servicioAlCliente.repositories.ProductoTicketRepository;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tickets")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name = "numero_ticket")
+    @JsonProperty("numero_ticket")
     private Long numeroTicket;
 
     @Column (name = "asunto")
@@ -26,14 +30,17 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn ( name = "numero_agente")
+    @JsonProperty ( "numero_agente")
     private Agente agente;
 
     @ManyToOne
     @JoinColumn (name = "numero_cliente")
+    @JsonProperty("numero_cliente")
     private Cliente cliente;
 
     @ManyToOne
-    @JoinColumn (name = "numero_producto_modelo")
+    @JoinColumn (name = "numero_producto")
+    @JsonProperty("numero_producto")
     private ProductoTicket productoTicket;
 
     public Long getNumeroTicket() {

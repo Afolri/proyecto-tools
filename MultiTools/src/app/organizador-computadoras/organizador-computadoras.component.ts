@@ -32,7 +32,6 @@ interface Procesador{
   styleUrl: './organizador-computadoras.component.css'
 })
 export class OrganizadorComputadorasComponent implements OnInit{
-
   
   productos: Producto[] = [];
   marcas: Marca[] = [];

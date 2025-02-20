@@ -1,6 +1,5 @@
 package escom.admin.servicioAlCliente.services;
 
-import escom.admin.productos.model.Producto;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
 import escom.admin.servicioAlCliente.entities.Cliente;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
@@ -77,12 +76,12 @@ public class TicketServiceImpl implements TicketService {
             return Map.of("error", "Nombre invalido");
         }
         if(requestDTO.getCorreo().isEmpty() || requestDTO.getTelefono().isEmpty() || requestDTO.getNombreCliente().isEmpty()
-         || requestDTO.getAsunto().isEmpty() || requestDTO.getDescripcion().isEmpty() || requestDTO.getNumeroDeSerie().isEmpty()
+         || requestDTO.getAsunto().isEmpty() || requestDTO.getDescripcion().isEmpty() || requestDTO.getNumeroSerieModelo().isEmpty()
         || requestDTO.getNumeroCompraCot().isEmpty()){
             return Map.of("error", "Campos vacios");
         }
 
-        productoTicket = productoTicketRepository.findByNumeroSerieProducto(requestDTO.getNumeroDeSerie());
+        productoTicket = productoTicketRepository.findByNumeroSerieModelo(requestDTO.getNumeroSerieModelo());
         cliente = clienteRepository.findByCorreo(requestDTO.getCorreo());
 
         /*Cuando se comprueba que el producto no existe entonces crea un nuevo usuario colocandole
@@ -91,8 +90,8 @@ public class TicketServiceImpl implements TicketService {
             ticket.setProductoTicket(productoTicket.get());
         } else {
             ProductoTicket producto = new ProductoTicket();
-            producto.setNumeroSerieProducto(requestDTO.getNumeroDeSerie());
-            producto.setNumeroCompraCot(requestDTO.getNumeroCompraCot());
+            producto.setNumeroSerieModelo(requestDTO.getNumeroSerieModelo().toUpperCase());
+            producto.setNumeroCompraCot(requestDTO.getNumeroCompraCot().toUpperCase());
             productoTicketRepository.save(producto);
             ticket.setProductoTicket(producto);
         }
@@ -123,5 +122,34 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<Map<String, Object>> buscarTickets() {
         return ticketRepository.buscarTickets();
+    }
+
+    @Override
+    public void eliminarTicket(long numeroTicket) {
+        ticketRepository.deleteById(numeroTicket);
+    }
+
+    @Override
+    public void actualizarTicket(Ticket ticket, Cliente cliente, ProductoTicket productoTicket) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(ticket.getNumeroTicket());
+        Optional<Cliente> clienteOptional = clienteRepository.findById(cliente.getNumeroCliente());
+        Optional<ProductoTicket> productoTicketOptional = productoTicketRepository.findById(productoTicket.getNumeroProducto());
+        if(ticketOptional.isPresent() && clienteOptional.isPresent() && productoTicketOptional.isPresent()){
+            Ticket t = ticketOptional.get();
+            Cliente c = clienteOptional.get();
+            ProductoTicket p = productoTicketOptional.get();
+            t.setAsunto(ticket.getAsunto());
+            t.setDescripcion(ticket.getDescripcion());
+            c.setNombreCliente(cliente.getNombreCliente());
+            c.setCorreo(cliente.getCorreo());
+            c.setTelefono(cliente.getTelefono());
+            p.setNumeroSerieModelo(productoTicket.getNumeroSerieModelo());
+            p.setNumeroCompraCot(productoTicket.getNumeroCompraCot());
+
+            ticketRepository.save(t);
+            clienteRepository.save(c);
+            productoTicketRepository.save(p);
+        }
+
     }
 }

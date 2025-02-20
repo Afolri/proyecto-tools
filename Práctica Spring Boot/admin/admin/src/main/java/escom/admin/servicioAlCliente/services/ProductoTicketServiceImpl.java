@@ -1,6 +1,5 @@
 package escom.admin.servicioAlCliente.services;
 
-import escom.admin.productos.repositories.ProductoRepository;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.repositories.ProductoTicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ public class ProductoTicketServiceImpl implements ProductoTicketService{
     @Override
     public void crearProducto(String numeroSerieProducto) {
         ProductoTicket productoTicket = new ProductoTicket();
-        productoTicket.setNumeroSerieProducto(numeroSerieProducto);
+        productoTicket.setNumeroSerieModelo(numeroSerieProducto);
         productoTicketRepository.save(productoTicket);
     }
 }

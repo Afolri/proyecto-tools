@@ -13,12 +13,12 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
     List<Ticket> findAllByAgente_NumeroAgente(Long numeroAgente);
     Ticket findByClienteNombreCliente(String nombreCliente);
     @Query(value = """
-            SELECT t.numero_ticket, t.asunto, t.descripcion, t.estado, t.cerrado, t.numero_agente,
-            t.numero_cliente, t.numero_producto_modelo, pt.numero_serie_producto, pt.numero_compra_cot,
-            c.numero_cliente, c.nombre_cliente, c.correo, c.telefono
-            FROM tickets t
-            LEFT JOIN productoticket pt ON t.numero_producto_modelo = pt.numero_producto_modelo
-            LEFT JOIN clientes c  ON  t.numero_cliente = c.numero_cliente
+        SELECT t.numero_ticket, pt.numero_serie_modelo, t.numero_producto,  pt.numero_compra_cot, 
+        t.asunto,t.numero_cliente, c.nombre_cliente, c.correo,
+        c.telefono, t.descripcion, t.estado, t.cerrado, t.numero_agente,  c.nombre_cliente
+        FROM tickets t
+        LEFT JOIN productoticket pt ON t.numero_producto = pt.numero_producto
+        LEFT JOIN clientes c  ON  t.numero_cliente = c.numero_cliente ORDER BY numero_ticket DESC
             """, nativeQuery = true)
     List<Map<String,Object>> buscarTickets();
 }

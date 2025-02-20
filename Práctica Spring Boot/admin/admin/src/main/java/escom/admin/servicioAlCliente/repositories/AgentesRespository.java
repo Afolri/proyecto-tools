@@ -13,13 +13,12 @@ import java.util.Map;
 public interface AgentesRespository extends JpaRepository<Agente,Long> {
 
     @Query(value = """
-            SELECT t.numero_ticket, t.asunto, t.descripcion, t.estado, t.cerrado, t.numero_agente,
-            t.numero_cliente, t.numero_producto_modelo, pt.numero_serie_producto, pt.numero_compra_cot,
-            c.numero_cliente, c.nombre_cliente, c.correo, c.telefono
+            SELECT t.numero_ticket, t.numero_producto, pt.numero_serie_modelo, t.numero_producto_modelo,
+            pt.numero_compra_cot, t.asunto,t.numero_cliente, c.nombre_cliente,
+            c.telefono, t.descripcion, t.estado, t.cerrado, t.numero_agente,  c.nombre_cliente
             FROM tickets t
-            LEFT JOIN productoticket pt ON t.numero_producto_modelo = pt.numero_producto_modelo
-            LEFT JOIN clientes c  ON  t.numero_cliente = c.numero_cliente
-            WHERE t.numero_agente = :numeroAgente 
+            LEFT JOIN productoticket pt ON t.numero_producto_modelo = pt.numero_producto
+            LEFT JOIN clientes c  ON  t.numero_cliente = c.numero_cliente ORDER BY numero_ticket DESC
             """, nativeQuery = true)
     List<Map<String,Object>> buscarTickets( @Param("numeroAgente") Long numeroAgente);
 }

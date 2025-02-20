@@ -1,3 +1,13 @@
 body{
-    background-color:hsl(211, 47%, 21%);
+    background-image: 
+    url('./assets/LINEAS_MOVIMIENTO.webp'), 
+    url('./assets/PRUEBA_FONDO_WEB.svg');
+    margin:0%;
+    padding:0%;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
 }

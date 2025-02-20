@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class = "contenedor2">
-    <form #miFormulario="ngForm" (submit)="crearticket($event)">
+    <form #miFormulario="ngForm">
 
       <label id="tnumero_serie_producto">Número de serie / modelo del producto:</label>
       
@@ -19,32 +19,96 @@
       </div>
 
       
-      <input id="numero_serie_producto" type="text" name="numero_serie_producto" placeholder="Ingrese el numero de serie del producto" #numeroSerieCtrl="ngModel"
-      [(ngModel)]="productoGuardar.numero_serie_producto" required >
+      <input id="numero_serie_modelo" type="text" name="numero_serie_modelo" placeholder="Ingrese el numero de serie del producto" 
+      #numeroSerieCtrl="ngModel"
+      maxlength="30" 
+      [(ngModel)]="productoGuardar.numero_serie_modelo" 
+      required >
+      
 
       <label id="tnumerocompra">Numero Compra / Cotización:</label>
-      <input id="numerocompra" name="numerocompra" [(ngModel)]="productoGuardar.numero_compra_cot"  placeholder="Ingrese el numero de compra o cotización" #numerocompra="ngModel" required>
+      <input id="numerocompra" name="numerocompra" [(ngModel)]="productoGuardar.numero_compra_cot"  
+      placeholder="Ingrese el numero de compra o cotización" value="" #numerocompra="ngModel" required>
 
       <label id="tnombre_cliente">Nombre:</label>
-      <input id="nombre_cliente" type="text" name="nombre_cliente" placeholder="Ingrese el nombre"
-      [(ngModel)]="clienteGuardar.nombre_cliente" #numeroSerieCtrl="ngModel" required >
+      <input id="nombre_cliente" type="text" name="nombre_cliente" 
+      placeholder="Ingrese el nombre"
+      [(ngModel)]="clienteGuardar.nombre_cliente" 
+      minlength="2"
+      maxlength="50"
+      #nombreCliente="ngModel"
+      pattern="^[a-zA-Z ]+$"
+      [ngClass]="{'input-error': nombreCliente.invalid && nombreCliente.touched}"
+      required >
+
+      
+      <div class="contenedorinombre" *ngIf="contieneNumeros(clienteGuardar.nombre_cliente)">
+        <div class="tooltip">
+          <span><i class="fa fa-info-circle"></i></span>
+          <div class="tooltip-text">
+            Ingrese solo letras
+          </div>
+        </div>
+      </div>
+      
 
       <label id="tmail">Correo:</label>
-      <input id="mail" type="email" name="correo" [(ngModel)]="clienteGuardar.correo" placeholder="Ingrese su correo" #numeroSerieCtrl="ngModel" required>
+
+      <input 
+      id="mail" 
+      type="email" 
+      name="correo" 
+      [(ngModel)]="clienteGuardar.correo" 
+      placeholder="Ingrese su correo" 
+      #correoCtrl="ngModel" 
+      pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" 
+      maxlength="100"
+      required>
+
+
+      <div class="contenedoricorreo" *ngIf="correoCtrl.invalid && correoCtrl.touched">
+        <div class="tooltip">
+          <span><i class="fa fa-info-circle"></i></span>
+          <div class="tooltip-text">Ingrese un correo válido utilizando<br> ejemplo <br>'correo&#64;hotmail.com'</div>
+        </div>
+      </div>
+
 
       <label id="ttelefono">Teléfono:</label>
-      <input id="telefono" type="text" name="telefono" [(ngModel)]="clienteGuardar.telefono" placeholder="Ingresse el telefono" #numeroSerieCtrl="ngModel"required>
+      <input id="telefono" type="tel" name="telefono" 
+      [(ngModel)]="clienteGuardar.telefono" placeholder="Ingrese el teléfono"
+      #telefonoCtrl="ngModel" pattern="^[0-9]{10}$" requireds
+      maxlength="10"
+      [ngClass]="{'input-error': telefonoCtrl.invalid && telefonoCtrl.touched}">
 
       <label id="tasunto">Asunto:</label>
-      <input id="asunto" type="text" name="asunto" [(ngModel)]="ticketGuardar.asunto" placeholder="Ingrese el asunto " #numeroSerieCtrl="ngModel" required>
+      <input id="asunto" type="text" name="asunto" 
+      minlength="5"
+      maxlength="100"
+      [(ngModel)]="ticketGuardar.asunto" placeholder="Ingrese el asunto " #numeroSerieCtrl="ngModel" required>
 
       <label id="tdescripcion">Descripción:</label>
-      <textarea id="descripcion" name="descripcion" [(ngModel)]="ticketGuardar.descripcion" rows="4" cols="50" placeholder="Ingrese la descripcion del problema" #numeroSerieCtrl="ngModel" required>
+      <textarea id="descripcion" name="descripcion" 
+      [(ngModel)]="ticketGuardar.descripcion" rows="4" cols="50" 
+      maxlength="500"
+      placeholder="Ingrese la descripcion del problema" #numeroSerieCtrl="ngModel" required>
 
       </textarea>
 
-
-      <button type="submit" class="item7" [disabled]="miFormulario.form.invalid">Enviar</button>
+      <button *ngIf="modo === 'crear'; else actualizar" type="submit" class="item7" [disabled]="miFormulario.form.invalid"
+      (click)="crearticket($event)">
+        Guardar
+      </button>
+      <ng-template #actualizar>
+        <button type="submit" class="item7" [disabled]="miFormulario.form.invalid" (click)="actualizarTicket()">
+          Actualizar
+        </button>
+        <button class="cancelar" type="button" (click)="cancelarFormulario()">
+          Cancelar
+        </button>
+      </ng-template>
+      
+       
     </form>
   </div>
     

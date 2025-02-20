@@ -2,6 +2,8 @@ package escom.admin.servicioAlCliente.services;
 
 import escom.admin.productos.model.Producto;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
+import escom.admin.servicioAlCliente.entities.Cliente;
+import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.entities.Ticket;
 import org.springframework.stereotype.Service;
 
@@ -18,4 +20,6 @@ public interface TicketService {
     void asignarAgente(Long idAgente);
     public Map<String,String> crearTicketConCliente(TicketRequestDTO requestDTO);
     List<Map<String,Object>> buscarTickets();
+    void eliminarTicket(long numeroTicket);
+    void actualizarTicket(Ticket ticket, Cliente cliente, ProductoTicket productoTicket);
 }

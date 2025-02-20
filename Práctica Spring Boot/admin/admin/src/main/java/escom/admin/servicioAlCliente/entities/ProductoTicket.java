@@ -1,38 +1,43 @@
 package escom.admin.servicioAlCliente.entities;
 
-import jakarta.annotation.Nullable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "productoticket")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductoTicket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column ( name = "numero_producto_modelo")
-    private Long numero_producto;
+    @Column ( name = "numero_producto")
+    @JsonProperty("numero_producto")
+    private Long numeroProducto;
 
-    @Column ( name = "numero_serie_producto" )
-    private String numeroSerieProducto;
+    @Column ( name = "numero_serie_modelo" )
+    @JsonProperty("numero_serie_modelo")
+    private String numeroSerieModelo;
 
     @Column ( name = "numero_compra_cot")
+    @JsonProperty("numero_compra_cot")
     private String numeroCompraCot;
 
 
-    public Long getNumero_producto() {
-        return numero_producto;
+    public Long getNumeroProducto() {
+        return numeroProducto;
     }
 
-    public void setNumero_producto(Long numero_producto) {
-        this.numero_producto = numero_producto;
+    public void setNumeroProducto(Long numeroProducto) {
+        this.numeroProducto = numeroProducto;
     }
 
-    public String getNumeroSerieProducto() {
-        return numeroSerieProducto;
+    public String getNumeroSerieModelo() {
+        return numeroSerieModelo;
     }
 
-    public void setNumeroSerieProducto(String numeroSerieProducto) {
-        this.numeroSerieProducto = numeroSerieProducto;
+    public void setNumeroSerieModelo(String numeroSerieModelo) {
+        this.numeroSerieModelo = numeroSerieModelo;
     }
 
 
