@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>escom</groupId>
 	<artifactId>admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>admin</name>
+	<version>0.0.1</version>
+	<name>multitools</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
@@ -101,6 +101,12 @@
 
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>  <!-- Desactiva el filtrado de variables -->
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

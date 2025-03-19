@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73071fb0-e53d-4070-94f5-04ed2bbdb936" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/Práctica Spring Boot.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/.idea/admin.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/AdminApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/configuracion/Cors.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/controllers/OrganizarComputadoras.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/controllers/SoporteController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/exceptions/CustomException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/model/Marca.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/model/Procesador.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/model/Producto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/repositories/ProcesadorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/repositories/ProductoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/services/ProcesadorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/services/ProcesadorServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/services/ProductoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/productos/services/ProductoServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/AuthController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/AuthResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/AuthService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/LoginRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/config/ApplicationConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/config/RegistroTicketModuleConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/controller/ReporteTickets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/dto/NotificacionResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/dto/TicketRequestDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/dto/TicketResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/dto/UsuarioResponseDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Agente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Cliente.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Notificacion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/ProductoTicket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/ProductoTipo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Rol.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Ticket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/TipoIdentificador.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Usuario.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/jwt/JwtAuthenticationFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/jwt/JwtService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/AgentesRespository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/ClienteRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/NotificacionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/ProductoTicketRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/ProductoTipoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/TicketRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/TipoIdentificadorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/repositories/UsuarioRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/AgenteService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/AgenteServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ClienteService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ClienteServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/NotificacionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/NotificacionServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ProductoTicketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ProductoTicketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ProductoTipoService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ProductoTipoServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TipoIdentificadorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TipoIdentificadorServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/UsuarioService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/UsuarioServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/java/escom/admin/servicioAlCliente/utils/UtilidadesDeValidacion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Práctica Spring Boot/admin/admin/src/test/java/escom/admin/AdminApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2sMl7g44P6HcT37yd5X5XXpg5c1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AdminApplication.executor": "Run",
+    "Application.practica_tools.executor": "Run",
+    "Maven.admin [clean].executor": "Run",
+    "Maven.admin [install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/devel/OneDrive/Documentos/PracticaTools/Práctica_Spring_Boot",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="practica_tools" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="21 (3)" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <envs>
+        <env name="DB_PASS" value="7894" />
+        <env name="DB_URL" value="jdbc:postgresql://localhost:5432/postgres" />
+        <env name="DB_USERNAME" value="postgres" />
+        <env name="JWT_SECRET" value="LhdmqdmBSMqjKTNMq7SXMVgsk2I+GvxDU8dGYcO6BVo=" />
+        <env name="DB_PLATFORM" value="org.hibernate.dialect.PostgreSQLDialect" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="escom.admin.AdminApplication" />
+      <module name="admin" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73071fb0-e53d-4070-94f5-04ed2bbdb936" name="Changes" comment="" />
+      <created>1738273158200</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1738273158200</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/productos/model/Producto.java</url>
+          <line>24</line>
+          <properties field="estado_producto" class="escom.admin.productos.model.Producto" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Ticket.java</url>
+          <line>85</line>
+          <properties field="numeroTicket" class="escom.admin.servicioAlCliente.entities.Ticket" />
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="NONE" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/productos/repositories/ProductoRepository.java</url>
+          <line>11</line>
+          <log-expression expression="@Query (value= &quot;&quot;&quot;&#10;            SELECT&#10;            id,&#10;            noserie,&#10;            estado_producto,&#10;            marcas.nombre_marca AS id_marca,&#10;            CONCAT(procesador.fabricante,' ',procesador.modelo) AS id_procesador,&#10;            ram,&#10;            fecha_configuracion,&#10;            usuario,&#10;            version_so,&#10;            so&#10;            FROM productos&#10;            INNER JOIN procesador&#10;            ON productos.id_procesador = procesador.id_procesador&#10;            INNER JOIN marcas&#10;            ON productos.id_marca = marcas.id_marca&#10;            &quot;&quot;&quot;, nativeQuery = true)&#10;    List&lt;Map&lt;String,Object&gt;&gt; obtenerComputadoras ();&#10;&#10;    @Query (value= &quot;&quot;&quot;&#10;            SELECT id_marca,nombre_marca FROM marcas&#10;            &quot;&quot;&quot;, nativeQuery = true)&#10;    List&lt;Map&lt;String,Object&gt;&gt; obtenerMarcasComputadora ();" language="JAVA" />
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/productos/services/ProductoServiceImpl.java</url>
+          <line>44</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/controller/ReporteTickets.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>166</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/ProductoTicketServiceImpl.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/entities/Notificacion.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/controller/ReporteTickets.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/AuthService.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/Auth/AuthController.java</url>
+          <line>25</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/controller/ReporteTickets.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="63" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>77</line>
+          <option name="timeStamp" value="64" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>115</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketServiceImpl.java</url>
+          <line>119</line>
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketService.java</url>
+          <line>24</line>
+          <properties class="escom.admin.servicioAlCliente.services.TicketService" method="actualizarTicket">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/TicketService.java</url>
+          <line>25</line>
+          <properties class="escom.admin.servicioAlCliente.services.TicketService" method="buscarPorIdentificador">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/admin/admin/src/main/java/escom/admin/servicioAlCliente/services/NotificacionService.java</url>
+          <line>14</line>
+          <properties class="escom.admin.servicioAlCliente.services.NotificacionService" method="abrirNotificacion">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="68" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.json.JSONObject" memberName="map" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="this" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
