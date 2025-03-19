@@ -1,0 +1,60 @@
+
+.contenedor{
+    position:fixed;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: hsl(211, 47%, 21%);
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px 170px 50px;
+    width: 500px;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    text-align: center;
+    gap: 20px;
+    border-radius:8px;
+    box-shadow: 10px 4px 8px 0px rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    z-index: 5;
+}
+.texto{
+    grid-column: 2/4;
+    grid-row: 1;
+    color:white;
+}
+.motivo-cerrar{
+    grid-area:2/1/3/5;
+    height: 100%;
+}
+
+.opciones{
+    grid-row: 3/4;
+    grid-column: 2/4;
+}
+.boton{
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+#aceptar{
+    background-color: #4CAF50;
+    grid-row: 3/4;
+    grid-column: 2/3;
+}
+#eliminar{
+    background-color: #4CAF50;
+    grid-row: 3/4;
+    grid-column: 2/3;
+}
+
+#cancelar{
+    background-color: #f44336;
+    grid-row: 3/4;
+    grid-column: 3/4;
+}
+

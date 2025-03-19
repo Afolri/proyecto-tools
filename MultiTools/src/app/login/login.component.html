@@ -1,0 +1,8 @@
+<form [formGroup]="iniciarsesion" (ngSubmit)="login()" class = "contenedor">
+    <div class="elemento"><h1>LOGIN</h1></div>
+    <div class="elemento"><label>Correo</label></div>
+    <div class="elemento"><input formControlName="correo" type="text" ></div>
+    <div class="elemento"><label>Contraseña</label></div>
+    <div class="elemento"><input formControlName="password" type="password"></div>
+    <div class="elemento"><button type="submit">Acceder</button></div>
+</form>

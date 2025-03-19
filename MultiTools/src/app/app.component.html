@@ -1,18 +1,25 @@
 <body>
 <div class="container">
-	<div class = "LOG_ESCOM"></div>
-	<div class="primeritem">
+	<div class = "primeritem"></div>
+	<nav class="segundoitem">
 		<ul>
-			<li><a  routerLink="/reporte-clientes" data-text="reportes" >Reporte de Clientes</a></li>
-			<li><a  routerLink="/organizador-computadoras" data-text="Organiza">Oganizador Computadoras</a></li>
-			<li><a  routerLink="/generar-tickets" [queryParams]= "{modo:'crear'}"data-text="tickets">Generar-Tickets</a></li>
+			<li *ngIf ="modo ==='AGENTE'"><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
+			<li *ngIf ="modo ==='ADMIN'"><a  routerLink="/organizador-computadoras" data-text="Organiza">ORGANIZADOR COMPUTADORAS</a></li>
+			<li ><a routerLink="/generar-tickets" [queryParams]= "{modo:'crear'}"data-text="tickets">GENERAR TICKETS</a></li>
+			
+			
+			<ng-container *ngIf="usuarioActual else login">
+				<li><a>{{usuarioActual.nombre}}</a></li>
+				<li><a (click)="logout()">LOGOUT</a></li></ng-container>
+				<ng-template #login>
+					<li><a routerLink="/login">LOGIN</a></li>
+				</ng-template>
+			
 		</ul>
-	</div>
-	
-	<div class="segundoitem">
+	</nav>
+	<div class="terceitem">
 		<router-outlet></router-outlet>
+		
 	</div>
 </div>
-<div class="LOG_ESCOM"></div>
-
 </body>

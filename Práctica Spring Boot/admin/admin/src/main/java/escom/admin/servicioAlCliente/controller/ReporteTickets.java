@@ -6,9 +6,13 @@ import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
 import escom.admin.servicioAlCliente.entities.Cliente;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.entities.Ticket;
+import escom.admin.servicioAlCliente.services.NotificacionService;
 import escom.admin.servicioAlCliente.services.TicketService;
+import escom.admin.servicioAlCliente.services.UsuarioService;
+import jdk.jfr.Unsigned;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +24,14 @@ import java.util.Map;
 public class ReporteTickets {
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private NotificacionService notificacionService;
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping("/crear-ticket")
     public ResponseEntity<?> crearTicket(@RequestBody TicketRequestDTO ticketRequestDTO) {
         try {
-
             Map<String, String> respuesta = ticketService.crearTicketConCliente(ticketRequestDTO);
             System.out.println(ticketRequestDTO.toString());
             return (respuesta.get("error").equals("")) ? ResponseEntity.ok().body("") :
@@ -36,20 +43,20 @@ public class ReporteTickets {
     }
 
     @GetMapping("/buscar-tickets")
-    public ResponseEntity<?> buscarTickets() {
+    public ResponseEntity<?> buscarTickets(@RequestParam Long numeroUsuario) {
         try {
-            return ResponseEntity.ok().body(ticketService.buscarTickets());
+            return ResponseEntity.ok().body(ticketService.buscarTickets(numeroUsuario));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al buscar los tickets");
         }
     }
-    @DeleteMapping("/eliminar-ticket")
-    public ResponseEntity<?> eliminarTicket(@RequestParam Long numeroTicket) {
+    @PutMapping("/cerrar-ticket")
+    public ResponseEntity<?> cerratTicket(@RequestParam Long numeroTicket) {
         try {
-            ticketService.eliminarTicket(numeroTicket);
-            return ResponseEntity.ok().body("Ticket eliminado");
+            ticketService.cambiarEstado(numeroTicket, "CERRADO");
+            return ResponseEntity.ok().body("Ticket cerrado");
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al eliminar el ticket");
+            return ResponseEntity.badRequest().body("Error al cerrar el ticket");
         }
     }
     @PutMapping("/actualizar-ticket")
@@ -66,4 +73,37 @@ public class ReporteTickets {
             return ResponseEntity.badRequest().body("Error al actualizar el ticket");
         }
     }
+
+    @GetMapping("/obtenerNotificaciones")
+    public ResponseEntity<?> obtenerNotificaciones(@RequestParam Long numeroUsuario) {
+        try {
+            return ResponseEntity.ok().body(notificacionService.verNotificaciones(numeroUsuario));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al obtener las notificaciones");
+        }
+    }
+
+    @GetMapping("/obtener-tickets-identificador")
+    public ResponseEntity<?> obtenerTicketsIdentificador(@RequestParam String nombreIdentificador,
+                                                         @RequestParam Long numeroTicket) {
+        try {
+            return ResponseEntity.ok().body(ticketService.buscarPorIdentificador(nombreIdentificador, numeroTicket));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al obtener los tickets");
+        }
+    }
+
+    /*Metodo que sirve para poder obtener las credenciales del suuario*/
+    @GetMapping("/obtener-credenciales")
+    public ResponseEntity<?> obtenerCredenciales(@RequestHeader HttpHeaders httpHeaders){
+        return ResponseEntity.ok().body(usuarioService.getUsuarioLoggeado(httpHeaders));
+    }
+
+    @PutMapping("/abrir-notificacion")
+    public ResponseEntity<?> abrirNotificacion (@RequestParam ("numero-notificacion")Long numeroNotificacion){
+        notificacionService.abrirNotificacion(numeroNotificacion);
+        return ResponseEntity.ok().body("Marcada como leida");
+    }
+
+
 }

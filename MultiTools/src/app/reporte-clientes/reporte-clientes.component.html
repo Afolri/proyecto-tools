@@ -1,69 +1,73 @@
-<div class="item" id="tabla">
-    <table>
-      <thead>
-        <tr class="fila-titulos">
-          <th>Numero ticket</th>
-          <th>Numero producto</th>
-          <th>Numero serie / modelo</th>
-          <th>Numero compra cot</th>
-          <th>Asunto</th> 
-          <th>Numero cliente</th>
-          <th>Nombre cliente</th>
-          <th>Teléfono</th>
-          <th>Correo</th>
-          <th>Descripcion</th>
-          <th>Estado</th>
-          <th>Cerrado</th>
-          <th>Numero agente</th>
-          <th>Nombre cliente</th>
-          <th> </th>
-          <th> </th>
+<div class = "notificacion icono">
+  <i [ngClass]="mostrarNotificaciones?'fa-solid fa-bell':'fa-solid fa-bell fa-shake'" (click)="abrirNotificaciones()" class="campana"></i>
+  <app-notificaciones class="bandeja" *ngIf="mostrarNotificaciones"></app-notificaciones>
+</div>
 
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Listado de productos -->
-        @for (producto of tablatickets; track producto.numero_ticket){
-          <tr>
-            <td>{{ producto.numero_ticket }}</td>
-            <td>{{ producto.numero_producto }}</td>
-            <td>{{ producto.numero_serie_modelo }}</td>
-            <td>{{ producto.numero_compra_cot }}</td>
-            <td>{{ producto.asunto }}</td>
-            <td>{{ producto.numero_cliente }}</td>
-            <td>{{ producto.nombre_cliente }}</td>
-            <td>{{ producto.telefono }}</td>
-            <td>{{ producto.correo }}</td>
-            <td>{{ producto.descripcion }}</td>
-            <td>{{ producto.estado }}</td>
 
-            <td>{{ producto.cerrado }}</td>
-            <td>{{ producto.numero_agente }}</td>
-            <td>{{ producto.nombre_cliente }}</td>
-            
-            
-            <td> 
-               <i  class="fa fa-edit" *ngIf="!producto.editar; else confirmar" (click)="editar(producto)"></i>
-               <ng-template #confirmar>
-                <i class="fa fa-check " ></i>
-                <i class="fa fa-times " ></i>
-               </ng-template> 
-            </td>
-            
-            
-            <td> 
-              <i (click)="eliminar(producto.numero_ticket)" class="fa fa-trash"></i>
-            </td>
-          </tr> 
-        }
 
-      </tbody>
-    </table>
+<div class = "contenedor">
+  <div class ="titulos" (focus)="focus=true" [ngStyle]="focus ? estilo():null">
+    <div>Numero ticket</div>
+    <div>Numero producto</div>
+    <div>Codigo</div>
+    <div>Numero compra cot</div>
+    <div>Asunto</div> 
+    <div>Numero cliente</div>
+    <div>Nombre cliente</div>
+    <div>Teléfono</div>
+    <div>Correo</div>
+    <div>Descripcion</div>
+    <div>Estado</div>
+    <div>Numero agente</div>
+    <div>Fecha</div>
+    <div>Hora</div>
   </div>
+  <!-- Listado de productos -->
+  <div class = "datos-container">
+    @for (ticket of tablatickets; track ticket.numero_ticket){
+
+      <div class = "tarjeta-datos">
+        <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos" >
+          
+          
+          <div class="menu" (click)="activarCheck(ticket)" >
+            <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
+            <section class = "opciones-list">
+              <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
+              <fa-icon  [icon]="faLock" class="lock-icon icono" (click)="solicitareliminar(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
+            </section>
+          </div>
+          <div class = primera-linea>
+            {{ ticket.numero_ticket }}
+          </div>
+          <div>{{ ticket.numero_producto }}</div>
+          <div class = "tipo-codigo">{{ticket.tipo_codigo}}</div>
+          <div>{{ ticket.numero_compra_cot }}</div>
+          <div>{{ ticket.asunto }}</div>
+          <div>{{ ticket.numero_cliente }}</div>
+          <div>{{ ticket.nombre_cliente }}</div>
+          <div>{{ ticket.telefono }}</div>
+          <div class="correo">{{ ticket.correo }}</div>
+          <div >{{ ticket.descripcion }}</div>
+          <div class="estado" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
+          <div>{{ ticket?.numero_agente || 'No asignado' }}</div>
+          <div>{{ ticket.fecha }}</div>
+          <div>{{ ticket.hora }}</div> 
+      
+        </div>
+      </div>
+    }
+  </div>
+</div>
   <div class="fondoFormulario" *ngIf="mostrar">
     <div  class="editar">
-      <app-generar-ticket [modo]="'editar'" (mostrarChange)="ocultar()" (obtenerDatos)="cargarTickets()" (cargarTicketsEvent)="cargarTickets()"
-      [ticket]="tickettemp">
-      </app-generar-ticket>
+      <app-editar-ticket [ticket]="tablaTicketstemp" (salirFormulario)="ocultar()"></app-editar-ticket>
+      <!--<app-generar-ticket [modo]="'editar'" (mostrarChange)="ocultar()" (obtenerDatos)="cargarTickets()" (cargarTicketsEvent)="cargarTickets()"
+      [ticket]="tablaTicketstemp" (mostrarMensajeAviso)="mostrarAviso('actualizar')">
+      </app-generar-ticket>-->
     </div>
   </div>
+  
+  <app-mensaje-aviso *ngIf="mensajeAviso" (cerrarEvent)="(ocultarMensajeAviso())" 
+  (cerrarTicketEvent)="cerrarTicket(tablaTicketstemp.numero_ticket)" (actualizarEvent)="aceptaractualizar()" (desmarcarEvent)="desmarcar()"
+   [modoMensajeFormulario]="modoMensajeFormulario"></app-mensaje-aviso>

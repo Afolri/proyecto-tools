@@ -1,13 +1,16 @@
 package escom.admin.servicioAlCliente.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "agentes")
+@Table(name = "agentes" , schema = "soporte")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_agente")
 public class Agente {
 
     @Id
@@ -16,9 +19,14 @@ public class Agente {
     @JsonProperty("numero_agente")
     Long numeroAgente;
 
-    @Column(name = "nombre_agente")
-    @JsonProperty("nombre_agente")
+    @Column(name = "nombres_agente")
+    @JsonProperty("nombres_agente")
     String nombreAgente;
+
+    @Column(name = "apellidos_agente")
+    @JsonProperty("apellidos_agente")
+    String apellidosAgente;
+
 
     public Long getNumeroAgente() {
         return numeroAgente;
@@ -34,5 +42,13 @@ public class Agente {
 
     public void setNombreAgente(String nombreAgente) {
         this.nombreAgente = nombreAgente;
+    }
+
+    public String getApellidosAgente() {
+        return apellidosAgente;
+    }
+
+    public void setApellidosAgente(String apellidosAgente) {
+        this.apellidosAgente = apellidosAgente;
     }
 }

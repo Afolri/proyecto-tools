@@ -27,7 +27,7 @@ interface Procesador{
 
 @Component({
   selector: 'app-organizador-computadoras',
-  imports: [RouterOutlet, CommonModule, FormsModule,RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './organizador-computadoras.component.html',
   styleUrl: './organizador-computadoras.component.css'
 })

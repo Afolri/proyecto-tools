@@ -1,69 +1,137 @@
 import { CommonModule } from '@angular/common';
 import { Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-export interface Tickets{
-  numero_ticket:number;
-  asunto:String;
-  descripcion:string;
-  estado:string;
-  cerrado:boolean;
-} 
-
-export interface Clientes{
+//La estructura cambia a:
+export interface Ticket {
+  numero_ticket: number;
+  numero_producto: number;
+  tipo_codigo:string;
+  numero_compra_cot: string;
+  asunto: string;
   numero_cliente:number;
-  nombre_cliente:string;
-  correo:string;
+  nombre_cliente: string;
   telefono:string;
+  correo: string;
+  descripcion: string;
+  estado: string;
+  cerrado: boolean;
+  seleccionado: boolean;
+  opciones:boolean;
+  numero_agente:number;
+  fecha: Date;
+  hora:Date;
+
 }
-export interface ProductoTicket{
-  numero_producto:number;
-  numero_serie_modelo:string;
-  numero_compra_cot:string;
-}
+
 
 @Component({
   selector: 'app-generar-ticket',
-  imports: [CommonModule, FormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './generar-ticket.component.html',
   styleUrl: './generar-ticket.component.css'
 })
 export class GenerarTicketComponent implements OnInit  {
+
+  //Para trabajar con modulo reactivo
+  formularioTickets!:FormGroup;
+  constructor(private formBuilder: FormBuilder){
+   this.formularioTickets= this.formBuilder.group({
+      numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
+      codigo:['',[Validators.required,Validators.maxLength(30)]],
+      nombre_identificador:['',[]],
+      asunto:['',[Validators.required]],
+      nombre:['',[Validators.required, Validators.minLength(2),Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]+$")]],
+      correo:['',[Validators.required, Validators.email, Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
+      telefono:['',[Validators.required,Validators.maxLength(10),Validators.pattern(`^[0-9]{10}$`)]],
+      descripcion:['',[Validators.required,Validators.minLength(2),Validators.maxLength(100)]],
+      ehs_approval:[false, [],[]]
+    })
+  }
+
   @Output() mostrarChange = new EventEmitter<boolean>();
   @Output() obtenerDatos = new EventEmitter<void>();
-  
-  @Input() ticket:any;
-  @Input() modo: 'crear'|'editar' ='crear';
-  ticketGuardar:Tickets ={
+  @Output() mostrarMensajeAviso = new EventEmitter();
+  @Output() aceptarActualizar = new EventEmitter();
+  @Input() ticket:Ticket ={
     numero_ticket:0,
-    asunto:'',
-    descripcion:'',
-    estado:'Nuevo',
-    cerrado:false
-  };
-  clienteGuardar:Clientes ={
+    numero_producto: 0,
+    tipo_codigo:"",
+    numero_compra_cot: "",
+    asunto:"",
     numero_cliente:0,
-    nombre_cliente:'',
-    correo:'',
-    telefono:''
-  };
-  productoGuardar:ProductoTicket ={
-    numero_producto:0,
-    numero_serie_modelo:'',
-    numero_compra_cot:''
-
+    nombre_cliente: "",
+    telefono:"",
+    correo: "",
+    descripcion: "",
+    estado: "",
+    cerrado: false,
+    seleccionado: false,
+    opciones:false,
+    numero_agente:0,
+    fecha: new Date,
+    hora: new Date ('hh:mm:ss')
+  }
+  @Input() modo: 'crear'|'editar' ='crear';
+  ticketGuardar: Ticket = {
+    numero_ticket:0,
+    numero_producto: 0,
+    tipo_codigo:"",
+    numero_compra_cot: "",
+    asunto:"",
+    numero_cliente:0,
+    nombre_cliente: "",
+    telefono:"",
+    correo: "",
+    descripcion: "",
+    estado: "",
+    cerrado: false,
+    seleccionado: false,
+    opciones:false,
+    numero_agente:0,
+    fecha: new Date,
+    hora: new Date
   };
 
   ngOnInit() {
     if (this.modo === 'editar' && this.ticket) {
-      this.productoGuardar.numero_serie_modelo = this.ticket.numero_serie_modelo;
-      this.productoGuardar.numero_compra_cot = this.ticket.numero_compra_cot;
-      this.clienteGuardar.nombre_cliente = this.ticket.nombre_cliente;
-      this.clienteGuardar.correo = this.ticket.correo;
-      this.clienteGuardar.telefono = this.ticket.telefono;
-      this.ticketGuardar.asunto = this.ticket.asunto;
-      this.ticketGuardar.descripcion = this.ticket.descripcion;
+      this.formularioTickets.setValue({
+        numero_compra_cot: this.ticket.numero_compra_cot,
+        asunto: this.ticket.asunto,
+        nombre: this.ticket.nombre_cliente,
+        correo: this.ticket.correo,
+        telefono: this.ticket.telefono,
+        descripcion: this.ticket.descripcion
 
+      })
+
+    }
+
+    //llama a la función una vez generado el formulario
+    this.configurarValidacionesCondicionales();
+  }
+
+  //Método para hacer requerido el nombre del identificador solo cuando el checkbox "checkPersonalizado" esta activo
+  configurarValidacionesCondicionales() {
+    const ehs_approval = this.formularioTickets.get('ehs_approval');
+    const nombreIdentificadorControl = this.formularioTickets.get('nombre_identificador');
+  
+    ehs_approval?.valueChanges.subscribe(valor => {
+      if (valor) {
+        nombreIdentificadorControl?.setValidators([Validators.required]);
+      } else {
+        nombreIdentificadorControl?.clearValidators();
+      }
+      nombreIdentificadorControl?.updateValueAndValidity(); // Se actualiza la validación
+    });
+  }
+  //Metodo para trabajar con el envio del formulario reactivo:
+  onSubmit(){
+    if(this.formularioTickets.valid){
+      console.log('Datos del formulario', this.formularioTickets.value);
+      this.crearticket();
+    }else{
+      console.log('El formulario no es válido')
     }
   }
   cancelarFormulario(){
@@ -72,27 +140,27 @@ export class GenerarTicketComponent implements OnInit  {
   editarTicket(){
     this.obtenerDatos.emit();
   }
-
   
-  crearticket(event: Event){
-    event.preventDefault();
+  crearticket(){
 
 
-    let numero_serie_modelo = this.productoGuardar.numero_serie_modelo;
-    let numero_compra_cot= this.productoGuardar.numero_compra_cot;
-    let nombre_cliente = this.clienteGuardar.nombre_cliente;
-    let correo = this.clienteGuardar.correo;
-    let telefono = this.clienteGuardar.telefono;
-    let asunto = this.ticketGuardar.asunto;
-    let descripcion = this.ticketGuardar.descripcion;
-
-
+    let codigo = this.formularioTickets.get('codigo')?.value;
+    let nombre_identificador = this.formularioTickets.get('ehs_approval')?.value
+    ? this.formularioTickets.get('nombre_identificador')?.value : 'numeroDeSerie';
+  
+    let numero_compra_cot= this.formularioTickets.get('numero_compra_cot')?.value;
+    let nombre_cliente = this.formularioTickets.get('nombre')?.value;
+    let correo = this.formularioTickets.get('correo')?.value;
+    let telefono = this.formularioTickets.get('telefono')?.value;
+    let asunto = this.formularioTickets.get('asunto')?.value;
+    let descripcion = this.formularioTickets.get('descripcion')?.value;
 
     fetch("http://localhost:8080/admin/reporte-tickets/crear-ticket", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        numero_serie_modelo,
+        codigo,
+        nombre_identificador,
         numero_compra_cot,
         nombre_cliente,
         correo,
@@ -119,6 +187,10 @@ export class GenerarTicketComponent implements OnInit  {
       .catch(error => console.error("Error:", error));
   }
 
+
+  solicitaractualizacion(){
+    this.mostrarMensajeAviso.emit(true);
+  }
   actualizarTicket(){
     fetch(`http://localhost:8080/admin/reporte-tickets/actualizar-ticket`,{
       method: 'PUT',
@@ -126,19 +198,19 @@ export class GenerarTicketComponent implements OnInit  {
       body: JSON.stringify({
         ticket: {
           numero_ticket: this.ticket.numero_ticket,
-          asunto: this.ticketGuardar.asunto,
-          descripcion: this.ticketGuardar.descripcion
+          asunto: this.formularioTickets.get('asunto')?.value,
+          descripcion: this.formularioTickets.get('descripcion')?.value
       },
       productoticket: {
           numero_producto: this.ticket.numero_producto,
-          numero_serie_modelo: this.productoGuardar.numero_serie_modelo,
-          numero_compra_cot: this.productoGuardar.numero_compra_cot
+          numero_serie_modelo: this.formularioTickets.get('numero_serie_modelo')?.value,
+          numero_compra_cot: this.formularioTickets.get('numero_compra_cot')?.value
       },
       cliente: {
           numero_cliente: this.ticket.numero_cliente,
-          nombre_cliente: this.clienteGuardar.nombre_cliente,
-          correo: this.clienteGuardar.correo,
-          telefono: this.clienteGuardar.telefono
+          nombre_cliente:this.formularioTickets.get('nombre')?.value,
+          correo: this.formularioTickets.get('correo')?.value,
+          telefono: this.formularioTickets.get('telefono')?.value
       }
       }),
     })
@@ -160,7 +232,8 @@ export class GenerarTicketComponent implements OnInit  {
         campo => form.controls[campo].invalid && form.controls[campo].touched
       );
   }
-  contieneNumeros(texto: string): boolean {
+  contieneNumeros(texto: string | null | undefined): boolean {
+    if(!texto) return false;
     return /\d/.test(texto); // Devuelve true si encuentra un número
   }
 

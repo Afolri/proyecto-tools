@@ -1,12 +1,15 @@
 package escom.admin.servicioAlCliente.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@Table(name = "productoticket")
+@Table(name = "productoticket" , schema = "soporte")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_producto")
 public class ProductoTicket {
 
     @Id
@@ -15,13 +18,13 @@ public class ProductoTicket {
     @JsonProperty("numero_producto")
     private Long numeroProducto;
 
-    @Column ( name = "numero_serie_modelo" )
-    @JsonProperty("numero_serie_modelo")
-    private String numeroSerieModelo;
-
     @Column ( name = "numero_compra_cot")
     @JsonProperty("numero_compra_cot")
     private String numeroCompraCot;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productoTicket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ProductoTipo> productoTipo = new ArrayList<>();;
 
 
     public Long getNumeroProducto() {
@@ -32,14 +35,6 @@ public class ProductoTicket {
         this.numeroProducto = numeroProducto;
     }
 
-    public String getNumeroSerieModelo() {
-        return numeroSerieModelo;
-    }
-
-    public void setNumeroSerieModelo(String numeroSerieModelo) {
-        this.numeroSerieModelo = numeroSerieModelo;
-    }
-
 
     public String getNumeroCompraCot() {
         return numeroCompraCot;
@@ -47,5 +42,13 @@ public class ProductoTicket {
 
     public void setNumeroCompraCot(String numeroCompraCot) {
         this.numeroCompraCot = numeroCompraCot;
+    }
+
+    public List<ProductoTipo> getProductoTipo() {
+        return productoTipo;
+    }
+
+    public void setProductoTipos(List<ProductoTipo> productoTipos) {
+        this.productoTipo = productoTipos;
     }
 }

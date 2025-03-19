@@ -3,8 +3,10 @@ package escom.admin.servicioAlCliente.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TicketRequestDTO {
-    @JsonProperty("numero_serie_modelo")
-    private String numeroSerieModelo;
+    @JsonProperty("codigo")
+    private String codigo;
+    @JsonProperty("nombre_identificador")
+    private String nombreIdentificador;
     @JsonProperty("nombre_cliente")
     private String nombreCliente;
     private String correo;
@@ -15,12 +17,20 @@ public class TicketRequestDTO {
     private String descripcion;
 
 
-    public String getNumeroSerieModelo() {
-        return numeroSerieModelo;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setNumeroSerieModelo(String numeroSerieModelo) {
-        this.numeroSerieModelo = numeroSerieModelo;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getNombreIdentificador() {
+        return nombreIdentificador;
+    }
+
+    public void setNombreIdentificador(String nombreIdentificador) {
+        this.nombreIdentificador = nombreIdentificador;
     }
 
     public String getNombreCliente() {
@@ -71,15 +81,4 @@ public class TicketRequestDTO {
         this.descripcion = descripcion;
     }
 
-    @Override
-    public String toString() {
-        return "TicketRequestDTO{" +
-                "numeroDeSerie='" + numeroSerieModelo + '\'' +
-                ", nombreCliente='" + nombreCliente + '\'' +
-                ", correo='" + correo + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", asunto='" + asunto + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
-    }
 }

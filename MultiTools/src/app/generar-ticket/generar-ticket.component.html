@@ -1,48 +1,89 @@
 <div class="contenedorpadre">
   <div class = "contenedor1">
     
-    <div *ngIf="camposInvalidos(miFormulario)" id="eerror">
+    <div  id="eerror" *ngIf="formularioTickets.invalid">
       Todos los campos son obligatorios.
     </div>
   </div>
   <div class = "contenedor2">
-    <form #miFormulario="ngForm">
+    <form [formGroup]="formularioTickets" (ngSubmit)="onSubmit()">
+      <!--ngForm
+      #miFormulario="ngForm">-->
 
-      <label id="tnumero_serie_producto">Número de serie / modelo del producto:</label>
       
+      <!--Campo para insertar el numero de compra-->
+      <label id="tnumerocompra">Numero Compra / Cotización:</label>
+      <input id="numerocompra" name="numerocompra" formControlName="numero_compra_cot"> 
+      
+      
+      
+      <!--Numero serie input/label envuelto en container para no afectar el estilo aplicado-->
+      <!--Colocaremos el caso de que no cuente con el numero de serie-->
+      <!--Campo activable para colocar información alterna al numero de serie-->
+      <ng-container *ngIf="!formularioTickets.get('checkPersonalizado')?.value;">
+        <label id="tcodigo">Número de serie:</label>
+      </ng-container>
+      <div class = "personalizada">
 
+        <ng-container *ngIf="formularioTickets.get('checkPersonalizado')?.value">
+          <select class="tipo" formControlName="nombre_identificador">
+            <option value="modeloMarca">modelo / marca</option>
+            <option value="factura">Factura</option>
+          </select>
+        </ng-container>
+        <input id="codigo" type="text" class="informacion" formControlName="codigo">
+          
+        </div>
+
+      <!--elemento para saber más información acerca del campo de numero de serie-->
       <div class="contenedortooltip">
         <div class="tooltip">
           <span><i class="fa fa-info-circle"></i></span>
           <div class="tooltip-text">En caso de ser un kit de cámaras de caja favor de colocar la serie que tiene la caja</div>
         </div>
       </div>
+      <!--Checkbox para activar el campo especial-->
+      <div class="desplegar-modelo">
+        <label>No cuento con el numero de serie </label>
+        <div class="col-md-6 reject-checkbox">
+          <div class="mb-2 text-center">
+            <div class="checkbox-wrapper">
+              <input
+                name="ehs_approval"
+                class="form-check-label custom-radio-label"
+                id="Rejected"
+                type="checkbox"
+                formControlName = "ehs_approval"
+              />
+              <label for="Rejected">
+                <div class="tick_mark">
+                  <div class="cross"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--Asunto input/label-->
+      <label id="tasunto">Asunto:</label>
+      <div class="asuntoInput">
+        <div class="item"><input id="soporte"  type="radio"  formControlName ="asunto" value="soporte"> </div>
+        <div class="item"><label for="soporte" >Soporte</label> </div>
+        <div class="item"><input id="garantia"  type= "radio" formControlName="asunto" value="garantia"> </div>
+        <div class="item"><label for="garantia">Garantia</label> </div>
+        <div class="item"><input id="factura"  type= "radio" formControlName="asunto" value="factura"> </div>
+        <div class="item"><label for="factura">Factura</label> </div>
+      </div>
 
       
-      <input id="numero_serie_modelo" type="text" name="numero_serie_modelo" placeholder="Ingrese el numero de serie del producto" 
-      #numeroSerieCtrl="ngModel"
-      maxlength="30" 
-      [(ngModel)]="productoGuardar.numero_serie_modelo" 
-      required >
-      
-
-      <label id="tnumerocompra">Numero Compra / Cotización:</label>
-      <input id="numerocompra" name="numerocompra" [(ngModel)]="productoGuardar.numero_compra_cot"  
-      placeholder="Ingrese el numero de compra o cotización" value="" #numerocompra="ngModel" required>
-
+      <!--Nombre de cliente input/label-->
       <label id="tnombre_cliente">Nombre:</label>
-      <input id="nombre_cliente" type="text" name="nombre_cliente" 
-      placeholder="Ingrese el nombre"
-      [(ngModel)]="clienteGuardar.nombre_cliente" 
-      minlength="2"
-      maxlength="50"
-      #nombreCliente="ngModel"
-      pattern="^[a-zA-Z ]+$"
-      [ngClass]="{'input-error': nombreCliente.invalid && nombreCliente.touched}"
-      required >
+      <input id="nombre_cliente" type="text" formControlName="nombre">
 
-      
-      <div class="contenedorinombre" *ngIf="contieneNumeros(clienteGuardar.nombre_cliente)">
+      <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
+      <div class="contenedorinombre" *ngIf="contieneNumeros(formularioTickets.get('nombre')?.value)">
         <div class="tooltip">
           <span><i class="fa fa-info-circle"></i></span>
           <div class="tooltip-text">
@@ -50,23 +91,15 @@
           </div>
         </div>
       </div>
-      
 
+
+      <!--Correo input/label-->
       <label id="tmail">Correo:</label>
+      <input id="mail" type="email" formControlName = "correo"> 
 
-      <input 
-      id="mail" 
-      type="email" 
-      name="correo" 
-      [(ngModel)]="clienteGuardar.correo" 
-      placeholder="Ingrese su correo" 
-      #correoCtrl="ngModel" 
-      pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" 
-      maxlength="100"
-      required>
-
-
-      <div class="contenedoricorreo" *ngIf="correoCtrl.invalid && correoCtrl.touched">
+      <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
+      <div class="contenedoricorreo" *ngIf="formularioTickets.get('correo')?.invalid && formularioTickets.get('correo')?.touched"><!-- ngModel  
+         *ngIf="correoCtrl.invalid && correoCtrl.touched">-->
         <div class="tooltip">
           <span><i class="fa fa-info-circle"></i></span>
           <div class="tooltip-text">Ingrese un correo válido utilizando<br> ejemplo <br>'correo&#64;hotmail.com'</div>
@@ -74,44 +107,29 @@
       </div>
 
 
+      <!--Telefono input/label-->
       <label id="ttelefono">Teléfono:</label>
-      <input id="telefono" type="tel" name="telefono" 
-      [(ngModel)]="clienteGuardar.telefono" placeholder="Ingrese el teléfono"
-      #telefonoCtrl="ngModel" pattern="^[0-9]{10}$" requireds
-      maxlength="10"
-      [ngClass]="{'input-error': telefonoCtrl.invalid && telefonoCtrl.touched}">
+      <input id="telefono" type="tel" formControlName = "telefono" >
 
-      <label id="tasunto">Asunto:</label>
-      <input id="asunto" type="text" name="asunto" 
-      minlength="5"
-      maxlength="100"
-      [(ngModel)]="ticketGuardar.asunto" placeholder="Ingrese el asunto " #numeroSerieCtrl="ngModel" required>
-
+      <!--Descripción input/label-->
       <label id="tdescripcion">Descripción:</label>
-      <textarea id="descripcion" name="descripcion" 
-      [(ngModel)]="ticketGuardar.descripcion" rows="4" cols="50" 
-      maxlength="500"
-      placeholder="Ingrese la descripcion del problema" #numeroSerieCtrl="ngModel" required>
+      <textarea id="descripcion" formControlName = "descripcion" rows="4" cols="50"></textarea>
 
-      </textarea>
-
-      <button *ngIf="modo === 'crear'; else actualizar" type="submit" class="item7" [disabled]="miFormulario.form.invalid"
-      (click)="crearticket($event)">
+      <!--boton para interactuar con el formulario-->
+      <button *ngIf="modo === 'crear'; else actualizar" type="submit" class="item7" [disabled] = "formularioTickets.invalid"> <!--[disabled]="miFormulario.form.invalid"
+      (click)="crearticket($event)">-->
         Guardar
       </button>
+      <!--En caso de ser llamado como formulario de actualizar se llama el siguiente botón-->
       <ng-template #actualizar>
-        <button type="submit" class="item7" [disabled]="miFormulario.form.invalid" (click)="actualizarTicket()">
+        <button type="submit" class="item7"  (click)="solicitaractualizacion()" [disabled] = "formularioTickets.invalid"><!--[disabled]="miFormulario.form.invalid"-->
           Actualizar
         </button>
         <button class="cancelar" type="button" (click)="cancelarFormulario()">
           Cancelar
         </button>
-      </ng-template>
-      
-       
+      </ng-template>   
     </form>
   </div>
-    
-  
-    
 </div>
+

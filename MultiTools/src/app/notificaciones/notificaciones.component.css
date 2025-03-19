@@ -1,0 +1,121 @@
+
+.bandeja-notificaciones{
+    font-size: initial;
+    background-color: hsl(211, 47%, 21%);
+    width: 500px;
+    position: absolute;
+    top: 120%;
+    right: 0%;
+    display: block;
+    color:white;
+    height: 170px;
+    overflow-y: scroll;
+    border:none;
+    border-radius: 7px;
+    box-shadow: 10px 10px 8px 1px hsla(0, 0%, 0%, 0.575);
+    padding: 12px;  
+    box-sizing: border-box;  
+    z-index:3;
+    
+}
+
+.bandeja-notificaciones::-webkit-scrollbar {
+    width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.bandeja-notificaciones::-webkit-scrollbar-thumb {
+    background-color: hsl(211, 55%, 45%); /* Color del "pulgar" de la barra */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+.bandeja-notificaciones::-webkit-scrollbar-track {
+    background: #feffff;
+    border-radius: 4px; /* Color de fondo del scrollbar */
+}
+
+.notificacion{
+    display:inline-flex;
+    flex-direction:column;
+    justify-content: space-between;
+    height: 80px;
+    width: 92%;
+    border-radius: 3px;
+    padding: 2%;
+    margin: 0 2% 0 2%;
+    margin-bottom:29px;
+    
+}
+.notificacion::before{
+    content: "";
+    position: absolute;
+    height: 90px;
+    left:4%;
+    width: 0px;
+    background-color: hsl(211, 55%, 45%);
+    border-radius: 7px;
+    
+}
+
+.notificacion::after{
+    content: "";
+    position: absolute;
+    height: 1px;
+    right: 4%;
+    transform: translate(-6%, 89px);
+    width: 80%;
+    background-color: hsl(211, 55%, 45%);
+    border-radius: 7px;
+}
+
+.notificacion:hover::before{
+    background-color: hsl(211, 55%, 45%);
+    cursor: pointer;
+    width:92%;
+    transition: width 0.3s ease;
+    z-index: -1;
+    
+}
+.notificacion:hover{
+    cursor:pointer;
+}
+#titulo{
+    display: flex;
+    flex: 1 1 auto;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+#cuerpo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 30px;
+}
+#nombrecliente{
+    display: flex;
+    flex-direction: column;
+}
+#fecha{
+    font-size: 0.8em;
+    color: hsl(0, 100%, 100%);
+    font-weight: lighter;
+    text-shadow: 2px 2px 2px hsl(211, 55%, 45%);
+}
+#numero-ticket{
+    font-size: 1.2em;
+    font-weight: bold;
+    color: hsl(0, 0%, 50%);
+}
+.pendiente{
+    position: relative;
+}
+.pendiente::before{
+    content:"";
+    position:absolute;
+    width: 10px;
+    height: 10px;
+    background-color: crimson;
+    border-radius: 50%;
+    left: -30%;
+    top: 5%;
+}

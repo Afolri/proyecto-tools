@@ -1,79 +1,175 @@
 
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
-
-
-/*background-color:hsl(353, 52%, 69%);
-background-color:hsl(211, 47%, 21%);
-background-color:hsl(215, 64%, 46%);*/
-
-table{
+.contenedor{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 1200px;
+    min-width: 1200px;
+    width: 100%;
+    height: 500px;
     color:white;
-    background-color: white;
-    border-radius: 3px;
-}
-.fila-titulos > th{
-    background-color:hsl(211, 47%, 21%);
-    color:white;
-    
-    border-radius: 7px 0px 7px 0px;
-}
-tbody :not(input){
-    background-color:hsl(215, 64%, 46%);
-    
-}
-td:not(input){
-    padding: 10px;
-    max-width: 300px;
-    min-width: 50px;
-    text-align:center;
-    cursor:context-menu;
-    
+    display: flex;
+    flex-direction: row;
+    gap:20px;
 }
 
-[class^="fa fa"]{
+
+
+.titulos  {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    font-size: 12px;
+    align-content: right;
+    font-weight: 800;
+    flex:1;
+}
+.titulos div{
+    flex:0 0 auto;
+    background-color: hsl(215, 54%, 58%);
+    text-align: right;
+    text-indent: 2%;
+    align-items: right;
+    padding: 2% 10% 3% 0;
+    border-radius: 7px;
+    text-transform: uppercase;
+}
+.datos-container{
+    
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    display: flex;
+    flex-flow: row nowrap;
+    flex:6;
+    gap: 1%;
+    margin-bottom: -1%;
+}
+
+.tarjeta-datos>*{
+    width: 150px;
+    transition: width .4s ease-in-out;
+}
+.tarjeta-datos>*:hover{
+    width: 200px;
+    
+}
+.datos{
+    height: 100%;
+    display: flex;
+    position:relative;
+    flex-direction: column;
+    justify-content: space-around;
+    margin:1px;
+    text-indent: 2%;
+    background-color: hsla(211, 48%, 21%, 0.904);
+    border-radius: 17px;
+    transition: background-color 200ms ease-in-out;
+    flex:1 1 auto;
+    
+}
+.datos:hover{
     cursor: pointer;
+    background-color: hsl(215, 35%, 45%);
+    
 }
-[class^="fa fa"]:hover{ 
-    cursor: pointer;
-    color:hsl(353, 52%, 69%);
+.datos div :not(.tipo-codigo) {
+    flex-flow: row ;
+    margin: 1%;
+    text-indent: 5%;
+    
+}
+.tipo-codigo, .correo{
+    display: flex;
+    flex:10;
+    overflow: hidden;
+    max-height: 20px;
+}
+.primera-linea{
+    display: flex;
+    text-indent: 20%;
+    flex-flow: row nowrap;
 }
 
-/*iconos */
-
-
-.editar{
-
-    background-color: hsl(211, 47%, 21%);
-    border-radius: 10px;
-    z-index: 3;
+.menu{
     display: block;
     position: absolute;
-    padding: 30px;
-    animation: aparecer ease-in-out .3s
-}
-@keyframes aparecer {
-    from{
-        opacity: 0;
-        transform: translateY(100px);
-    }
-    to{
-        opacity: 1;
-        transform: translateY(0px);
-    }
+    justify-content:center;
+    align-items: center;
+    top:5%;
+    right: 10%;
+    width: 23px;
+    
     
 }
-.fondoFormulario{
-    z-index: 4;
-    background-color: rgba(0, 0, 0, 0.542);
-    position:fixed;
-    display:flex;
-    top:0%;
-    left: 0%;
+.icono{
+    display: block;
+    position: relative;
     width: 100%;
-    height: 100%;
-    align-items:center;
-    justify-content: space-around;
-    vertical-align: middle;
-    overflow-y: hidden;
+    text-align: center;
+    right: 0%;
+    z-index: 1;
+    transition: all .4s ease;
 }
+.icono::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 23px;
+    background-color: rgb(82, 82, 82);
+    height: 23px;
+    border-radius: 50%;
+    transform: translate(50%,-50%);
+    z-index: -1;
+    right: 50%;
+    
+    box-shadow: 2px 2px 2px 1px black;
+}
+.opciones-list{
+    display: inline-block;
+    position:absolute;
+    border-radius: 50%;
+    top:0%;
+    right: 0%;
+    pointer-events: none;
+    width: 23px;
+    background-color: red;
+    z-index: 0;
+    
+}
+.edit-icon, .lock-icon{
+    position:absolute;
+}
+.edit-icon::before, .lock-icon::before{
+    background-color:hsl(215, 54%, 58%);
+}
+.estado{
+    width: 50%;
+    position:relative;
+    text-align: center;
+    left:10%;
+    align-items: center;
+    border-radius: 17px;
+
+}
+
+.notificacion{
+    position: absolute;
+    width: 13px;
+    right: 10%;
+    top: 10%;
+}
+.campana{
+    color:yellow;
+}
+.campana:hover{
+    cursor: pointer;
+}
+.bandeja{
+    position: absolute;
+    right: 50%;
+    top:100%;
+}
+
+
 

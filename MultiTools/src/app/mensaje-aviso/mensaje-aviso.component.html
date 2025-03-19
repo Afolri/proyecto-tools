@@ -1,0 +1,18 @@
+
+<div class = "contenedor">
+    <div class = "texto">
+        <span class = "mensaje" *ngIf="modoMensajeFormulario==='actualizar' else eliminar">
+            Inserte la razon por la cuál lo va a actualizar</span>
+        <ng-template #eliminar>
+            <span class = "mensaje">Inserte la razón por la cuál lo va a cerrar</span>
+        </ng-template>
+    </div>
+    <textarea class = "motivo-cerrar"></textarea>
+            <button class= "boton" id="aceptar" (click)="aceptaractualizar()" 
+            *ngIf="modoMensajeFormulario==='actualizar' else eliminarboton">Actualizar</button>
+            <ng-template #eliminarboton>
+                <button class = "boton" id="eliminar" (click)="aceptarcerrar()">Cerrar</button>
+            </ng-template>
+
+        <button class= "boton" id="cancelar" (click)="cancelar()">Cancelar</button>
+</div>

@@ -1,0 +1,23 @@
+
+<div class="contenedor-principal">
+    <div class = "editar">
+        <div class="apartado"><label>{{ ticket.numero_ticket }}</label></div>
+        <div class="apartado"><label>{{ ticket.numero_producto }}</label></div>
+        <div class="apartado"><label>{{ticket.tipo_codigo}}</label></div>
+        <div class="apartado"><label>{{ ticket.numero_compra_cot }}</label></div>
+        <div class="apartado"><label>{{ ticket.asunto }}</label></div>
+        <div class="apartado"><label>{{ ticket.numero_cliente }}</label></div>
+        <div class="apartado"><label>{{ ticket.nombre_cliente }}</label></div>
+        <div class="apartado"><label>{{ ticket.telefono }}</label></div>
+        <div class="apartado"><label>{{ ticket.correo }}</label></div>
+        <div class="apartado"><label>{{ ticket.descripcion }}</label></div>
+        <div class="apartado"><label>{{ ticket.estado }}</label></div>
+        <div class="apartado"><label>{{ ticket?.numero_agente || 'No asignado' }}</label></div>
+        <div class="apartado"><label>{{ ticket.fecha }}</label></div>
+        <div class="apartado"><input><button>Enviar</button></div>
+        <div class="apartado"><button (click)="cancelar()">Salir</button></div>
+    </div>
+    <div class="comentario">
+        <label>aqui va un comentario</label>
+    </div>
+</div>

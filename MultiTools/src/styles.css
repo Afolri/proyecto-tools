@@ -1,3 +1,4 @@
+@import url(https://db.onlinewebfonts.com/c/6c3edd04a03685b9890f2d2cbe81f8d3?family=Carnas+W03+Medium);
 body{
     background-image: 
     url('./assets/LINEAS_MOVIMIENTO.webp'), 
@@ -10,4 +11,68 @@ body{
     background-repeat: no-repeat;
     background-attachment: fixed;
     
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Carnas W03 Medium";
+
+  }
+
+form{
+    display: grid;
+    grid-template-columns: repeat(minmax(100,1fr)) ;
+    grid-template-rows:repeat(8,1fr) 2em;
+    width: auto;
+    gap: 20px;
+    font-weight: 700;
+    font-family:Arial, Helvetica, sans-serif;
+    color: white;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+ input, textarea, select{
+    background-color: rgba(92, 133, 133, 0.535);
+    color: white;
+}
+form:not(textarea){   
+    justify-content: center;
+    align-items: center;
+}
+form label{
+    text-align: right;
+}
+form input, textarea, select{
+    border-radius: 7px;
+    border: none;
+}
+form input:not(textarea){
+    height: 30px;
+    
+}
+
+input::placeholder, textarea::placeholder{
+    color:white;
+    opacity: 0.4;
+    
+}
+textarea{
+    resize: none;
+}
+select{
+    padding: 5px;
+}
+
+button{
+    box-shadow: rgb(88, 92, 87) 5px 4px 8px .5px ;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 2px;
+    height: 100%;
+    border-radius: 7px;
+    border:none;
+    justify-content: center;     /* Centra el contenido horizontalmente */
+    align-items: center;   
 }

@@ -38,117 +38,51 @@
         transform: translateY(0px);
     }
 }
-form{
-    display: grid;
-    grid-template-columns: repeat(2,1fr) 4em repeat(2,1fr) ;
-    grid-template-rows:repeat(8,1fr) 2em;
-    width: auto;
-    gap: 20px;
-    font-weight: 700;
-    font-family:Arial, Helvetica, sans-serif;
-    color: white;
-    letter-spacing: 1px;
-    z-index: 2;
-}
 
-form input, form textarea{
-    background-color: rgba(92, 133, 133, 0.535);
-    color: white;
-}
-form:not(#descripcion){   
-    justify-content: center;
-    align-items: center;
-}
-form label{
-    text-align: right;
-}
-form input, textarea{
-    border-radius: 7px;
-    border: none;
-}
-form input:not(#descripcion){
-    height: 30px;
-    
-}
-
-input.ng-invalid.ng-touched,
-textarea.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
-
-#numero_serie_producto{
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-}
-#tasunto{
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-}
-#asunto{
-    grid-column: 2 / 4;
-    grid-row: 2 / 3;
-}
-#tnombre_cliente{
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-}
-#nombre_cliente{
-    grid-column: 2 / 5;
-    grid-row: 3 / 4;
-}
-#tmail{
-    grid-column: 1 / 2;
-    grid-row: 4 / 5;
-}
-
-
-#mail{
-    grid-column: 2 / 5;
-    grid-row: 4 / 5;
-}
-
-#ttelefono{
-    grid-column: 1 / 2;
-    grid-row: 5 / 6;
-}
-
-#telefono{
-    grid-column: 2 / 4;
-    grid-row: 5 / 6;
-}
-#tdescripcion{
-    grid-column: 1 / 2;
-    grid-row: 6 / 7;
-    
-}
-#descripcion{
-    display:grid;
-    grid-column: 2 / 5;
-    grid-row: 6 / 9;
-    height:100%;
-    font-family:Arial, Helvetica, sans-serif;
-    resize: none;
-    
-}
 #tnumerocompra{
-    grid-column:4/5;
-    grid-row: 1 / 2;
+    grid-column:1;
+    grid-row: 1;
 }
 #numerocompra{
-    grid-column: 5 / 6;
-    grid-row: 1 / 2;
+    grid-column: 2;
+    grid-row: 1 ;
 }
-button{
-    box-shadow: rgb(88, 92, 87) 5px 4px 8px .5px ;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 2px;
-    height: 100%;
-    border-radius: 7px;
-    border:none;
-    justify-content: center;     /* Centra el contenido horizontalmente */
-    align-items: center;   
+#tcodigo{ grid-area:2 / 1 / 3 / 2; }
+#codigo{ grid-area:2 / 2 / 3 / 3; }
+#tasunto{ grid-area:3 / 1 / 4 / 2; }
+#asunto{ grid-area:3 / 2 / 4 / 3; }
+#tnombre_cliente{ grid-area:4 /1/ 5 / 2; }
+#nombre_cliente{ grid-area:4 /2/ 5 / 3; }
+#tmail{ grid-area: 5 / 1 / 6 / 2; }
+#mail{ grid-area: 5 / 2 / 6 / 3; }
+#ttelefono{ grid-area: 6 / 1/ 7 / 2; }
+#telefono{ grid-area: 6 / 2 / 7 / 3; }
+#tdescripcion{ grid-area: 7 / 1 / 8 / 2; }
+
+.personalizada{ 
+    grid-area:2/2/3/3;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 100%;
+    flex: 1 1 auto;
+    gap: 20px;
 }
+
+.personalizada .tipo{
+    display: flex;
+    flex:1;
+}
+.personalizada .informacion{
+    display: flex;
+    flex:2;
+}
+
+#descripcion{
+    grid-area:7/2/9/3;
+    resize:none;
+}
+
 .item7  {
     background-color: rgb(63, 110, 63);
     color:white;
@@ -166,11 +100,7 @@ button{
     background-color: red;
     color: white;
 }
-input::placeholder, textarea::placeholder{
-    color:white;
-    opacity: 0.4;
-    
-}
+
 
 .fa {
     color: rgb(111, 99, 204);
@@ -221,33 +151,210 @@ input::placeholder, textarea::placeholder{
     opacity: 1;
 }
 
-    .contenedoricorreo .fa {
-        color:rgba(255, 0, 0, 0.637);
-        pointer-events: none;
-    }
+.contenedoricorreo .fa {
+    color:rgba(255, 0, 0, 0.637);
+    pointer-events: none;
+}
 
-    .contenedorinombre .fa {
-       color:rgba(255, 0, 0, 0.637);
-    }
-    
+.contenedorinombre .fa {
+    color:rgba(255, 0, 0, 0.637);
+}
 
-  .contenedoricorreo{
-    grid-column: 5;
-    grid-row: 4/5;
+
+.contenedoricorreo{
+    grid-area: 5/3/6/4;
     display: flex;
     justify-content:space-between;
     align-content: start;
     margin-right: 4px; 
     margin-left: 0px;
-  }
-  .contenedorinombre{
-    grid-column: 5;
-    grid-row: 3/4; 
+}
+.contenedorinombre{
+    grid-area: 4/3/5/4;
     display: flex;
     justify-content:space-between;
-    align-items: start;
+    align-content: start;
     margin-right: 4px; 
+}
+.desplegar-modelo{
+    grid-area: 2/3/3/4;
+    display: flex;
+    max-width: 100px;
+    width: auto;
+    height: auto;
+    word-wrap: break-word;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    flex: 0 1 auto;
+    font-size:10px;
+}
+.desplegar-modelo label{
+    flex:1;
+}
+.desplegar-modelo input[type = 'checkbox']{
+    flex:0;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.personalizada{
+    display: flex;
+    justify-content: space-between;
+}
+
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border-bottom: solid 1px red;
+}
+
+
+/*Agregamos el checkbox con estilos -------------------*/
+.reject-checkbox .checkbox-wrapper * {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+  }
+  .reject-checkbox .checkbox-wrapper input[type="checkbox"] {
+    display: none;
+  }
+  .reject-checkbox .checkbox-wrapper label {
+    --size: 20px;
+    --shadow: calc(var(--size) * 0.07) calc(var(--size) * 0.1);
+    position: relative;
+    display: block;
+    width: var(--size);
+    height: var(--size);
+    margin: 0 auto;
+    background-color: #4158d0;
+    background-image: linear-gradient(
+      43deg,
+      hsl(211, 47%, 21%),
+      hsl(215, 64%, 46%)
+    );
+    border-radius: 50%;
+    box-shadow: 0 var(--shadow) #ffbeb8;
+    cursor: pointer;
+    transition: 0.2s ease transform, 0.2s ease background-color,
+      0.2s ease box-shadow;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .reject-checkbox .checkbox-wrapper label:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    width: calc(var(--size) * 0.7);
+    height: calc(var(--size) * 0.7);
+    margin: 0 auto;
+    background-color: #fff;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    box-shadow: inset 0 var(--shadow) #ffbeb8;
+    transition: 0.2s ease width, 0.2s ease height;
+  }
+  .reject-checkbox .checkbox-wrapper label:hover:before {
+    width: calc(var(--size) * 0.55);
+    height: calc(var(--size) * 0.55);
+    box-shadow: inset 0 var(--shadow) #ff9d96;
+  }
+  .reject-checkbox .checkbox-wrapper label:active {
+    transform: scale(0.9);
+  }
+  .reject-checkbox .checkbox-wrapper .tick_mark {
+    position: absolute;
+    top: 3.5px;
+    left: 1.5px;
+    right: 0;
+    width: calc(var(--size) * 0.6);
+    height: calc(var(--size) * 0.6);
+    margin: 0 auto;
+    margin-left: calc(var(--size) * 0.14);
+    transform: rotateZ(-92deg);
+  }
+  .reject-checkbox .checkbox-wrapper .tick_mark:before,
+  .reject-checkbox .checkbox-wrapper .tick_mark:after {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    border-radius: 2px;
+    opacity: 0;
+    transition: 0.2s ease transform, 0.2s ease opacity;
+  }
+  .reject-checkbox .checkbox-wrapper .tick_mark:before {
+    left: 0;
+    bottom: 0;
+    width: calc(var(--size) * 0.1);
+    height: calc(var(--size) * 0.3);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.23);
+    transform: translateY(calc(var(--size) * -0.68));
+  }
+  .reject-checkbox .checkbox-wrapper .tick_mark:after {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: calc(var(--size) * 0.1);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.23);
+    transform: translateX(calc(var(--size) * 0.78));
+  }
+  .reject-checkbox .checkbox-wrapper input[type="checkbox"]:checked + label {
+    background-color: #4158d0;
+    background-image: linear-gradient(
+      43deg,
+      hsl(211, 47%, 21%)
+    );
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  }
+  .reject-checkbox
+    .checkbox-wrapper
+    input[type="checkbox"]:checked
+    + label:before {
+    width: 0;
+    height: 0;
+  }
+  
+  .reject-checkbox
+    .checkbox-wrapper
+    input[type="checkbox"]:checked
+    + label
+    .tick_mark:before,
+  .reject-checkbox
+    .checkbox-wrapper
+    input[type="checkbox"]:checked
+    + label
+    .tick_mark:after {
+    background-color: #fff;
+    width: calc(var(--size) * 0.4);
+    height: calc(var(--size) * 0.1);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 1;
+  }
+  .reject-checkbox
+    .checkbox-wrapper
+    input[type="checkbox"]:checked
+    + label
+    .tick_mark:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  .reject-checkbox
+    .checkbox-wrapper
+    input[type="checkbox"]:checked
+    + label
+    .tick_mark:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 
-
+  .asuntoInput{
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+  }
   
+
