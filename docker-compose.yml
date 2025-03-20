@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   multitools:
     build: practica_spring_boot/admin/admin
