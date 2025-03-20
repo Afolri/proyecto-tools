@@ -1,5 +1,5 @@
 services:
-  multitools:
+  java_app:
     build: practica_spring_boot/admin/admin
     ports:
       - "8080:8080"
@@ -25,3 +25,13 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 10s
+
+  angular-app:
+    container_name: angular_app
+    image: pee-angular_app:1.0.0
+    build: ./multitools
+    ports:
+      - "4200:4200"
+    depends_on:
+      - java_app
+
