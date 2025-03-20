@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_URL: jdbc:postgresql://multitool_db:5432/postgres
+      DB_URL: jdbc:postgresql://multitool_db:5432/postgres?createDatabaseIfNotExist&serverTimezone=UTC
       DB_USER: postgres      
       DB_PASS: 7894           
     restart: always
