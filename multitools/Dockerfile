@@ -1,8 +1,8 @@
 FROM node:23
 
-WORKDIR /src/app
+WORKDIR /app
 
-COPY . /src/app
+COPY package*.json ./
 
 RUN npm install -g @angular/cli
 
