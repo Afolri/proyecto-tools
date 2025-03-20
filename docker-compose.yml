@@ -25,6 +25,8 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 10s
+    volumes:
+      - datos:/var/lib/postgresql/data
 
   angular-app:
     container_name: angular_app
@@ -35,3 +37,5 @@ services:
     depends_on:
       - java_app
 
+volumes:
+  datos:
