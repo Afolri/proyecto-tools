@@ -11,6 +11,8 @@ services:
     depends_on:
       multitool_db:
         condition: service_healthy
+    networks:
+      - multitool_network
 
   multitool_db:
     mem_limit: 512m
@@ -26,8 +28,11 @@ services:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 10s
       timeout: 10s
+      retries: 5
     volumes:
       - datos:/var/lib/postgresql/data
+    networks:
+      - multitool_network
 
   angular-app:
     container_name: angular_app
@@ -39,7 +44,13 @@ services:
       - java_app
     volumes:
     - node_modules:/app/node_modules
+    networks:
+      - multitool_network
 
 volumes:
   datos:
   node_modules:
+
+networks:
+  multitool_network:
+    driver: bridge
