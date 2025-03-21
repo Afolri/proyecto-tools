@@ -13,6 +13,7 @@ services:
         condition: service_healthy
 
   multitool_db:
+    mem_limit: 512m
     image: postgres:14            
     ports:
       - "5433:5432"               
