@@ -12,7 +12,7 @@ import java.util.Map;
 @Service
 public interface NotificacionService {
     List<NotificacionResponseDTO> verNotificaciones(Long numeroUsuario);
-    Notificacion abrirNotificacion(Long numeroNotificacion);
+    void abrirNotificacion(Long numeroNotificacion);
     void crearNotificacion(Ticket ticket, String mensaje);
     public void marcarComoLeida(Long numeroNotificacion);
 }

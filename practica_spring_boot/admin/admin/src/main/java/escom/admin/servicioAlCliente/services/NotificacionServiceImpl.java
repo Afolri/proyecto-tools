@@ -35,9 +35,11 @@ public class NotificacionServiceImpl implements NotificacionService {
     }
 
     @Override
-    public Notificacion abrirNotificacion(Long numeroNotificacion) {
-        Optional<Notificacion> notificacion = notificacionRepository.findById(numeroNotificacion);
-        return notificacion.orElse(null);
+    public void abrirNotificacion(Long numeroNotificacion) {
+        Notificacion notificacion = notificacionRepository.findById(numeroNotificacion).orElse(null);
+        assert notificacion != null;
+        notificacion.setEstadoNotificacion(true);
+        notificacionRepository.save(notificacion);
 
     }
 

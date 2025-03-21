@@ -57,6 +57,7 @@ export class NotificacionesComponent implements OnInit {
       }
     ).then(response =>{
       if(response.ok){
+        this.verNotificaciones();
         console.log("notificacion vista")
       }
     })
