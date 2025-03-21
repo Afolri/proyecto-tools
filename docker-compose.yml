@@ -36,6 +36,9 @@ services:
       - "4200:4200"
     depends_on:
       - java_app
+    volumes:
+    - node_modules:/app/node_modules
 
 volumes:
   datos:
+  node_modules:
