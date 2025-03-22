@@ -20,12 +20,15 @@
       <!--Numero serie input/label envuelto en container para no afectar el estilo aplicado-->
       <!--Colocaremos el caso de que no cuente con el numero de serie-->
       <!--Campo activable para colocar información alterna al numero de serie-->
-      <ng-container *ngIf="!formularioTickets.get('checkPersonalizado')?.value;">
+      <ng-container *ngIf="!formularioTickets.get('ehs_approval')?.value; else opciones" >
         <label id="tcodigo">Número de serie:</label>
       </ng-container>
+      <ng-template #opciones>
+        <label id="tcodigo">Elija un dato opcional:</label>
+      </ng-template>
       <div class = "personalizada">
 
-        <ng-container *ngIf="formularioTickets.get('checkPersonalizado')?.value">
+        <ng-container *ngIf="formularioTickets.get('ehs_approval')?.value">
           <select class="tipo" formControlName="nombre_identificador">
             <option value="modeloMarca">modelo / marca</option>
             <option value="factura">Factura</option>
