@@ -19,6 +19,6 @@ CMD ["ng", "serve", "--host", "0.0.0.0"]
 
 FROM nginx:alpine
 ADD ./config/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /var/www/app/
+COPY --from=build /app/dist/multi-tools/ /var/www/app/
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
