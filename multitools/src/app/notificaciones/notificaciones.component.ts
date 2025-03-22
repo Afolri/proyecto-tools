@@ -3,6 +3,7 @@ import { GenerarTicketComponent, Ticket } from '../generar-ticket/generar-ticket
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
 import { CommonModule } from '@angular/common';
+import { Router} from '@angular/router';
 
 interface notificaciones{
   numero_notificacion:number;
@@ -26,7 +27,7 @@ export class NotificacionesComponent implements OnInit {
   usuarioActual!:Usuario;
   notificaciones:notificaciones[] = [];
 
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService, private router:Router){}
   ngOnInit() {
     this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
@@ -58,9 +59,14 @@ export class NotificacionesComponent implements OnInit {
     ).then(response =>{
       if(response.ok){
         this.verNotificaciones();
+        this.abrirDetallesNotificacion();
         console.log("notificacion vista")
       }
     })
+  }
+
+  abrirDetallesNotificacion(){
+    this.router.navigate(['detalles']);
   }
 
 }

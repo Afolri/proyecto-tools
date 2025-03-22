@@ -39,7 +39,7 @@ services:
     image: pee-angular_app:1.0.0
     build: ./multitools
     ports:
-      - "4200:4200"
+      - "4200:80"
     depends_on:
       - java_app
     volumes:

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
 
-  constructor(private authService: AuthService, private router:Router){
+  constructor(private authService: AuthService, private router:Router, private route:ActivatedRoute){
 
   }
   ngOnInit(): void {

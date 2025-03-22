@@ -39,6 +39,9 @@ public class NotificacionServiceImpl implements NotificacionService {
         Notificacion notificacion = notificacionRepository.findById(numeroNotificacion).orElse(null);
         assert notificacion != null;
         notificacion.setEstadoNotificacion(true);
+        Ticket ticket = notificacion.getTicket();
+        ticket.setEstado("ABIERTO");
+        notificacion.setTicket(ticket);
         notificacionRepository.save(notificacion);
 
     }

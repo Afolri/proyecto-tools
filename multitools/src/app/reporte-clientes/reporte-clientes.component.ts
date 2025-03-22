@@ -10,6 +10,7 @@ import { EditarTicketComponent } from "../editar-ticket/editar-ticket.component"
 import { LoginComponent, Usuario } from '../login/login.component';
 import { faBars, faComment, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -76,7 +77,7 @@ export class ReporteClientesComponent implements OnInit {
   };
 
 
-  constructor(library: FaIconLibrary, private authService: AuthService) {
+  constructor(library: FaIconLibrary, private authService: AuthService, private route: ActivatedRoute) {
     library.addIcons(faComment);
     library.addIcons(faLock);
     library.addIcons(faBars);
@@ -229,6 +230,11 @@ export class ReporteClientesComponent implements OnInit {
     }else if(ticketEstado == "CERRADO"){
       return {
         "background-color":"red"
+      }
+    }
+    else if(ticketEstado == "ABIERTO"){
+      return{
+        "background-color":"blue"
       }
     }
     return null;
