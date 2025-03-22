@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
 
-  constructor(private authService: AuthService, private router:Router, private route:ActivatedRoute){
+  constructor(private authService: AuthService, private router:Router){
 
   }
   ngOnInit(): void {

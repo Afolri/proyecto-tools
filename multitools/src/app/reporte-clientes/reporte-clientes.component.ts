@@ -77,7 +77,7 @@ export class ReporteClientesComponent implements OnInit {
   };
 
 
-  constructor(library: FaIconLibrary, private authService: AuthService, private route: ActivatedRoute) {
+  constructor(library: FaIconLibrary, private authService: AuthService) {
     library.addIcons(faComment);
     library.addIcons(faLock);
     library.addIcons(faBars);
