@@ -39,6 +39,7 @@ export class GenerarTicketComponent implements OnInit  {
    this.formularioTickets= this.formBuilder.group({
       numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
       codigo:['',[Validators.required,Validators.maxLength(30)]],
+      codigo2:['',[Validators.required,Validators.maxLength(30)]],
       nombre_identificador:['',[]],
       asunto:['',[Validators.required]],
       nombre:['',[Validators.required, Validators.minLength(2),Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]+$")]],
@@ -144,7 +145,7 @@ export class GenerarTicketComponent implements OnInit  {
   crearticket(){
 
 
-    let codigo = this.formularioTickets.get('codigo')?.value;
+    let codigo = this.formularioTickets.get('codigo')?.value +" "+this.formularioTickets.get('codigo2')?.value;
     let nombre_identificador = this.formularioTickets.get('ehs_approval')?.value
     ? this.formularioTickets.get('nombre_identificador')?.value : 'numeroDeSerie';
   
