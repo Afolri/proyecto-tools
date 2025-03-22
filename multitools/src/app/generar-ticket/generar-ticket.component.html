@@ -34,8 +34,11 @@
             <option value="factura">Factura</option>
           </select>
         </ng-container>
+        
         <input id="codigo" type="text" class="informacion" formControlName="codigo">
-          
+        <ng-container *ngIf="formularioTickets.get('ehs_approval')?.value == 'modeloMarca'">
+          <input type="text">
+        </ng-container>  
         </div>
 
       <!--elemento para saber más información acerca del campo de numero de serie-->

@@ -10,7 +10,7 @@ RUN npm run build
 
 FROM nginx:alpine
 ADD ./config/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/multitools/browser/ /var/www/app/
+COPY --from=build /app/dist/multi-tools/browser/ /var/www/app/
 RUN chown -R nginx:nginx /var/www/app
 EXPOSE 80
 
