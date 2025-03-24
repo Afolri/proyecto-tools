@@ -25,7 +25,7 @@ export interface Ticket {
 
 }
 
-const baseURL = `http://${environment.URL_BASE}`;
+const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-generar-ticket',

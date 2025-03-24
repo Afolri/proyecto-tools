@@ -25,7 +25,7 @@ interface Procesador{
   procesador:string;
 }
 
-const baseURL = `http://${environment.URL_BASE}`;
+const baseURL = `${environment.URL_BASE}`;
 @Component({
   selector: 'app-organizador-computadoras',
   imports: [CommonModule, FormsModule],

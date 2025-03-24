@@ -11,10 +11,11 @@ import { LoginComponent, Usuario } from '../login/login.component';
 import { faBars, faComment, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 
 
-
+const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-reporte-clientes',
@@ -28,6 +29,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './reporte-clientes.component.html',
   styleUrls: ['./reporte-clientes.component.css']
 })
+
 export class ReporteClientesComponent implements OnInit {
   /**Aquí se guarda el usuario que actualmente esta loggeado */
   usuarioActual!:Usuario;
@@ -149,7 +151,7 @@ export class ReporteClientesComponent implements OnInit {
         return;
     }
 
-    fetch(`http://localhost:8080/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}`, {
+    fetch(`http://${baseURL}:8080/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -173,7 +175,7 @@ export class ReporteClientesComponent implements OnInit {
 
   cerrarTicket(numero_ticket: number){
     const t = localStorage.getItem("token");
-    fetch(`http://localhost:8080/admin/reporte-tickets/cerrar-ticket?numeroTicket=${numero_ticket}`,{
+    fetch(`http://${baseURL}:8080/admin/reporte-tickets/cerrar-ticket?numeroTicket=${numero_ticket}`,{
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",

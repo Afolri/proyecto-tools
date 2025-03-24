@@ -13,7 +13,7 @@ export interface Usuario{
     rol:string
 }
 
-const baseURL = `http://${environment.URL_BASE}`;
+const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-login',
