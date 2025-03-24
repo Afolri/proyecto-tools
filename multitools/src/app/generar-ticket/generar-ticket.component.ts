@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { environment } from '../../environments/environment.development';
 
 //La estructura cambia a:
 export interface Ticket {
@@ -24,6 +25,7 @@ export interface Ticket {
 
 }
 
+const baseURL = `http://${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-generar-ticket',
@@ -156,7 +158,7 @@ export class GenerarTicketComponent implements OnInit  {
     let asunto = this.formularioTickets.get('asunto')?.value;
     let descripcion = this.formularioTickets.get('descripcion')?.value;
 
-    fetch("http://localhost:8080/admin/reporte-tickets/crear-ticket", {
+    fetch(`http://${baseURL}/admin/reporte-tickets/crear-ticket`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -193,7 +195,7 @@ export class GenerarTicketComponent implements OnInit  {
     this.mostrarMensajeAviso.emit(true);
   }
   actualizarTicket(){
-    fetch(`http://localhost:8080/admin/reporte-tickets/actualizar-ticket`,{
+    fetch(`http://${baseURL}/admin/reporte-tickets/actualizar-ticket`,{
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

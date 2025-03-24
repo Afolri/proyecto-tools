@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 
 export interface Usuario{
@@ -11,6 +12,8 @@ export interface Usuario{
     correo:string,
     rol:string
 }
+
+const baseURL = `http://${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-login',
@@ -43,7 +46,7 @@ export class LoginComponent implements OnInit{
     let correo = this.iniciarsesion.get('correo')?.value;
     let password = this.iniciarsesion.get('password')?.value;
 
-    fetch("http://localhost:8080/admin/auth/login", {
+    fetch(`http://${baseURL}/admin/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ correo, password })
@@ -69,7 +72,7 @@ export class LoginComponent implements OnInit{
     });
 }
 obtenerUsuarioLoggeado(){
-    fetch("http://localhost:8080/admin/reporte-tickets/obtener-credenciales",{
+    fetch(`http://${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
         method:"GET",  
         headers: {
             "Content-Type": "application/json",

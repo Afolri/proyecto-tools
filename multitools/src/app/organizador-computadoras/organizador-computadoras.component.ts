@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 interface Producto{
   id: number;
@@ -24,7 +25,7 @@ interface Procesador{
   procesador:string;
 }
 
-
+const baseURL = `http://${environment.URL_BASE}`;
 @Component({
   selector: 'app-organizador-computadoras',
   imports: [CommonModule, FormsModule],
@@ -53,7 +54,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
     this.cargarProcesadores();
   }
   cargarProductos(){
-    fetch('http://localhost:8080/admin/inicio/obtenerproductos')
+    fetch(`http://${baseURL}/admin/inicio/obtenerproductos`)
     .then(respuesta => respuesta.json())
     .then((productos:Producto[])=>{
       console.log('Productos recibidos:',productos);
@@ -83,7 +84,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
 
     let usuario = this.productoGuardar.usuario;
 
-    fetch("http://localhost:8080/admin/inicio/guardarproducto", {
+    fetch(`http://${baseURL}/admin/inicio/guardarproducto`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -118,7 +119,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarMarcas() {
-    fetch('http://localhost:8080/admin/inicio/obtenerMarcasComputadoras')
+    fetch(`http://${baseURL}/admin/inicio/obtenerMarcasComputadoras`)
       .then(response => response.json())
       .then((marcas: Marca[]) => {
         console.log('Marcas recibidas:', marcas);
@@ -128,7 +129,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarProcesadores(){
-    fetch('http://localhost:8080/admin/inicio/obtenerProcesadores')
+    fetch(`http://${baseURL}/admin/inicio/obtenerProcesadores`)
     .then(response => response.json())
     .then((procesadores: Procesador[])=>{
       console.log('Procesadores recibidos:', procesadores);

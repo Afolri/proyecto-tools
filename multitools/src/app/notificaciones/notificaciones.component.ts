@@ -4,6 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
+import { environment } from '../../environments/environment.development';
 
 interface notificaciones{
   numero_notificacion:number;
@@ -14,6 +15,7 @@ interface notificaciones{
   estado:string,
   nombre_cliente:string
 }
+const baseURL = `http://${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-notificaciones',
@@ -37,7 +39,7 @@ export class NotificacionesComponent implements OnInit {
   
 
   verNotificaciones(){
-    fetch(`http://localhost:8080/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
+    fetch(`http://${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json",
@@ -49,7 +51,7 @@ export class NotificacionesComponent implements OnInit {
     .then(notificaciones => this.notificaciones = notificaciones);
   }
   leerNotificacion(numeroNotificacion:number){
-    fetch(`http://localhost:8080/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
+    fetch(`http://${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json",
