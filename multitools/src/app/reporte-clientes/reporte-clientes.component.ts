@@ -151,7 +151,7 @@ export class ReporteClientesComponent implements OnInit {
         return;
     }
 
-    fetch(`http://${baseURL}:8080/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}`, {
+    fetch(`http://${baseURL}/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -175,7 +175,7 @@ export class ReporteClientesComponent implements OnInit {
 
   cerrarTicket(numero_ticket: number){
     const t = localStorage.getItem("token");
-    fetch(`http://${baseURL}:8080/admin/reporte-tickets/cerrar-ticket?numeroTicket=${numero_ticket}`,{
+    fetch(`http://${baseURL}/admin/reporte-tickets/cerrar-ticket?numeroTicket=${numero_ticket}`,{
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
