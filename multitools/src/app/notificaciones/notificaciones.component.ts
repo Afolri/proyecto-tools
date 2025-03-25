@@ -15,7 +15,7 @@ interface notificaciones{
   estado:string,
   nombre_cliente:string
 }
-const baseURL = `http://${environment.URL_BASE}`;
+const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-notificaciones',

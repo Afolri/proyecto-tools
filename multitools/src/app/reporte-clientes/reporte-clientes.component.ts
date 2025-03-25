@@ -85,10 +85,12 @@ export class ReporteClientesComponent implements OnInit {
     library.addIcons(faBars);
   }
   ngOnInit(): void {
-    this.authService.usuarioActual$.subscribe( usuario =>{
-      this.usuarioActual=usuario;
-    })
-    this.cargarTickets();
+    this.authService.usuarioActual$.subscribe(usuario => {
+      if (usuario) { 
+        this.usuarioActual = usuario;
+        this.cargarTickets();
+      }
+    });
   }
 
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */

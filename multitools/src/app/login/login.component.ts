@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit{
             localStorage.setItem('token', data.token);
             console.log("Token guardado:", data.token);
             this.obtenerUsuarioLoggeado();
-            this.router.navigate(['/reporte-clientes'])
+            return this.router.navigate(['/reporte-clientes']);
         } else {
             throw new Error("No se recibió el token en la respuesta");
         }
