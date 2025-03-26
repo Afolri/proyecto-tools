@@ -11,7 +11,6 @@ services:
     depends_on:
       multitool_db:
         condition: service_healthy
-    entrypoint: ["dockerize", "-wait", "tcp://multitool_db:5432", "-timeout", "60s", "java", "-jar", "/path/to/your/app.jar"]
     networks:
       - multitool_network
 

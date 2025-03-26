@@ -120,4 +120,8 @@ public class Ticket {
     @JsonManagedReference
     private List<Notificacion> notificaciones = new ArrayList<>();
 
+    @OneToMany (mappedBy = "ticket")
+    @JsonManagedReference
+    private List<Comentario> comentarios = new ArrayList<>();
+
 }

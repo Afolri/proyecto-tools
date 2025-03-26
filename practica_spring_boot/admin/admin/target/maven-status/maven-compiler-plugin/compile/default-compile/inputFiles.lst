@@ -28,6 +28,7 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\UsuarioResponseDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Agente.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Cliente.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Comentario.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Notificacion.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\ProductoTicket.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\ProductoTipo.java
@@ -39,6 +40,7 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\jwt\JwtService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\AgentesRespository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ClienteRepository.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ComentarioRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\NotificacionRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ProductoTicketRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ProductoTipoRepository.java
@@ -49,6 +51,8 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\AgenteServiceImpl.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\ClienteService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\ClienteServiceImpl.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\ComentarioService.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\ComentarioServiceImp.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\NotificacionService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\NotificacionServiceImpl.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\ProductoTicketService.java

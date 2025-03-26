@@ -1,11 +1,11 @@
 package escom.admin.servicioAlCliente.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agentes" , schema = "soporte")
@@ -26,6 +26,10 @@ public class Agente {
     @Column(name = "apellidos_agente")
     @JsonProperty("apellidos_agente")
     String apellidosAgente;
+
+    @OneToMany (mappedBy = "agente")
+    @JsonManagedReference
+    private List<Comentario> comentarios = new ArrayList<>();
 
 
     public Long getNumeroAgente() {

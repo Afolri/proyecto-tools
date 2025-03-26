@@ -26,12 +26,12 @@ public class Comentario {
     @Column (name = "contenido")
     private String contenido;
 
-    @Column (name = "numero_agente")
+    @ManyToOne
     @JsonProperty("numero_Agente")
     @JoinColumn (name = "numero_agente")
     private Agente agente;
 
-    @Column (name = "numero_ticket")
+    @ManyToOne
     @JsonProperty("numero_ticket")
     @JoinColumn (name = "numero_ticket")
     private Ticket ticket;

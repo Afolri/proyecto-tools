@@ -4,10 +4,13 @@ escom\admin\servicioAlCliente\config\ApplicationConfig.class
 escom\admin\servicioAlCliente\entities\Rol.class
 escom\admin\servicioAlCliente\services\ProductoTicketServiceImpl.class
 escom\admin\servicioAlCliente\entities\Cliente$ClienteBuilder.class
+escom\admin\servicioAlCliente\entities\Comentario.class
+escom\admin\servicioAlCliente\repositories\ComentarioRepository.class
 escom\admin\servicioAlCliente\services\UsuarioService.class
 escom\admin\servicioAlCliente\repositories\TicketRepository.class
 escom\admin\AdminApplication.class
 escom\admin\servicioAlCliente\repositories\TipoIdentificadorRepository.class
+escom\admin\servicioAlCliente\entities\Comentario$ComentarioBuilder.class
 escom\admin\servicioAlCliente\entities\TipoIdentificador.class
 escom\admin\servicioAlCliente\Auth\RegisterRequest.class
 escom\admin\servicioAlCliente\Auth\AuthResponse$AuthResponseBuilder.class
@@ -19,6 +22,7 @@ escom\admin\productos\services\ProcesadorServiceImpl.class
 escom\admin\servicioAlCliente\jwt\JwtService.class
 escom\admin\servicioAlCliente\services\NotificacionService.class
 escom\admin\productos\repositories\ProductoRepository.class
+escom\admin\servicioAlCliente\services\ComentarioServiceImp.class
 escom\admin\servicioAlCliente\services\UsuarioServiceImpl.class
 escom\admin\productos\services\ProcesadorService.class
 escom\admin\servicioAlCliente\dto\TicketResponseDTO.class
@@ -49,6 +53,7 @@ escom\admin\productos\model\Marca.class
 escom\admin\servicioAlCliente\Auth\AuthService.class
 escom\admin\servicioAlCliente\services\ProductoTipoServiceImpl.class
 escom\admin\servicioAlCliente\services\TipoIdentificadorService.class
+escom\admin\servicioAlCliente\services\ComentarioService.class
 escom\admin\productos\exceptions\CustomException.class
 escom\admin\servicioAlCliente\services\AgenteServiceImpl.class
 escom\admin\servicioAlCliente\Auth\AuthResponse.class
