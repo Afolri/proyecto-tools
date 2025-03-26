@@ -119,7 +119,7 @@ public class TicketServiceImpl implements TicketService {
                 .descripcion(requestDTO.getDescripcion())
                 .fecha( LocalDate.now() )
                 .hora( LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))))
-                .agente( (ticket.getAgente()!=null)?
+                .agente( (ticket.getAgente()==null)?
                         agentesRespository.findById(ticketRepository.siguienteAgente()).orElse(null):
                         ticket.getAgente())
                 .estado(ticket.getEstado())

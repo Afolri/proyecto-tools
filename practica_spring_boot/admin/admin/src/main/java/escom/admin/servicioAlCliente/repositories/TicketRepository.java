@@ -76,26 +76,26 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
 
     @Transactional
     @Query(value = """
-    SELECT numero_agente, c FROM (
-        SELECT numero_agente, min(ultima_asignacion), c FROM(
-            SELECT DISTINCT numero_agente, nombres_agente, max(TO_TIMESTAMP(CONCAT(fecha,' ',hora), 'YYYY-MM-DD HH24:MI')) AS ultima_asignacion, COUNT(*) AS c FROM(
-                SELECT sa.numero_agente, sa.nombres_agente, CASE WHEN st.fecha ISNULL THEN '1999/12/21' ELSE st.fecha END AS fecha,
-                CASE WHEN st.hora ISNULL THEN CURRENT_TIME ELSE st.hora END AS hora FROM soporte.agentes sa
-                LEFT JOIN soporte.tickets st ON sa.numero_agente = st.numero_agente
-                GROUP BY sa.numero_agente, sa.nombres_agente, st.numero_ticket
-                )
-            GROUP BY numero_agente, nombres_agente
-        )
-        GROUP BY numero_agente, ultima_asignacion,c
-        ORDER BY ultima_asignacion ASC
-             )
-        WHERE c = (SELECT min(c) FROM (
-             SELECT sa.numero_agente, COUNT(st.numero_ticket) AS c FROM soporte.agentes sa
-             LEFT JOIN soporte.tickets st ON sa.numero_agente = st.numero_agente
-             GROUP BY sa.numero_agente
-            )
-        )
-        LIMIT 1
+            SELECT numero_agente FROM (
+               SELECT numero_agente, min(ultima_asignacion), c FROM(
+                   SELECT DISTINCT numero_agente, nombres_agente, max(TO_TIMESTAMP(CONCAT(fecha,' ',hora), 'YYYY-MM-DD HH24:MI')) AS ultima_asignacion, COUNT(*) AS c FROM(
+                       SELECT sa.numero_agente, sa.nombres_agente, CASE WHEN st.fecha ISNULL THEN '1999/12/21' ELSE st.fecha END AS fecha,
+                       CASE WHEN st.hora ISNULL THEN CURRENT_TIME ELSE st.hora END AS hora FROM soporte.agentes sa
+                       LEFT JOIN soporte.tickets st ON sa.numero_agente = st.numero_agente
+                       GROUP BY sa.numero_agente, sa.nombres_agente, st.numero_ticket
+                       )
+                   GROUP BY numero_agente, nombres_agente
+               )
+               GROUP BY numero_agente, ultima_asignacion,c
+               ORDER BY ultima_asignacion ASC
+                    )
+               WHERE c = (SELECT min(cuenta) FROM (
+                    SELECT sa.numero_agente, COUNT(st.numero_ticket) AS cuenta FROM soporte.agentes sa
+                    LEFT JOIN soporte.tickets st ON sa.numero_agente = st.numero_agente
+                    GROUP BY sa.numero_agente
+                   )
+               )+1
+               LIMIT 1
                 
             """, nativeQuery = true)
     Long siguienteAgente();

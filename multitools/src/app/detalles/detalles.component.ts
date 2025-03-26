@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ReporteClientesComponent } from '../reporte-clientes/reporte-clientes.component';
+import { Ticket } from '../generar-ticket/generar-ticket.component';
 
 @Component({
   selector: 'app-detalles',
@@ -8,13 +10,24 @@ import { Router } from '@angular/router';
   styleUrl: './detalles.component.css'
 })
 export class DetallesComponent implements OnInit{
-  constructor(private router: Router) {}
+  @ViewChild(ReporteClientesComponent) reporteClientes?: ReporteClientesComponent;
+  ticketactual?:Ticket;
+
+  constructor(private router: Router, private routerActive: ActivatedRoute) {}
+
+
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    const ticketString = this.routerActive.snapshot.queryParamMap.get('ticket');
+    if(ticketString){
+      this.ticketactual = JSON.parse(ticketString);
+      console.log(this.ticketactual);
+    }
+
+    
   }
 
   regresar(){
-    this.router.navigate(['reporte-clientes'])
+    this.router.navigate(['reporte-clientes']);
   }
 
 }

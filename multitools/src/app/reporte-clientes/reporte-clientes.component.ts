@@ -10,8 +10,9 @@ import { EditarTicketComponent } from "../editar-ticket/editar-ticket.component"
 import { LoginComponent, Usuario } from '../login/login.component';
 import { faBars, faComment, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
+import { tick } from '@angular/core/testing';
 
 
 
@@ -31,6 +32,8 @@ const baseURL = `${environment.URL_BASE}`;
 })
 
 export class ReporteClientesComponent implements OnInit {
+  /**Aquí se guardara el ticket actual */
+  ticketActual!:Ticket;
   /**Aquí se guarda el usuario que actualmente esta loggeado */
   usuarioActual!:Usuario;
   /**creando las variables para exportar de los iconos */
@@ -39,6 +42,8 @@ export class ReporteClientesComponent implements OnInit {
   faBars = faBars;
   focus = false;
 
+  /**exportación de los detalles de ticket actual */
+  ticketSeleccionadoEntidad?:Ticket;
   /**Variable para saber si esta activado el estilo para el icono lock */
   lockIcono:boolean = false;
   /**Variable para saber si esta activado el estilo para el icono edit */
@@ -79,7 +84,7 @@ export class ReporteClientesComponent implements OnInit {
   };
 
 
-  constructor(library: FaIconLibrary, private authService: AuthService) {
+  constructor(library: FaIconLibrary, private authService: AuthService, private router: Router) {
     library.addIcons(faComment);
     library.addIcons(faLock);
     library.addIcons(faBars);
@@ -244,5 +249,21 @@ export class ReporteClientesComponent implements OnInit {
     return null;
   }
 
+  obtenerTicketSeleccionado(ticketSeleccionado?: number): Ticket  {
+  
+    let ticket = this.tablatickets?.find(obj => obj.numero_ticket === ticketSeleccionado);
+    if(ticket){
+      return this.ticketSeleccionadoEntidad = ticket;
+    }else{
+      throw new Error ('Ticket no encontrado')
+    }
+  }
+  
 
+  abrirDetallesNotificacion(numero_ticket:number){
+    console.log("se ejecuto el metodo padre");
+    this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
+    const ticketJson = JSON.stringify(this.ticketActual);
+    this.router.navigate(['detalles'], {queryParams: { ticket:ticketJson}});
+  }
 }

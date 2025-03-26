@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { GenerarTicketComponent, Ticket } from '../generar-ticket/generar-ticket.component';
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
@@ -28,6 +28,7 @@ const baseURL = `${environment.URL_BASE}`;
 export class NotificacionesComponent implements OnInit {
   usuarioActual!:Usuario;
   notificaciones:notificaciones[] = [];
+  @Output() notificacionEvent = new EventEmitter<number>();
 
   constructor(private authService:AuthService, private router:Router){}
   ngOnInit() {
@@ -50,7 +51,7 @@ export class NotificacionesComponent implements OnInit {
     .then(response => response.json())
     .then(notificaciones => this.notificaciones = notificaciones);
   }
-  leerNotificacion(numeroNotificacion:number){
+  leerNotificacion(numeroNotificacion:number, numeroTicketSeleccionado:number){
     fetch(`http://${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
       {
         method: "PUT",
@@ -61,14 +62,13 @@ export class NotificacionesComponent implements OnInit {
     ).then(response =>{
       if(response.ok){
         this.verNotificaciones();
-        this.abrirDetallesNotificacion();
-        console.log("notificacion vista")
+        this.abrirDetallesNotificacion(numeroTicketSeleccionado);
+        console.log("notificacion vista");
       }
     })
   }
-
-  abrirDetallesNotificacion(){
-    this.router.navigate(['detalles']);
+  abrirDetallesNotificacion(numeroTicket:number){
+    this.notificacionEvent.emit(numeroTicket);  
   }
 
 }
