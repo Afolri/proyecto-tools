@@ -22,9 +22,14 @@ public class ComentarioServiceImp implements ComentarioService {
 
 
     @Override
-    public void comentar(Long numeroTicket, String contenido) {
-        Ticket ticket = agentesRespository.findById(numeroTicket).orElseThrow();
-
+    public void comentar(Long numeroAgente, Long numeroTicket, String contenido) {
+        Agente agente = agentesRespository.findById(numeroAgente).orElseThrow();
+        Ticket ticket = ticketRepository.findById(numeroTicket).orElseThrow();
+        Comentario comen = Comentario.builder()
+                .agente(agente)
+                .ticket(ticket)
+                .contenido(contenido).build();
+        comentarioRepository.save(comen);
     }
 
     @Override
