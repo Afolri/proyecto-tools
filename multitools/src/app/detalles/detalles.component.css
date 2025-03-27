@@ -1,0 +1,14 @@
+.contenedor{
+    background-color: rgba(64, 64, 223, 0.582);
+    padding: 10px;
+    color:white;
+    display: flex;
+    flex-flow: column;
+    border-radius: 17px;
+    text-align: center;
+    gap:10px;
+}
+.contenedor > div{
+    background-color: rgb(112, 98, 170);
+    padding: 10px 30px;
+}
