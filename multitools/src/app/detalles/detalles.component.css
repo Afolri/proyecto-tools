@@ -1,14 +1,53 @@
+
 .contenedor{
-    background-color: rgba(64, 64, 223, 0.582);
+    background-color: rgba(0, 0, 0, 0.582);
+    position: relative;
     padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     color:white;
-    display: flex;
-    flex-flow: column;
     border-radius: 17px;
     text-align: center;
     gap:10px;
 }
-.contenedor > div{
-    background-color: rgb(112, 98, 170);
+.contenedor div{
     padding: 10px 30px;
+}
+div li {
+    list-style: none;
+    margin: 5px 0;
+    background-color: black;
+    color: white;
+    padding: 20px 20px;
+    text-align: center;
+    border-radius: 17px;
+    cursor: pointer;
+}
+div li:hover{
+    background-color: gray;
+} 
+div li:active{
+    background-color: rgb(243, 235, 235);
+    color:black
+}
+.infoCampo {
+    position: relative;
+    padding-right: 2rem; 
+    background-color: #442bb6; 
+    min-width: 250px;
+}
+
+.infoCampo:after {
+    content: " ";
+    position: absolute;
+    top: 50%; 
+    right: -25%; 
+    border-left: 2rem solid #442bb6; 
+    border-top: 1.5rem solid transparent; 
+    border-bottom: 1.5rem solid transparent; 
+    border-right: 2rem solid transparent; 
+    transform: translateY(-50%);
+}
+.contenedor div:not(.infoCampo) {
+    border-bottom: 1px white solid;
 }
