@@ -5,7 +5,7 @@
 -- Dumped from database version 17.2
 -- Dumped by pg_dump version 17.2
 
--- Started on 2025-03-26 12:31:08
+-- Started on 2025-03-29 10:19:51
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -32,6 +32,282 @@ ALTER SCHEMA soporte OWNER TO postgres;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
+
+--
+-- TOC entry 232 (class 1259 OID 16661)
+-- Name: almacenamientos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.almacenamientos (
+    numero_almacenamiento bigint NOT NULL,
+    marca character varying,
+    capacidad character varying,
+    tipo character varying
+);
+
+
+ALTER TABLE public.almacenamientos OWNER TO postgres;
+
+--
+-- TOC entry 239 (class 1259 OID 16801)
+-- Name: almacenamientos_numero_almacenamiento_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.almacenamientos ALTER COLUMN numero_almacenamiento ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.almacenamientos_numero_almacenamiento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 248 (class 1259 OID 32838)
+-- Name: comentario; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.comentario (
+    numero_comentario bigint NOT NULL,
+    contenido character varying NOT NULL,
+    numero_agente bigint NOT NULL,
+    numero_ticket bigint NOT NULL
+);
+
+
+ALTER TABLE public.comentario OWNER TO postgres;
+
+--
+-- TOC entry 237 (class 1259 OID 16793)
+-- Name: interno; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.interno (
+    numero_interno bigint NOT NULL,
+    nombre_area character varying,
+    numero_responsable bigint
+);
+
+
+ALTER TABLE public.interno OWNER TO postgres;
+
+--
+-- TOC entry 236 (class 1259 OID 16792)
+-- Name: interno_numero_interno_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.interno ALTER COLUMN numero_interno ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.interno_numero_interno_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 221 (class 1259 OID 16492)
+-- Name: marcas; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.marcas (
+    id_marca integer NOT NULL,
+    nombre_marca character varying(255)
+);
+
+
+ALTER TABLE public.marcas OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 16491)
+-- Name: marcas_id_marca_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.marcas ALTER COLUMN id_marca ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.marcas_id_marca_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 234 (class 1259 OID 16753)
+-- Name: pago; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pago (
+    id_pago integer NOT NULL,
+    id_entidad integer,
+    monto numeric(10,2)
+);
+
+
+ALTER TABLE public.pago OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 16514)
+-- Name: procesador; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.procesador (
+    id_procesador integer NOT NULL,
+    fabricante character varying(255),
+    modelo character varying,
+    modela character varying(255)
+);
+
+
+ALTER TABLE public.procesador OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 16513)
+-- Name: procesador_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.procesador_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.procesador_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5019 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: procesador_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.procesador_id_seq OWNED BY public.procesador.id_procesador;
+
+
+--
+-- TOC entry 219 (class 1259 OID 16467)
+-- Name: productos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.productos (
+    id integer NOT NULL,
+    noserie character varying(255),
+    estado_producto character varying(255),
+    id_marca integer,
+    id_procesador integer,
+    ram character varying(255),
+    fecha_configuracion date,
+    usuario character varying(255),
+    numero_responsable bigint,
+    numero_sistema bigint,
+    numero_almacenamiento bigint,
+    so smallint,
+    version_so integer
+);
+
+
+ALTER TABLE public.productos OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 16466)
+-- Name: productos_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.productos_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.productos_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 5020 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: productos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.productos_id_seq OWNED BY public.productos.id;
+
+
+--
+-- TOC entry 235 (class 1259 OID 16763)
+-- Name: responsable; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.responsable (
+    numero_responsable bigint NOT NULL,
+    tipo_responsable character varying
+);
+
+
+ALTER TABLE public.responsable OWNER TO postgres;
+
+--
+-- TOC entry 238 (class 1259 OID 16800)
+-- Name: responsable_numero_responsable_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.responsable ALTER COLUMN numero_responsable ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.responsable_numero_responsable_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 233 (class 1259 OID 16668)
+-- Name: sistemas_operativos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sistemas_operativos (
+    numero_sistema bigint NOT NULL,
+    sistema_operativo character varying,
+    version_sistema character varying
+);
+
+
+ALTER TABLE public.sistemas_operativos OWNER TO postgres;
+
+--
+-- TOC entry 241 (class 1259 OID 16810)
+-- Name: trabajador; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trabajador (
+    numero_trabajador bigint NOT NULL,
+    nombre_trabajador character varying,
+    numero_responsable bigint
+);
+
+
+ALTER TABLE public.trabajador OWNER TO postgres;
+
+--
+-- TOC entry 240 (class 1259 OID 16809)
+-- Name: trabajador_numero_trabajador_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.trabajador ALTER COLUMN numero_trabajador ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public.trabajador_numero_trabajador_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
 
 --
 -- TOC entry 225 (class 1259 OID 16570)
@@ -135,7 +411,7 @@ ALTER TABLE soporte.tickets ALTER COLUMN numero_ticket ADD GENERATED ALWAYS AS I
 
 CREATE TABLE soporte.comentarios (
     numero_comentario bigint NOT NULL,
-    contenido character varying NOT NULL,
+    contenido character varying(255) NOT NULL,
     numero_agente bigint NOT NULL,
     numero_ticket bigint NOT NULL
 );
@@ -291,7 +567,112 @@ ALTER TABLE soporte.usuario ALTER COLUMN numero_usuario ADD GENERATED ALWAYS AS 
 
 
 --
--- TOC entry 4945 (class 0 OID 16570)
+-- TOC entry 4994 (class 0 OID 16661)
+-- Dependencies: 232
+-- Data for Name: almacenamientos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.almacenamientos (numero_almacenamiento, marca, capacidad, tipo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5010 (class 0 OID 32838)
+-- Dependencies: 248
+-- Data for Name: comentario; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.comentario (numero_comentario, contenido, numero_agente, numero_ticket) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4999 (class 0 OID 16793)
+-- Dependencies: 237
+-- Data for Name: interno; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.interno (numero_interno, nombre_area, numero_responsable) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4983 (class 0 OID 16492)
+-- Dependencies: 221
+-- Data for Name: marcas; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.marcas (id_marca, nombre_marca) FROM stdin;
+1	HP
+2	Lenovo
+\.
+
+
+--
+-- TOC entry 4996 (class 0 OID 16753)
+-- Dependencies: 234
+-- Data for Name: pago; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pago (id_pago, id_entidad, monto) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4985 (class 0 OID 16514)
+-- Dependencies: 223
+-- Data for Name: procesador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.procesador (id_procesador, fabricante, modelo, modela) FROM stdin;
+1	INTEL	Core i3-1215U	\N
+\.
+
+
+--
+-- TOC entry 4981 (class 0 OID 16467)
+-- Dependencies: 219
+-- Data for Name: productos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.productos (id, noserie, estado_producto, id_marca, id_procesador, ram, fecha_configuracion, usuario, numero_responsable, numero_sistema, numero_almacenamiento, so, version_so) FROM stdin;
+54	5CG35233S0\t	nuevo	1	1	8	2025-01-30	user21	\N	\N	\N	\N	\N
+55	5CG3523302	Nuevo	1	1	8	2025-02-10	User22	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- TOC entry 4997 (class 0 OID 16763)
+-- Dependencies: 235
+-- Data for Name: responsable; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.responsable (numero_responsable, tipo_responsable) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4995 (class 0 OID 16668)
+-- Dependencies: 233
+-- Data for Name: sistemas_operativos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sistemas_operativos (numero_sistema, sistema_operativo, version_sistema) FROM stdin;
+\.
+
+
+--
+-- TOC entry 5003 (class 0 OID 16810)
+-- Dependencies: 241
+-- Data for Name: trabajador; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.trabajador (numero_trabajador, nombre_trabajador, numero_responsable) FROM stdin;
+\.
+
+
+--
+-- TOC entry 4987 (class 0 OID 16570)
 -- Dependencies: 225
 -- Data for Name: agentes; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -302,7 +683,7 @@ COPY soporte.agentes (numero_agente, nombres_agente, apellidos_agente, numero_us
 
 
 --
--- TOC entry 4947 (class 0 OID 16578)
+-- TOC entry 4989 (class 0 OID 16578)
 -- Dependencies: 227
 -- Data for Name: clientes; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -341,7 +722,7 @@ COPY soporte.clientes (numero_cliente, nombre_cliente, correo, telefono) FROM st
 
 
 --
--- TOC entry 4960 (class 0 OID 32916)
+-- TOC entry 5013 (class 0 OID 32916)
 -- Dependencies: 251
 -- Data for Name: comentarios; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -351,7 +732,7 @@ COPY soporte.comentarios (numero_comentario, contenido, numero_agente, numero_ti
 
 
 --
--- TOC entry 4953 (class 0 OID 24606)
+-- TOC entry 5005 (class 0 OID 24606)
 -- Dependencies: 243
 -- Data for Name: notificacion; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -362,7 +743,7 @@ COPY soporte.notificacion (numero_notificacion, estado_notificacion, numero_tick
 
 
 --
--- TOC entry 4955 (class 0 OID 24619)
+-- TOC entry 5007 (class 0 OID 24619)
 -- Dependencies: 245
 -- Data for Name: producto_tipo; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -408,7 +789,7 @@ COPY soporte.producto_tipo (numero_producto_tipo, codigo, numero_producto, numer
 
 
 --
--- TOC entry 4950 (class 0 OID 16603)
+-- TOC entry 4992 (class 0 OID 16603)
 -- Dependencies: 230
 -- Data for Name: productoticket; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -449,7 +830,7 @@ COPY soporte.productoticket (numero_producto, numero_compra_cot) FROM stdin;
 
 
 --
--- TOC entry 4949 (class 0 OID 16586)
+-- TOC entry 4991 (class 0 OID 16586)
 -- Dependencies: 229
 -- Data for Name: tickets; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -460,7 +841,7 @@ COPY soporte.tickets (numero_ticket, asunto, descripcion, numero_agente, numero_
 
 
 --
--- TOC entry 4956 (class 0 OID 24626)
+-- TOC entry 5008 (class 0 OID 24626)
 -- Dependencies: 246
 -- Data for Name: tipo_identificador; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -473,7 +854,7 @@ COPY soporte.tipo_identificador (numero_identificador, nombre_identificador) FRO
 
 
 --
--- TOC entry 4958 (class 0 OID 32885)
+-- TOC entry 5011 (class 0 OID 32885)
 -- Dependencies: 249
 -- Data for Name: usuario; Type: TABLE DATA; Schema: soporte; Owner: postgres
 --
@@ -485,7 +866,70 @@ COPY soporte.usuario (numero_usuario, correo, nombre_usuario, password, rol) FRO
 
 
 --
--- TOC entry 4966 (class 0 OID 0)
+-- TOC entry 5021 (class 0 OID 0)
+-- Dependencies: 239
+-- Name: almacenamientos_numero_almacenamiento_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.almacenamientos_numero_almacenamiento_seq', 1, false);
+
+
+--
+-- TOC entry 5022 (class 0 OID 0)
+-- Dependencies: 236
+-- Name: interno_numero_interno_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.interno_numero_interno_seq', 1, false);
+
+
+--
+-- TOC entry 5023 (class 0 OID 0)
+-- Dependencies: 220
+-- Name: marcas_id_marca_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.marcas_id_marca_seq', 2, true);
+
+
+--
+-- TOC entry 5024 (class 0 OID 0)
+-- Dependencies: 222
+-- Name: procesador_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.procesador_id_seq', 1, true);
+
+
+--
+-- TOC entry 5025 (class 0 OID 0)
+-- Dependencies: 218
+-- Name: productos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.productos_id_seq', 56, true);
+
+
+--
+-- TOC entry 5026 (class 0 OID 0)
+-- Dependencies: 238
+-- Name: responsable_numero_responsable_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.responsable_numero_responsable_seq', 1, false);
+
+
+--
+-- TOC entry 5027 (class 0 OID 0)
+-- Dependencies: 240
+-- Name: trabajador_numero_trabajador_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.trabajador_numero_trabajador_seq', 1, false);
+
+
+--
+-- TOC entry 5028 (class 0 OID 0)
 -- Dependencies: 224
 -- Name: Agente_Numero_Agente_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -494,7 +938,7 @@ SELECT pg_catalog.setval('soporte."Agente_Numero_Agente_seq"', 2, true);
 
 
 --
--- TOC entry 4967 (class 0 OID 0)
+-- TOC entry 5029 (class 0 OID 0)
 -- Dependencies: 226
 -- Name: Cliente_no_cliente_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -503,7 +947,7 @@ SELECT pg_catalog.setval('soporte."Cliente_no_cliente_seq"', 49, true);
 
 
 --
--- TOC entry 4968 (class 0 OID 0)
+-- TOC entry 5030 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: Ticket_numero_ticket_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -512,7 +956,7 @@ SELECT pg_catalog.setval('soporte."Ticket_numero_ticket_seq"', 381, true);
 
 
 --
--- TOC entry 4969 (class 0 OID 0)
+-- TOC entry 5031 (class 0 OID 0)
 -- Dependencies: 242
 -- Name: notificacion_numero_notificacion_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -521,7 +965,7 @@ SELECT pg_catalog.setval('soporte.notificacion_numero_notificacion_seq', 152, tr
 
 
 --
--- TOC entry 4970 (class 0 OID 0)
+-- TOC entry 5032 (class 0 OID 0)
 -- Dependencies: 244
 -- Name: producto_tipo_numero_producto_tipo_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -530,7 +974,7 @@ SELECT pg_catalog.setval('soporte.producto_tipo_numero_producto_tipo_seq', 44, t
 
 
 --
--- TOC entry 4971 (class 0 OID 0)
+-- TOC entry 5033 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: productoticket_numero_producto_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -539,7 +983,7 @@ SELECT pg_catalog.setval('soporte.productoticket_numero_producto_seq', 79, true)
 
 
 --
--- TOC entry 4972 (class 0 OID 0)
+-- TOC entry 5034 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: tipo_identificador_numero_identificador_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -548,7 +992,7 @@ SELECT pg_catalog.setval('soporte.tipo_identificador_numero_identificador_seq', 
 
 
 --
--- TOC entry 4973 (class 0 OID 0)
+-- TOC entry 5035 (class 0 OID 0)
 -- Dependencies: 250
 -- Name: usuario_numero_usuario_seq; Type: SEQUENCE SET; Schema: soporte; Owner: postgres
 --
@@ -557,7 +1001,97 @@ SELECT pg_catalog.setval('soporte.usuario_numero_usuario_seq', 14, true);
 
 
 --
--- TOC entry 4773 (class 2606 OID 16576)
+-- TOC entry 4797 (class 2606 OID 16667)
+-- Name: almacenamientos almacenamientos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.almacenamientos
+    ADD CONSTRAINT almacenamientos_pkey PRIMARY KEY (numero_almacenamiento);
+
+
+--
+-- TOC entry 4815 (class 2606 OID 32844)
+-- Name: comentario comentario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comentario
+    ADD CONSTRAINT comentario_pkey PRIMARY KEY (numero_comentario);
+
+
+--
+-- TOC entry 4805 (class 2606 OID 16799)
+-- Name: interno interno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.interno
+    ADD CONSTRAINT interno_pkey PRIMARY KEY (numero_interno);
+
+
+--
+-- TOC entry 4785 (class 2606 OID 16498)
+-- Name: marcas marcas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.marcas
+    ADD CONSTRAINT marcas_pkey PRIMARY KEY (id_marca);
+
+
+--
+-- TOC entry 4801 (class 2606 OID 16757)
+-- Name: pago pago_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pago
+    ADD CONSTRAINT pago_pkey PRIMARY KEY (id_pago);
+
+
+--
+-- TOC entry 4787 (class 2606 OID 16519)
+-- Name: procesador procesador_pkey1; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.procesador
+    ADD CONSTRAINT procesador_pkey1 PRIMARY KEY (id_procesador);
+
+
+--
+-- TOC entry 4783 (class 2606 OID 16472)
+-- Name: productos productos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.productos
+    ADD CONSTRAINT productos_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4803 (class 2606 OID 16803)
+-- Name: responsable responsable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.responsable
+    ADD CONSTRAINT responsable_pkey PRIMARY KEY (numero_responsable);
+
+
+--
+-- TOC entry 4799 (class 2606 OID 16674)
+-- Name: sistemas_operativos sistemas_operativos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sistemas_operativos
+    ADD CONSTRAINT sistemas_operativos_pkey PRIMARY KEY (numero_sistema);
+
+
+--
+-- TOC entry 4807 (class 2606 OID 16814)
+-- Name: trabajador trabajador_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trabajador
+    ADD CONSTRAINT trabajador_pkey PRIMARY KEY (numero_trabajador);
+
+
+--
+-- TOC entry 4789 (class 2606 OID 16576)
 -- Name: agentes Agente_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -566,7 +1100,7 @@ ALTER TABLE ONLY soporte.agentes
 
 
 --
--- TOC entry 4775 (class 2606 OID 16582)
+-- TOC entry 4791 (class 2606 OID 16582)
 -- Name: clientes Cliente_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -575,7 +1109,7 @@ ALTER TABLE ONLY soporte.clientes
 
 
 --
--- TOC entry 4777 (class 2606 OID 16592)
+-- TOC entry 4793 (class 2606 OID 16592)
 -- Name: tickets Ticket_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -584,7 +1118,7 @@ ALTER TABLE ONLY soporte.tickets
 
 
 --
--- TOC entry 4789 (class 2606 OID 32922)
+-- TOC entry 4819 (class 2606 OID 32922)
 -- Name: comentarios comentarios_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -593,7 +1127,7 @@ ALTER TABLE ONLY soporte.comentarios
 
 
 --
--- TOC entry 4781 (class 2606 OID 24610)
+-- TOC entry 4809 (class 2606 OID 24610)
 -- Name: notificacion notificacion_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -602,7 +1136,7 @@ ALTER TABLE ONLY soporte.notificacion
 
 
 --
--- TOC entry 4783 (class 2606 OID 24625)
+-- TOC entry 4811 (class 2606 OID 24625)
 -- Name: producto_tipo producto_tipo_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -611,7 +1145,7 @@ ALTER TABLE ONLY soporte.producto_tipo
 
 
 --
--- TOC entry 4779 (class 2606 OID 16609)
+-- TOC entry 4795 (class 2606 OID 16609)
 -- Name: productoticket productoticket_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -620,7 +1154,7 @@ ALTER TABLE ONLY soporte.productoticket
 
 
 --
--- TOC entry 4785 (class 2606 OID 24632)
+-- TOC entry 4813 (class 2606 OID 24632)
 -- Name: tipo_identificador tipo_identificador_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -629,7 +1163,7 @@ ALTER TABLE ONLY soporte.tipo_identificador
 
 
 --
--- TOC entry 4787 (class 2606 OID 32891)
+-- TOC entry 4817 (class 2606 OID 32891)
 -- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -638,7 +1172,61 @@ ALTER TABLE ONLY soporte.usuario
 
 
 --
--- TOC entry 4791 (class 2606 OID 16593)
+-- TOC entry 4820 (class 2606 OID 16522)
+-- Name: productos id_procesador; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.productos
+    ADD CONSTRAINT id_procesador FOREIGN KEY (id_procesador) REFERENCES public.procesador(id_procesador) NOT VALID;
+
+
+--
+-- TOC entry 4831 (class 2606 OID 32845)
+-- Name: comentario numero_agente; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comentario
+    ADD CONSTRAINT numero_agente FOREIGN KEY (numero_agente) REFERENCES soporte.agentes(numero_agente);
+
+
+--
+-- TOC entry 4826 (class 2606 OID 16804)
+-- Name: interno numero_responsable; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.interno
+    ADD CONSTRAINT numero_responsable FOREIGN KEY (numero_responsable) REFERENCES public.responsable(numero_responsable) NOT VALID;
+
+
+--
+-- TOC entry 4827 (class 2606 OID 16817)
+-- Name: trabajador numero_responsable; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.trabajador
+    ADD CONSTRAINT numero_responsable FOREIGN KEY (numero_responsable) REFERENCES public.responsable(numero_responsable) NOT VALID;
+
+
+--
+-- TOC entry 4832 (class 2606 OID 32850)
+-- Name: comentario numero_ticket; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.comentario
+    ADD CONSTRAINT numero_ticket FOREIGN KEY (numero_ticket) REFERENCES soporte.tickets(numero_ticket);
+
+
+--
+-- TOC entry 4821 (class 2606 OID 16499)
+-- Name: productos productos_marca_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.productos
+    ADD CONSTRAINT productos_marca_fkey FOREIGN KEY (id_marca) REFERENCES public.marcas(id_marca) NOT VALID;
+
+
+--
+-- TOC entry 4823 (class 2606 OID 16593)
 -- Name: tickets numero_agente; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -647,7 +1235,7 @@ ALTER TABLE ONLY soporte.tickets
 
 
 --
--- TOC entry 4797 (class 2606 OID 32923)
+-- TOC entry 4833 (class 2606 OID 32923)
 -- Name: comentarios numero_agente; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -656,7 +1244,7 @@ ALTER TABLE ONLY soporte.comentarios
 
 
 --
--- TOC entry 4792 (class 2606 OID 16598)
+-- TOC entry 4824 (class 2606 OID 16598)
 -- Name: tickets numero_cliente; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -665,7 +1253,7 @@ ALTER TABLE ONLY soporte.tickets
 
 
 --
--- TOC entry 4795 (class 2606 OID 32825)
+-- TOC entry 4829 (class 2606 OID 32825)
 -- Name: producto_tipo numero_identificador; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -674,7 +1262,7 @@ ALTER TABLE ONLY soporte.producto_tipo
 
 
 --
--- TOC entry 4793 (class 2606 OID 24593)
+-- TOC entry 4825 (class 2606 OID 24593)
 -- Name: tickets numero_producto; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -683,7 +1271,7 @@ ALTER TABLE ONLY soporte.tickets
 
 
 --
--- TOC entry 4796 (class 2606 OID 32820)
+-- TOC entry 4830 (class 2606 OID 32820)
 -- Name: producto_tipo numero_producto; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -692,7 +1280,7 @@ ALTER TABLE ONLY soporte.producto_tipo
 
 
 --
--- TOC entry 4794 (class 2606 OID 24611)
+-- TOC entry 4828 (class 2606 OID 24611)
 -- Name: notificacion numero_ticket; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -701,7 +1289,7 @@ ALTER TABLE ONLY soporte.notificacion
 
 
 --
--- TOC entry 4798 (class 2606 OID 32928)
+-- TOC entry 4834 (class 2606 OID 32928)
 -- Name: comentarios numero_ticket; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -710,7 +1298,7 @@ ALTER TABLE ONLY soporte.comentarios
 
 
 --
--- TOC entry 4790 (class 2606 OID 32892)
+-- TOC entry 4822 (class 2606 OID 32892)
 -- Name: agentes numero_usuario; Type: FK CONSTRAINT; Schema: soporte; Owner: postgres
 --
 
@@ -718,7 +1306,7 @@ ALTER TABLE ONLY soporte.agentes
     ADD CONSTRAINT numero_usuario FOREIGN KEY (numero_usuario) REFERENCES soporte.usuario(numero_usuario) NOT VALID;
 
 
--- Completed on 2025-03-26 12:31:08
+-- Completed on 2025-03-29 10:19:52
 
 --
 -- PostgreSQL database dump complete
