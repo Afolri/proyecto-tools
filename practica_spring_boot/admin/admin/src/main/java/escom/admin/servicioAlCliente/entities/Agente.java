@@ -27,10 +27,6 @@ public class Agente {
     @JsonProperty("apellidos_agente")
     String apellidosAgente;
 
-    @OneToMany (mappedBy = "agente")
-    @JsonManagedReference
-    private List<Comentario> comentarios = new ArrayList<>();
-
 
     public Long getNumeroAgente() {
         return numeroAgente;
