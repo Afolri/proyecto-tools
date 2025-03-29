@@ -2,16 +2,22 @@ package escom.admin.productos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Table(name = "procesador")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Procesador {
 
     @Column (name = "id_procesador")
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    Integer idProcesador;
+    Long idProcesador;
 
     @Column ( name = "fabricante")
     String fabricante;
@@ -19,27 +25,4 @@ public class Procesador {
     @Column (name = "modela")
     String modelo;
 
-    public Integer getIdProcesador() {
-        return idProcesador;
-    }
-
-    public void setIdProcesador(Integer idProcesador) {
-        this.idProcesador = idProcesador;
-    }
-
-    public String getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(String fabricante) {
-        this.fabricante = fabricante;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
 }
