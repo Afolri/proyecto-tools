@@ -1,4 +1,4 @@
 export const environment = {
         production: false,
-        URL_BASE: 'java_app:8080'
+        URL_BASE: '192.168.2.40:8080'
 };
