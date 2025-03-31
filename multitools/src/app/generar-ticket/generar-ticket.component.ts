@@ -163,7 +163,7 @@ export class GenerarTicketComponent implements OnInit  {
     let asunto = this.formularioTickets.get('asunto')?.value;
     let descripcion = this.formularioTickets.get('descripcion')?.value;
 
-    fetch(`http://${baseURL}/admin/reporte-tickets/crear-ticket`, {
+    fetch(`${baseURL}/admin/reporte-tickets/crear-ticket`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -200,7 +200,7 @@ export class GenerarTicketComponent implements OnInit  {
     this.mostrarMensajeAviso.emit(true);
   }
   actualizarTicket(){
-    fetch(`http://${baseURL}/admin/reporte-tickets/actualizar-ticket`,{
+    fetch(`${baseURL}/admin/reporte-tickets/actualizar-ticket`,{
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({

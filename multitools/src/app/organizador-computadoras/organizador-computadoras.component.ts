@@ -54,7 +54,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
     this.cargarProcesadores();
   }
   cargarProductos(){
-    fetch(`http://${baseURL}/admin/inicio/obtenerproductos`)
+    fetch(`${baseURL}/admin/inicio/obtenerproductos`)
     .then(respuesta => respuesta.json())
     .then((productos:Producto[])=>{
       console.log('Productos recibidos:',productos);
@@ -84,7 +84,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
 
     let usuario = this.productoGuardar.usuario;
 
-    fetch(`http://${baseURL}/admin/inicio/guardarproducto`, {
+    fetch(`${baseURL}/admin/inicio/guardarproducto`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -119,7 +119,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarMarcas() {
-    fetch(`http://${baseURL}/admin/inicio/obtenerMarcasComputadoras`)
+    fetch(`${baseURL}/admin/inicio/obtenerMarcasComputadoras`)
       .then(response => response.json())
       .then((marcas: Marca[]) => {
         console.log('Marcas recibidas:', marcas);
@@ -129,7 +129,7 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarProcesadores(){
-    fetch(`http://${baseURL}/admin/inicio/obtenerProcesadores`)
+    fetch(`${baseURL}/admin/inicio/obtenerProcesadores`)
     .then(response => response.json())
     .then((procesadores: Procesador[])=>{
       console.log('Procesadores recibidos:', procesadores);

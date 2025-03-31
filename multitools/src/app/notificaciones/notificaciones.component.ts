@@ -40,7 +40,7 @@ export class NotificacionesComponent implements OnInit {
   
 
   verNotificaciones(){
-    fetch(`http://${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
+    fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export class NotificacionesComponent implements OnInit {
     .then(notificaciones => this.notificaciones = notificaciones);
   }
   leerNotificacion(numeroNotificacion:number, numeroTicketSeleccionado:number){
-    fetch(`http://${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
+    fetch(`${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json",

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit{
     let correo = this.iniciarsesion.get('correo')?.value;
     let password = this.iniciarsesion.get('password')?.value;
 
-    fetch(`http://${baseURL}/admin/auth/login`, {
+    fetch(`${baseURL}/admin/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ correo, password })
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit{
     });
 }
 obtenerUsuarioLoggeado(){
-    fetch(`http://${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
+    fetch(`${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
         method:"GET",  
         headers: {
             "Content-Type": "application/json",
