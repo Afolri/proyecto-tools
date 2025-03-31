@@ -1,5 +1,6 @@
 services:
   java_app:
+    container_name: java_app
     build: practica_spring_boot/admin/admin
     ports:
       - "8080:8080"
@@ -15,6 +16,7 @@ services:
       - multitool_network
 
   multitool_db:
+    container_name: db_app
     mem_limit: 512m
     image: postgres:17.4           
     ports:
