@@ -29,16 +29,17 @@
       <div class = "personalizada">
 
         <ng-container *ngIf="formularioTickets.get('ehs_approval')?.value">
-          <select class="tipo" formControlName="nombre_identificador">
+          <select class="tipo" formControlName="numero_identificador">
             @for(identificador of identificadores; track identificador.numero_identificador){
-            <option value="identificador.numero_identificador">{{identificador.nombre_identificador}}</option>
+            <option [value]="identificador.numero_identificador">{{identificador.nombre_identificador}}</option>
             }
           </select>
         </ng-container>
         
         <input id="codigo" type="text" class="informacion" formControlName="codigo">
 
-        <ng-container *ngIf="(formularioTickets.get('nombre_identificador')?.value == 'modeloMarca' &&
+        <!--Campo que se despliega cuando el numero identificador es 4 que corresponde a modelo marca-->
+        <ng-container *ngIf="(formularioTickets.get('numero_identificador')?.value == 4 &&
       formularioTickets.get('ehs_approval')?.value )">
           <input type="text" class = "informacion" formControlName = "codigo2">
         </ng-container>  

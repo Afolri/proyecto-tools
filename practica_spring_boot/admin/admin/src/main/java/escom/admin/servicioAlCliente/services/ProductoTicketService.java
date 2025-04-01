@@ -5,5 +5,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ProductoTicketService {
-    ProductoTicket crearProducto(String numeroCompraCot, String codigo, String nombreIdentificador);
+    ProductoTicket crearProducto(String numeroCompraCot, String codigo, Long numeroIdentificador);
 }

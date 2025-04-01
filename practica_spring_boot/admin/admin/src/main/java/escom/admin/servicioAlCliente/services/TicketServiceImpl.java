@@ -95,7 +95,7 @@ public class TicketServiceImpl implements TicketService {
         /*Cuando se comprueba que el producto no existe entonces crea un nuevo producto colocandole
         numero de identificador*/
         producto = productoTicketService.crearProducto(requestDTO.getNumeroCompraCot(),
-                requestDTO.getCodigo().toUpperCase(), requestDTO.getNombreIdentificador().toUpperCase());
+                requestDTO.getCodigo().toUpperCase(), requestDTO.getNumeroIdentificador());
         ticket.setProductoTicket(producto);
 
         /*
@@ -133,7 +133,7 @@ public class TicketServiceImpl implements TicketService {
     boolean ticketDtoVacio(TicketRequestDTO tr){
         return (tr.getCorreo().isEmpty() || tr.getTelefono().isEmpty() || tr.getNombreCliente().isEmpty()
                 || tr.getAsunto().isEmpty() || tr.getDescripcion().isEmpty() || tr.getCodigo().isEmpty()
-                || tr.getNombreIdentificador().isEmpty()|| tr.getNumeroCompraCot().isEmpty());
+                || tr.getNumeroCompraCot().isEmpty());
 
     }
     @Override

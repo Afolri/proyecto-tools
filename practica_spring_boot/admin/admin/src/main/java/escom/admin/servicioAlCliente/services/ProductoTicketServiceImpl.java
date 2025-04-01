@@ -22,7 +22,7 @@ public class ProductoTicketServiceImpl implements ProductoTicketService{
 
 
     @Override
-    public ProductoTicket crearProducto(String numeroCompraCot, String codigo, String nombreIdentificador) {
+    public ProductoTicket crearProducto(String numeroCompraCot, String codigo, Long numeroIdentificador) {
         //Creamos los Optional
         Optional<TipoIdentificador> tipoOptional;
         Optional<ProductoTicket> productoOptional;
@@ -34,11 +34,11 @@ public class ProductoTicketServiceImpl implements ProductoTicketService{
         ProductoTicket productoTicket = new ProductoTicket();
 
         //Buscamos si el nombre de identificador ya existe
-        tipoOptional = tipoIdentificadorRepository.findByNombreIdentificador(nombreIdentificador);
+        tipoOptional = tipoIdentificadorRepository.findByNumeroIdentificador(numeroIdentificador);
         //Si ya existe asigna el existente sino crea uno nuevo
             tipoIdentificador = tipoOptional.orElseGet(() ->{
                 TipoIdentificador tipoIdentificador1 = new TipoIdentificador();
-                tipoIdentificador1.setNombreIdentificador(nombreIdentificador);
+                tipoIdentificador1.setNumeroIdentificador(numeroIdentificador);
                 return tipoIdentificadorRepository.save(tipoIdentificador1);
                     });
         //Buscamos si el numero de compra ya existe

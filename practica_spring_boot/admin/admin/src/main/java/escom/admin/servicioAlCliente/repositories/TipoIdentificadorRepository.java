@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface TipoIdentificadorRepository extends JpaRepository<TipoIdentificador, Long> {
-    Optional<TipoIdentificador> findByNombreIdentificador(String nombreIdentificador);
+    Optional<TipoIdentificador> findByNumeroIdentificador(Long numeroIdentificador);
 
     @Transactional
     @Query(name = "buscar_identificadores", nativeQuery = true)

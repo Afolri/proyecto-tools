@@ -46,7 +46,7 @@ export class GenerarTicketComponent implements OnInit  {
       numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
       codigo:['',[Validators.required,Validators.maxLength(30)]],
       codigo2:['',[]],
-      nombre_identificador:['',[]],
+      numero_identificador:['',[]],
       asunto:['',[Validators.required]],
       nombre:['',[Validators.required, Validators.minLength(2),Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]+$")]],
       correo:['',[Validators.required, Validators.email, Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
@@ -110,11 +110,10 @@ export class GenerarTicketComponent implements OnInit  {
         correo: this.ticket.correo,
         telefono: this.ticket.telefono,
         descripcion: this.ticket.descripcion
-
+        
       })
-
+      
     }
-
     //llama a la función una vez generado el formulario
     this.configurarValidacionesCondicionales();
   }
@@ -122,19 +121,17 @@ export class GenerarTicketComponent implements OnInit  {
   //Método para hacer requerido el nombre del identificador solo cuando el checkbox "checkPersonalizado" esta activo
   configurarValidacionesCondicionales() {
     const ehs_approval = this.formularioTickets.get('ehs_approval');
-    const nombreIdentificadorControl = this.formularioTickets.get('nombre_identificador');
     const codigo2 = this.formularioTickets.get('codigo2');
   
-  
     ehs_approval?.valueChanges.subscribe(valor => {
+      console.log("numero de identificador"+this.formularioTickets.get('numero_identificador')?.value );
       if (valor) {
-        nombreIdentificadorControl?.setValidators([Validators.required, Validators.maxLength(30)]);
-        codigo2?.setValidators([Validators.required, Validators.maxLength(30)]);
+        if(this.formularioTickets.get('numero_identificador')?.value?.value != 4){
+          codigo2?.setValidators([Validators.required, Validators.maxLength(30)]);
+        }
       } else {
-        nombreIdentificadorControl?.clearValidators();
         codigo2?.clearValidators();
       }
-      nombreIdentificadorControl?.updateValueAndValidity(); // Se actualiza la validación
       codigo2?.updateValueAndValidity(); // Se actualiza la validación
     });
   }
@@ -160,7 +157,7 @@ export class GenerarTicketComponent implements OnInit  {
     let codigo = this.formularioTickets.get('codigo')?.value + 
     this.formularioTickets.get('ehs_approval')?.value?" "+this.formularioTickets.get('codigo2')?.value:"";
     let nombre_identificador = this.formularioTickets.get('ehs_approval')?.value
-    ? this.formularioTickets.get('nombre_identificador')?.value : 'numeroDeSerie';
+    ? this.formularioTickets.get('numero_identificador')?.value : '2';
     let numero_compra_cot= this.formularioTickets.get('numero_compra_cot')?.value;
     let nombre_cliente = this.formularioTickets.get('nombre')?.value;
     let correo = this.formularioTickets.get('correo')?.value;
