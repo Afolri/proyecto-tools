@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component,EventEmitter,Input, OnInit, Output} from '@angular/core';
+import { Component,EventEmitter,Input, OnInit, Output, RESPONSE_INIT} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
 
@@ -24,6 +24,10 @@ export interface Ticket {
   hora:Date;
 
 }
+export interface TipoIdentificador{
+  numero_identificador?:number,
+  nombre_identificador?:string;
+}
 
 const baseURL = `${environment.URL_BASE}`;
 
@@ -34,7 +38,7 @@ const baseURL = `${environment.URL_BASE}`;
   styleUrl: './generar-ticket.component.css'
 })
 export class GenerarTicketComponent implements OnInit  {
-
+  identificadores?:TipoIdentificador[];
   //Para trabajar con modulo reactivo
   formularioTickets!:FormGroup;
   constructor(private formBuilder: FormBuilder){
@@ -97,6 +101,7 @@ export class GenerarTicketComponent implements OnInit  {
   };
 
   ngOnInit() {
+    this.obtenerIdentificadores();
     if (this.modo === 'editar' && this.ticket) {
       this.formularioTickets.setValue({
         numero_compra_cot: this.ticket.numero_compra_cot,
@@ -152,10 +157,10 @@ export class GenerarTicketComponent implements OnInit  {
   crearticket(){
 
 
-    let codigo = this.formularioTickets.get('codigo')?.value +" "+this.formularioTickets.get('codigo2')?.value;
+    let codigo = this.formularioTickets.get('codigo')?.value + 
+    this.formularioTickets.get('ehs_approval')?.value?" "+this.formularioTickets.get('codigo2')?.value:"";
     let nombre_identificador = this.formularioTickets.get('ehs_approval')?.value
     ? this.formularioTickets.get('nombre_identificador')?.value : 'numeroDeSerie';
-  
     let numero_compra_cot= this.formularioTickets.get('numero_compra_cot')?.value;
     let nombre_cliente = this.formularioTickets.get('nombre')?.value;
     let correo = this.formularioTickets.get('correo')?.value;
@@ -246,6 +251,26 @@ export class GenerarTicketComponent implements OnInit  {
   }
 
 
+  obtenerIdentificadores() {
+    fetch(`${baseURL}/admin/reporte-tickets/obtener-identificadores`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Hubo un error al obtener los identificadores");
+        }
+        return response.json();
+      })
+      .then((identificadores: TipoIdentificador[]) => {
+        this.identificadores = identificadores;
+        console.log("Identificadores obtenidos:", identificadores);
+      })
+      .catch(error => {
+        console.error("Error en la solicitud:", error);
+      });
+  }
+  
 
 
 }

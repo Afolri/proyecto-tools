@@ -30,8 +30,9 @@
 
         <ng-container *ngIf="formularioTickets.get('ehs_approval')?.value">
           <select class="tipo" formControlName="nombre_identificador">
-            <option value="modeloMarca">modelo / marca</option>
-            <option value="factura">Factura</option>
+            @for(identificador of identificadores; track identificador.numero_identificador){
+            <option value="identificador.numero_identificador">{{identificador.nombre_identificador}}</option>
+            }
           </select>
         </ng-container>
         

@@ -17,12 +17,12 @@ services:
 
   multitool_db:
     container_name: db_app
-    mem_limit: 512m
+    mem_limit: 256m
     image: postgres:17.4           
     ports:
       - "5433:5432"               
     environment:
-      POSTGRES_USER: postgres      
+      POSTGRES_USER: postgres    
       POSTGRES_PASSWORD: 7894      
       POSTGRES_DB: postgres        
     restart: always

@@ -25,10 +25,10 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\NotificacionResponseDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\TicketRequestDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\TicketResponseDTO.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\TipoIdentificadorResponseDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\UsuarioResponseDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Agente.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Cliente.java
-C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Comentario.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Notificacion.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\ProductoTicket.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\ProductoTipo.java

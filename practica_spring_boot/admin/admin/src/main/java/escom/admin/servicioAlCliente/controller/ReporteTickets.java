@@ -6,8 +6,10 @@ import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
 import escom.admin.servicioAlCliente.entities.Cliente;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.entities.Ticket;
+import escom.admin.servicioAlCliente.entities.TipoIdentificador;
 import escom.admin.servicioAlCliente.services.NotificacionService;
 import escom.admin.servicioAlCliente.services.TicketService;
+import escom.admin.servicioAlCliente.services.TipoIdentificadorService;
 import escom.admin.servicioAlCliente.services.UsuarioService;
 import jdk.jfr.Unsigned;
 import org.json.JSONObject;
@@ -28,6 +30,8 @@ public class ReporteTickets {
     private NotificacionService notificacionService;
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private TipoIdentificadorService tipoIdentificadorService;
 
     @PostMapping("/crear-ticket")
     public ResponseEntity<?> crearTicket(@RequestBody TicketRequestDTO ticketRequestDTO) {
@@ -103,6 +107,11 @@ public class ReporteTickets {
     public ResponseEntity<?> abrirNotificacion (@RequestParam ("numero-notificacion")Long numeroNotificacion){
         notificacionService.abrirNotificacion(numeroNotificacion);
         return ResponseEntity.ok().body("Marcada como leida");
+    }
+
+    @GetMapping("/obtener-identificadores")
+    public ResponseEntity<?> obtenerIdentificadores(){
+        return ResponseEntity.ok().body(tipoIdentificadorService.obtenerIdentificadores());
     }
 
 
