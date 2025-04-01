@@ -101,7 +101,6 @@ export class GenerarTicketComponent implements OnInit  {
   };
 
   ngOnInit() {
-    this.obtenerIdentificadores();
     if (this.modo === 'editar' && this.ticket) {
       this.formularioTickets.setValue({
         numero_compra_cot: this.ticket.numero_compra_cot,
@@ -114,27 +113,41 @@ export class GenerarTicketComponent implements OnInit  {
       })
       
     }
+    this.obtenerIdentificadores();
     //llama a la función una vez generado el formulario
     this.configurarValidacionesCondicionales();
   }
 
   //Método para hacer requerido el nombre del identificador solo cuando el checkbox "checkPersonalizado" esta activo
   configurarValidacionesCondicionales() {
-    const ehs_approval = this.formularioTickets.get('ehs_approval');
+    const numero_identificador = this.formularioTickets.get('numero_identificador');
     const codigo2 = this.formularioTickets.get('codigo2');
+    const validar = this.formularioTickets.get('ehs_approval');
   
-    ehs_approval?.valueChanges.subscribe(valor => {
-      console.log("numero de identificador"+this.formularioTickets.get('numero_identificador')?.value );
-      if (valor) {
-        if(this.formularioTickets.get('numero_identificador')?.value?.value != 4){
-          codigo2?.setValidators([Validators.required, Validators.maxLength(30)]);
-        }
+    // Suscripción para cambios en numero_identificador
+    numero_identificador?.valueChanges.subscribe(valor => {
+      const idConvertido = Number(valor); // Convertimos a número por seguridad
+      
+      if (idConvertido === 4) {
+        codigo2?.setValidators([Validators.required, Validators.maxLength(30)]);
       } else {
         codigo2?.clearValidators();
       }
-      codigo2?.updateValueAndValidity(); // Se actualiza la validación
+  
+      codigo2?.updateValueAndValidity();
+    });
+  
+    // Suscripción para cambios en ehs_approval
+    validar?.valueChanges.subscribe(valor => {
+      if (!valor) {
+        codigo2?.clearValidators();
+        codigo2?.updateValueAndValidity();
+      }
     });
   }
+  
+  
+  
   //Metodo para trabajar con el envio del formulario reactivo:
   onSubmit(){
     if(this.formularioTickets.valid){
