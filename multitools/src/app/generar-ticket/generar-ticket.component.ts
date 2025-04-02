@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component,EventEmitter,Input, OnInit, Output, RESPONSE_INIT} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment.development';
+import { Route, Router } from '@angular/router';
 
 //La estructura cambia a:
 export interface Ticket {
@@ -41,7 +42,7 @@ export class GenerarTicketComponent implements OnInit  {
   identificadores?:TipoIdentificador[];
   //Para trabajar con modulo reactivo
   formularioTickets!:FormGroup;
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder, private route:Router){
    this.formularioTickets= this.formBuilder.group({
       numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
       codigo:['',[Validators.required,Validators.maxLength(30)]],
@@ -168,8 +169,9 @@ export class GenerarTicketComponent implements OnInit  {
 
 
     let codigo = this.formularioTickets.get('codigo')?.value + 
-    this.formularioTickets.get('ehs_approval')?.value?" "+this.formularioTickets.get('codigo2')?.value:"";
-    let nombre_identificador = this.formularioTickets.get('ehs_approval')?.value
+    (this.formularioTickets.get('ehs_approval')?.value ? 
+    " " + this.formularioTickets.get('codigo2')?.value : "");
+    let numero_identificador = this.formularioTickets.get('ehs_approval')?.value
     ? this.formularioTickets.get('numero_identificador')?.value : '2';
     let numero_compra_cot= this.formularioTickets.get('numero_compra_cot')?.value;
     let nombre_cliente = this.formularioTickets.get('nombre')?.value;
@@ -183,7 +185,7 @@ export class GenerarTicketComponent implements OnInit  {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         codigo,
-        nombre_identificador,
+        numero_identificador,
         numero_compra_cot,
         nombre_cliente,
         correo,
@@ -194,7 +196,7 @@ export class GenerarTicketComponent implements OnInit  {
     })
       .then(response => {
         if (!response.ok) {
-          return response.json().then(error =>{
+          response.json().then(error =>{
             
             if(error.error != ""){
               const errorMessage = error.error;
@@ -202,10 +204,7 @@ export class GenerarTicketComponent implements OnInit  {
             }
           })
         }
-        return response.text().then(text => {
-          // Si hay texto, lo parseamos a JSON, de lo contrario retornamos un objeto vacío
-          return text ? JSON.parse(text) : {};
-        });
+        this.route.navigate(['mensaje'])
       })
       .catch(error => console.error("Error:", error));
   }

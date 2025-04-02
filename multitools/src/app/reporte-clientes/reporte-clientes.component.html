@@ -50,7 +50,7 @@
           <div>{{ ticket.nombre_cliente }}</div>
           <div>{{ ticket.telefono }}</div>
           <div class="correo">{{ ticket.correo }}</div>
-          <div >{{ ticket.descripcion }}</div>
+          <div class="descripcion" >{{ ticket.descripcion }}</div>
           <div class="estado" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
           <div>{{ ticket?.numero_agente || 'No asignado' }}</div>
           <div>{{ ticket.fecha }}</div>

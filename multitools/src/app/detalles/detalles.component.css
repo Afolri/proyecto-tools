@@ -9,6 +9,7 @@
     border-radius: 17px;
     text-align: center;
     gap:10px;
+    align-items: center;
 }
 .contenedor div{
     padding: 10px 30px;
@@ -32,16 +33,21 @@ div li:active{
 }
 .infoCampo {
     position: relative;
+
     padding-right: 2rem; 
     background-color: #442bb6; 
     min-width: 250px;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .infoCampo:after {
     content: " ";
     position: absolute;
     top: 50%; 
-    right: -25%; 
+    right: -4rem; 
     border-left: 2rem solid #442bb6; 
     border-top: 1.5rem solid transparent; 
     border-bottom: 1.5rem solid transparent; 
@@ -50,4 +56,8 @@ div li:active{
 }
 .contenedor div:not(.infoCampo) {
     border-bottom: 1px white solid;
+}
+.dato{
+    max-width:400px;
+    overflow-wrap: break-word;
 }

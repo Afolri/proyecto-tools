@@ -60,7 +60,6 @@ export class LoginComponent implements OnInit{
     .then(data => {
         if (data.token) {  // Suponiendo que la API devuelve un objeto con { token: "..." }
             localStorage.setItem('token', data.token);
-            console.log("Token guardado:", data.token);
             this.obtenerUsuarioLoggeado();
             return this.router.navigate(['/reporte-clientes']);
         } else {
@@ -87,7 +86,6 @@ obtenerUsuarioLoggeado(){
         }
         return console.error("Error", "no se pudieron obtener los datos de usuario");
     }).then(response =>{
-        console.log("Usuario",response);
         this.authService.setUsuario(response);
     })
 }

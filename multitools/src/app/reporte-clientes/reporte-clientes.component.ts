@@ -172,7 +172,6 @@ export class ReporteClientesComponent implements OnInit {
         return response.json();
     })
     .then((tickets: Ticket[]) => {
-        console.log("Tickets recibidos:", tickets);
         this.tablatickets = tickets;
     })
     .catch(error => {

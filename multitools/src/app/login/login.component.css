@@ -1,3 +1,36 @@
-label input{
-    background-color: red;
+.contenedor{
+    position: relative;
+    border: 1px solid hsla(211, 48%, 21%, 0.691);
+    padding: 30px 100px;
+    border-radius: 18px;
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    justify-content:stretch;
+    margin: 20px;
+    transition: padding .1s ease-in-out;
+    background-color: rgba(8, 33, 65, 0.684) ;
+    text-transform:uppercase;
+}
+.contenedor:hover{
+    padding: 32px 102px;
+}
+.contenedor input{
+    background-color:rgba(72, 125, 185, 0.322);
+}
+.elemento [type = submit]{
+    background-color: rgba(72, 125, 185, 0.684);
+    color: white;
+    padding:10px 30px;
+}
+.elemento [type = submit]:hover{
+    color:gray;
+    background-color: rgba(85, 141, 206, 0.684);
+}
+.elemento [type = submit]:active{
+    color:gray;
+    background-color: rgb(30, 70, 116);
+}
+.contenedor > *{
+    text-align: center;
 }

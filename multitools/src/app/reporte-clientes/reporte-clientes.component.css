@@ -85,6 +85,32 @@
     overflow: hidden;
     max-height: 20px;
 }
+.descripcion{
+    max-height: 1.5rem;
+    overflow-wrap: break-word;
+    overflow-y: auto;
+}
+.descripcion::-webkit-scrollbar{
+    display: block;
+    width: 10px;
+    height: 10px;
+    border:2px solid black;
+    margin-top: -5px;
+}
+.descripcion::-webkit-scrollbar-thumb{
+    background-color: hsl(215, 35%, 45%);
+}
+.descripcion::-webkit-scrollbar-track{
+
+    background-color: white;
+}
+.descripcion::-webkit-scrollbar-button{
+    display:none;
+}
+.descripcion::-webkit-scrollbar-track-piece{
+    background-color: rgb(255, 255, 255);
+    
+}
 .primera-linea{
     display: flex;
     text-indent: 20%;

@@ -20,7 +20,6 @@ export class DetallesComponent implements OnInit{
     const ticketString = this.routerActive.snapshot.queryParamMap.get('ticket');
     if(ticketString){
       this.ticketactual = JSON.parse(ticketString);
-      console.log(this.ticketactual);
     }
 
     

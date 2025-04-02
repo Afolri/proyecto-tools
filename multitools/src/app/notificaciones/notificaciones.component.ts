@@ -19,7 +19,7 @@ const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-notificaciones',
-  imports: [GenerarTicketComponent, CommonModule],
+  imports: [CommonModule],
   templateUrl: './notificaciones.component.html',
   styleUrl: './notificaciones.component.css',
   standalone: true,
@@ -63,7 +63,6 @@ export class NotificacionesComponent implements OnInit {
       if(response.ok){
         this.verNotificaciones();
         this.abrirDetallesNotificacion(numeroTicketSeleccionado);
-        console.log("notificacion vista");
       }
     })
   }

@@ -5,6 +5,7 @@ import { GenerarTicketComponent } from './generar-ticket/generar-ticket.componen
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DetallesComponent } from './detalles/detalles.component';
+import { MensajePersonalizadoComponent } from './mensaje-personalizado/mensaje-personalizado.component';
 
 export const routes: Routes = [
     { path: 'reporte-clientes', component: ReporteClientesComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
     { path: 'generar-tickets', component: GenerarTicketComponent },
     { path: 'app-component', component: AppComponent},
     { path: 'login', component: LoginComponent},
-    { path: 'detalles', component: DetallesComponent}
+    { path: 'detalles', component: DetallesComponent},
+    { path: 'mensaje', component: MensajePersonalizadoComponent}
 ];
