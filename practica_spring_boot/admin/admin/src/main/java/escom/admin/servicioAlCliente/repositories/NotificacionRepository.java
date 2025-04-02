@@ -2,6 +2,7 @@ package escom.admin.servicioAlCliente.repositories;
 
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.entities.Notificacion;
+import jakarta.transaction.Transactional;
 import org.hibernate.annotations.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,5 +24,12 @@ public interface NotificacionRepository extends JpaRepository<Notificacion, Long
             	WHERE numero_notificacion = :numeroNotificacion;
             """, nativeQuery = true)
     void marcarLeidaNotificacion(@Param("numeroNotificacion") Long numeroNotificacion);
+
+    @Transactional
+    @Query(value = """
+            SELECT sn.estado_notificacion as estado  FROM soporte.notificacion sn 
+            WHERE sn.estado_notificacion = true LIMIT 1
+            """, nativeQuery = true)
+    void leerNotificacion ();
 
 }

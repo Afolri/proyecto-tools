@@ -37,7 +37,7 @@ services:
     networks:
       - multitool_network
 
-  angular-app:
+  angular_app:
     container_name: angular_app
     image: pee-angular_app:1.0.0
     build: ./multitools
