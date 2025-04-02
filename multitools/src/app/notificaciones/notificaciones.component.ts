@@ -4,7 +4,7 @@ import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 interface notificaciones{
   numero_notificacion:number;

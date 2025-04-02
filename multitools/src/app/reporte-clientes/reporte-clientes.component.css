@@ -92,7 +92,7 @@
 }
 .descripcion::-webkit-scrollbar{
     display: block;
-    width: 10px;
+    width: 5px;
     height: 10px;
     border:2px solid black;
     margin-top: -5px;
@@ -107,10 +107,7 @@
 .descripcion::-webkit-scrollbar-button{
     display:none;
 }
-.descripcion::-webkit-scrollbar-track-piece{
-    background-color: rgb(255, 255, 255);
-    
-}
+
 .primera-linea{
     display: flex;
     text-indent: 20%;

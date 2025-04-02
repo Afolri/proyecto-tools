@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component,EventEmitter,Input, OnInit, Output, RESPONSE_INIT} from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 import { Route, Router } from '@angular/router';
 
 //La estructura cambia a:
