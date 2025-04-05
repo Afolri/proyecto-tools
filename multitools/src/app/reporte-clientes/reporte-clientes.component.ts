@@ -32,6 +32,8 @@ const baseURL = `${environment.URL_BASE}`;
 })
 
 export class ReporteClientesComponent implements OnInit {
+  /**Variable que guarda si hay notificaciones pendientes */
+  notificacionesSinLeer:boolean = false;
   /**Aquí se guardara el ticket actual */
   ticketActual!:Ticket;
   /**Aquí se guarda el usuario que actualmente esta loggeado */
@@ -96,6 +98,7 @@ export class ReporteClientesComponent implements OnInit {
         this.cargarTickets();
       }
     });
+    this.notificacionesPendientes();
   }
 
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
@@ -264,5 +267,24 @@ export class ReporteClientesComponent implements OnInit {
     this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
     const ticketJson = JSON.stringify(this.ticketActual);
     this.router.navigate(['detalles'], {queryParams: { ticket:ticketJson}});
+  }
+
+  notificacionesPendientes(){
+    const t = localStorage.getItem('token');
+    fetch(`${baseURL}/admin/reporte-tickets/notificaciones-pendientes`,{
+      method: 'GET',
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${t}`
+      }
+    }).then(response =>{
+      if(!response.ok){
+        throw new Error(`Error ${response.status}: No se pudieron obtener las notificaciones.`);
+      }
+      return response.json();
+    })
+    .then (response =>{
+      this.notificacionesSinLeer = response
+    })
   }
 }

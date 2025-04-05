@@ -27,9 +27,9 @@ public interface NotificacionRepository extends JpaRepository<Notificacion, Long
 
     @Transactional
     @Query(value = """
-            SELECT sn.estado_notificacion as estado  FROM soporte.notificacion sn 
-            WHERE sn.estado_notificacion = true LIMIT 1
+            SELECT CASE WHEN sn.estado_notificacion IS false THEN true ELSE false END AS estado  FROM soporte.notificacion sn
+            LIMIT 1
             """, nativeQuery = true)
-    void leerNotificacion ();
+    boolean notificacionesSinVer ();
 
 }

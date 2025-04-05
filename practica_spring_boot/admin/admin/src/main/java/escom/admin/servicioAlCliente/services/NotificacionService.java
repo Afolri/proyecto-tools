@@ -15,4 +15,5 @@ public interface NotificacionService {
     void abrirNotificacion(Long numeroNotificacion);
     void crearNotificacion(Ticket ticket, String mensaje);
     public void marcarComoLeida(Long numeroNotificacion);
+    boolean notificacionesPendientes();
 }

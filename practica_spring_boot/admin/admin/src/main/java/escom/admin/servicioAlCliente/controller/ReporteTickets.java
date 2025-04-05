@@ -113,6 +113,10 @@ public class ReporteTickets {
     public ResponseEntity<?> obtenerIdentificadores(){
         return ResponseEntity.ok().body(tipoIdentificadorService.obtenerIdentificadores());
     }
+    @GetMapping("/notificaciones-pendientes")
+    public ResponseEntity<?> notificacionesPendientes(){
+        return ResponseEntity.ok().body(notificacionService.notificacionesPendientes());
+    }
 
 
 }

@@ -58,4 +58,9 @@ public class NotificacionServiceImpl implements NotificacionService {
     public void marcarComoLeida(Long numeroNotificacion){
         notificacionRepository.marcarLeidaNotificacion(numeroNotificacion);
     }
+
+    @Override
+    public boolean notificacionesPendientes() {
+        return notificacionRepository.notificacionesSinVer();
+    }
 }

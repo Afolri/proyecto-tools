@@ -1,5 +1,5 @@
 <div class = "notificacion icono">
-  <i [ngClass]="mostrarNotificaciones?'fa-solid fa-bell':'fa-solid fa-bell fa-shake'" (click)="abrirNotificaciones()" class="campana"></i>
+  <i [ngClass]="notificacionesSinLeer?'fa-solid fa-bell fa-shake':'fa-solid fa-bell'" (click)="abrirNotificaciones()" class="campana"></i>
   <app-notificaciones 
   (notificacionEvent)="abrirDetallesNotificacion($event)"
   class="bandeja" *ngIf="mostrarNotificaciones"></app-notificaciones>
