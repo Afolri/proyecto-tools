@@ -9,5 +9,5 @@ FROM nginx:alpine
 COPY ./config/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist/multi-tools/browser/ /var/www/app/
 RUN chown -R nginx:nginx /var/www/app
-EXPOSE 80
+EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
