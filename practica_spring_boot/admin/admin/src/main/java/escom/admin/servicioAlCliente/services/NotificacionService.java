@@ -13,7 +13,7 @@ import java.util.Map;
 public interface NotificacionService {
     List<NotificacionResponseDTO> verNotificaciones(Long numeroUsuario);
     void abrirNotificacion(Long numeroNotificacion);
-    void crearNotificacion(Ticket ticket, String mensaje);
+    NotificacionResponseDTO crearNotificacion(Ticket ticket, String mensaje);
     public void marcarComoLeida(Long numeroNotificacion);
     boolean notificacionesPendientes();
 }

@@ -19,9 +19,11 @@ escom\admin\productos\services\ProcesadorServiceImpl.class
 escom\admin\servicioAlCliente\jwt\JwtService.class
 escom\admin\servicioAlCliente\services\NotificacionService.class
 escom\admin\productos\repositories\ProductoRepository.class
+escom\admin\servicioAlCliente\config\WebSocketAuthInterceptor.class
 escom\admin\servicioAlCliente\services\UsuarioServiceImpl.class
 escom\admin\servicioAlCliente\dto\TipoIdentificadorResponseDTO.class
 escom\admin\productos\services\ProcesadorService.class
+escom\admin\servicioAlCliente\dto\TicketResponseDTO$TicketResponseDTOBuilder.class
 escom\admin\servicioAlCliente\dto\TicketResponseDTO.class
 escom\admin\servicioAlCliente\entities\Agente.class
 escom\admin\servicioAlCliente\services\TicketService.class
@@ -42,8 +44,10 @@ escom\admin\servicioAlCliente\Auth\AuthController.class
 escom\admin\servicioAlCliente\repositories\ClienteRepository.class
 escom\admin\servicioAlCliente\repositories\AgentesRespository.class
 escom\admin\productos\services\ProductoServiceImpl.class
+escom\admin\servicioAlCliente\config\WebSocketConfig.class
 escom\admin\servicioAlCliente\entities\Notificacion.class
 escom\admin\productos\model\Producto.class
+escom\admin\servicioAlCliente\dto\NotificacionResponseDTO$NotificacionResponseDTOBuilder.class
 escom\admin\servicioAlCliente\entities\Cliente.class
 escom\admin\productos\services\ProductoService.class
 escom\admin\productos\model\Marca.class
@@ -62,6 +66,7 @@ escom\admin\servicioAlCliente\entities\ProductoTipo.class
 escom\admin\servicioAlCliente\dto\NotificacionResponseDTO.class
 escom\admin\servicioAlCliente\config\RegistroTicketModuleConfig.class
 escom\admin\servicioAlCliente\services\NotificacionServiceImpl.class
+escom\admin\servicioAlCliente\controller\NotificacionesSocketController.class
 escom\admin\servicioAlCliente\controller\ReporteTickets.class
 escom\admin\servicioAlCliente\services\TipoIdentificadorServiceImpl.class
 escom\admin\servicioAlCliente\config\SecurityConfig.class

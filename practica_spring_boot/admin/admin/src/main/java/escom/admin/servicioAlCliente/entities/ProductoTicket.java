@@ -2,6 +2,7 @@ package escom.admin.servicioAlCliente.entities;
 
 import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "productoticket" , schema = "soporte")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_producto")
+@Data
 public class ProductoTicket {
 
     @Id
@@ -26,29 +28,4 @@ public class ProductoTicket {
     @JsonManagedReference
     private List<ProductoTipo> productoTipo = new ArrayList<>();;
 
-
-    public Long getNumeroProducto() {
-        return numeroProducto;
-    }
-
-    public void setNumeroProducto(Long numeroProducto) {
-        this.numeroProducto = numeroProducto;
-    }
-
-
-    public String getNumeroCompraCot() {
-        return numeroCompraCot;
-    }
-
-    public void setNumeroCompraCot(String numeroCompraCot) {
-        this.numeroCompraCot = numeroCompraCot;
-    }
-
-    public List<ProductoTipo> getProductoTipo() {
-        return productoTipo;
-    }
-
-    public void setProductoTipos(List<ProductoTipo> productoTipos) {
-        this.productoTipo = productoTipos;
-    }
 }

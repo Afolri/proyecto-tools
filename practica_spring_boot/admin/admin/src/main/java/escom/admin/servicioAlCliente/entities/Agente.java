@@ -3,6 +3,7 @@ package escom.admin.servicioAlCliente.entities;
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,44 +12,26 @@ import java.util.List;
 @Table(name = "agentes" , schema = "soporte")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_agente")
+@Data
 public class Agente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "numero_agente")
     @JsonProperty("numero_agente")
-    Long numeroAgente;
+    private Long numeroAgente;
 
     @Column(name = "nombres_agente")
     @JsonProperty("nombres_agente")
-    String nombreAgente;
+    private String nombreAgente;
 
     @Column(name = "apellidos_agente")
     @JsonProperty("apellidos_agente")
-    String apellidosAgente;
+    private String apellidosAgente;
 
+    @OneToOne
+    @JoinColumn(name = "numero_usuario")
+    @JsonProperty("numero_usuario")
+    private Usuario numeroUsuario;
 
-    public Long getNumeroAgente() {
-        return numeroAgente;
-    }
-
-    public void setNumeroAgente(Long numeroAgente) {
-        this.numeroAgente = numeroAgente;
-    }
-
-    public String getNombreAgente() {
-        return nombreAgente;
-    }
-
-    public void setNombreAgente(String nombreAgente) {
-        this.nombreAgente = nombreAgente;
-    }
-
-    public String getApellidosAgente() {
-        return apellidosAgente;
-    }
-
-    public void setApellidosAgente(String apellidosAgente) {
-        this.apellidosAgente = apellidosAgente;
-    }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.loadtime.Agent;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +40,9 @@ public class Usuario implements UserDetails {
 
     @Column(name = "rol")
     private Rol rol;
+
+    @OneToOne (mappedBy = "numeroUsuario")
+    private Agente agente;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

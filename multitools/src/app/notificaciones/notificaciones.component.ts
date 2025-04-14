@@ -1,20 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GenerarTicketComponent, Ticket } from '../generar-ticket/generar-ticket.component';
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
 import { environment } from '../../environments/environment';
+import { Notificaciones } from '../reporte-clientes/reporte-clientes.component';
 
-interface notificaciones{
-  numero_notificacion:number;
-  numero_ticket:number;
-  fecha:Date,
-  estado_notificacion:boolean,
-  mensaje:string,
-  estado:string,
-  nombre_cliente:string
-}
+
 const baseURL = `${environment.URL_BASE}`;
 
 @Component({
@@ -27,30 +20,21 @@ const baseURL = `${environment.URL_BASE}`;
 })
 export class NotificacionesComponent implements OnInit {
   usuarioActual!:Usuario;
-  notificaciones:notificaciones[] = [];
+  @Input() notificacionesMostradas:Notificaciones[] = [];
   @Output() notificacionEvent = new EventEmitter<number>();
+
+
 
   constructor(private authService:AuthService, private router:Router){}
   ngOnInit() {
     this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
     })
-    this.verNotificaciones();
+    
   }
   
 
-  verNotificaciones(){
-    fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json",
-          "Authorization":`Bearer ${localStorage.getItem('token')}`
-         }
-      }
-    )
-    .then(response => response.json())
-    .then(notificaciones => this.notificaciones = notificaciones);
-  }
+
   leerNotificacion(numeroNotificacion:number, numeroTicketSeleccionado:number){
     fetch(`${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
       {
@@ -61,7 +45,7 @@ export class NotificacionesComponent implements OnInit {
       }
     ).then(response =>{
       if(response.ok){
-        this.verNotificaciones();
+        /**this.verNotificaciones();*/
         this.abrirDetallesNotificacion(numeroTicketSeleccionado);
       }
     })

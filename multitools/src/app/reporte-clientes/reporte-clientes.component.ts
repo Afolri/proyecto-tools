@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GenerarTicketComponent, } from "../generar-ticket/generar-ticket.component";
@@ -10,11 +10,24 @@ import { EditarTicketComponent } from "../editar-ticket/editar-ticket.component"
 import { LoginComponent, Usuario } from '../login/login.component';
 import { faBars, faComment, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { tick } from '@angular/core/testing';
+import { Client, IMessage } from '@stomp/stompjs';
+import SockJS from 'sockjs-client';
+import { BehaviorSubject } from 'rxjs';
+import { WebSocketService } from '../web-socket.service';
 
-
+export interface Notificaciones{
+  numero_notificacion:number;
+  numero_ticket:number;
+  numero_usuario:number
+  fecha:Date,
+  hora:Date,
+  estado_notificacion:boolean,
+  mensaje:string,
+  estado:string,
+  nombre_cliente:string,
+}
 
 const baseURL = `${environment.URL_BASE}`;
 
@@ -26,12 +39,17 @@ const baseURL = `${environment.URL_BASE}`;
     MensajeAvisoComponent,
     FontAwesomeModule,
     NotificacionesComponent,
-    EditarTicketComponent],
+    EditarTicketComponent,
+  ],
   templateUrl: './reporte-clientes.component.html',
   styleUrls: ['./reporte-clientes.component.css']
 })
 
 export class ReporteClientesComponent implements OnInit {
+  /**Donde se guardaraon los tickets que se pasen por el socket */
+  ticketsSocket:Ticket[] = [];
+  /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
+  notificaciones:Notificaciones[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
   notificacionesSinLeer:boolean = false;
   /**Aquí se guardara el ticket actual */
@@ -50,7 +68,7 @@ export class ReporteClientesComponent implements OnInit {
   lockIcono:boolean = false;
   /**Variable para saber si esta activado el estilo para el icono edit */
   editIcono:boolean = false;
-
+  
   /**Sirve para saber si hay notificaciones pendientes */
   @ViewChild(NotificacionesComponent) notificacionComp!:NotificacionesComponent;
   @ViewChild(LoginComponent) loginComp!:LoginComponent;
@@ -86,7 +104,11 @@ export class ReporteClientesComponent implements OnInit {
   };
 
 
-  constructor(library: FaIconLibrary, private authService: AuthService, private router: Router) {
+
+  constructor(library: FaIconLibrary, private authService: AuthService, private router: Router,
+    private webSocketService:WebSocketService
+  ) {
+    webSocketService.ngOnInit();
     library.addIcons(faComment);
     library.addIcons(faLock);
     library.addIcons(faBars);
@@ -96,11 +118,20 @@ export class ReporteClientesComponent implements OnInit {
       if (usuario) { 
         this.usuarioActual = usuario;
         this.cargarTickets();
+        this.verNotificaciones();
+        this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
+          console.log("Resultado",JSON.parse(message.body));
+          this.notificaciones.unshift(JSON.parse(message.body));
+          this.notificacionesSinLeer=true;
+        })
+        this.webSocketService.suscribirse(`/topic/ticket/${this.usuarioActual.numero_usuario}`,(message:IMessage) =>{
+          this.ticketsSocket.push(JSON.parse(message.body));
+        })
       }
     });
     this.notificacionesPendientes();
+    
   }
-
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
   activarCheck(ticketactual:Ticket){
     const ticketencontrado = this.tablatickets.find(ticket => ticket.numero_ticket == ticketactual.numero_ticket);
@@ -150,9 +181,6 @@ export class ReporteClientesComponent implements OnInit {
     };
   }
   
-
-  
-
   cargarTickets() {
     const token = localStorage.getItem("token");
 
@@ -256,8 +284,16 @@ export class ReporteClientesComponent implements OnInit {
     let ticket = this.tablatickets?.find(obj => obj.numero_ticket === ticketSeleccionado);
     if(ticket){
       return this.ticketSeleccionadoEntidad = ticket;
+    }else if(!ticket){
+      this.cargarTickets();
+      ticket = this.ticketsSocket?.find(obj => obj.numero_ticket === ticketSeleccionado);
+      if(ticket){
+        return ticket;
+      }else{
+        throw new Error ('Ticket no encontrado');
+      }
     }else{
-      throw new Error ('Ticket no encontrado')
+      throw new Error ('Ticket no encontrado');
     }
   }
   
@@ -286,5 +322,18 @@ export class ReporteClientesComponent implements OnInit {
     .then (response =>{
       this.notificacionesSinLeer = response
     })
+  }
+
+  verNotificaciones(){
+    fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json",
+          "Authorization":`Bearer ${localStorage.getItem('token')}`
+         }
+      }
+    )
+    .then(response => response.json())
+    .then(notificaciones => this.notificaciones = notificaciones);
   }
 }

@@ -2,7 +2,10 @@ package escom.admin.servicioAlCliente.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import escom.admin.servicioAlCliente.dto.DatosSocketDTOResponse;
+import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
+import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.Cliente;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.entities.Ticket;
@@ -16,9 +19,14 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 @Controller
@@ -36,10 +44,8 @@ public class ReporteTickets {
     @PostMapping("/crear-ticket")
     public ResponseEntity<?> crearTicket(@RequestBody TicketRequestDTO ticketRequestDTO) {
         try {
-            Map<String, String> respuesta = ticketService.crearTicketConCliente(ticketRequestDTO);
-            System.out.println(ticketRequestDTO.toString());
-            return (respuesta.get("error").equals("")) ? ResponseEntity.ok().body("") :
-                    ResponseEntity.badRequest().body(respuesta);
+            DatosSocketDTOResponse datosSocket= ticketService.crearTicketConCliente(ticketRequestDTO);
+            return ResponseEntity.ok(datosSocket);
 
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al crear el ticket");
@@ -83,7 +89,7 @@ public class ReporteTickets {
         try {
             return ResponseEntity.ok().body(notificacionService.verNotificaciones(numeroUsuario));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error al obtener las notificaciones");
+            return ResponseEntity.badRequest().body("Error al obtener las notificaciones"+ e.getMessage());
         }
     }
 

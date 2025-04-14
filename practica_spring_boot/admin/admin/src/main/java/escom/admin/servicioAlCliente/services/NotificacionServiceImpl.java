@@ -3,20 +3,13 @@ package escom.admin.servicioAlCliente.services;
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.entities.Notificacion;
 import escom.admin.servicioAlCliente.entities.Ticket;
-import escom.admin.servicioAlCliente.entities.Usuario;
 import escom.admin.servicioAlCliente.repositories.NotificacionRepository;
 import escom.admin.servicioAlCliente.repositories.TicketRepository;
 import escom.admin.servicioAlCliente.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 public class NotificacionServiceImpl implements NotificacionService {
@@ -31,7 +24,11 @@ public class NotificacionServiceImpl implements NotificacionService {
 
     @Override
     public List<NotificacionResponseDTO> verNotificaciones(Long numeroUsuario) {
-        return notificacionRepository.buscarNotificacionDTO(numeroUsuario);
+        try{
+            return notificacionRepository.buscarNotificacionDTO(numeroUsuario);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     @Override
@@ -47,11 +44,22 @@ public class NotificacionServiceImpl implements NotificacionService {
     }
 
     @Override
-    public void crearNotificacion(Ticket ticket, String mensaje) {
+    public NotificacionResponseDTO crearNotificacion(Ticket ticket, String mensaje) {
         Notificacion notificacion = new Notificacion();
         notificacion.setTicket(ticket);
         notificacion.setMensaje(mensaje);
-        notificacionRepository.save(notificacion);
+        Notificacion notiTemp = notificacionRepository.save(notificacion);
+        return NotificacionResponseDTO.builder()
+                .numeroNotificacion(notiTemp.getNumeroNotificacion())
+                .numeroTicket(notiTemp.getTicket().getNumeroTicket())
+                .usuarioAgenteAsignado(ticket.getAgente().getNumeroUsuario().getNumeroUsuario())
+                .fecha(ticket.getFecha())
+                .hora(ticket.getHora())
+                .estadoNotificacion(notificacion.getEstadoNotificacion())
+                .mensaje(notificacion.getMensaje())
+                .estado(ticket.getEstado())
+                .nombreCliente(ticket.getCliente().getNombreCliente())
+                .build();
     }
 
     @Override

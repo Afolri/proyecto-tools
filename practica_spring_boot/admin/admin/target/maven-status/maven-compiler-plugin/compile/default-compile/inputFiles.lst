@@ -21,6 +21,9 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\config\ApplicationConfig.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\config\RegistroTicketModuleConfig.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\config\SecurityConfig.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\config\WebSocketAuthInterceptor.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\config\WebSocketConfig.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\controller\NotificacionesSocketController.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\controller\ReporteTickets.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\NotificacionResponseDTO.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\dto\TicketRequestDTO.java

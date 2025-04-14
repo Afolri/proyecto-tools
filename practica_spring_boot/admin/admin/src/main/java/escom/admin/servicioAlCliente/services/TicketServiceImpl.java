@@ -1,9 +1,13 @@
 package escom.admin.servicioAlCliente.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import escom.admin.servicioAlCliente.dto.DatosSocketDTOResponse;
+import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
 import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.*;
 import escom.admin.servicioAlCliente.repositories.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -69,9 +73,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Map<String,String> crearTicketConCliente(TicketRequestDTO requestDTO) {
+    public DatosSocketDTOResponse crearTicketConCliente(TicketRequestDTO requestDTO) throws Exception {
         Cliente cliente;
         ProductoTicket producto;
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject jsonObject = new JSONObject();
 
         //Busca un ticket por el nuemero de compra
 
@@ -80,16 +86,16 @@ public class TicketServiceImpl implements TicketService {
                 .orElse(new Ticket());
 
         if(!validarCorreo(requestDTO.getCorreo())) {
-            return Map.of("error", "Correo invalido");
+            throw new Exception("Hay un campo vacio");
         }
         if(!validarTelefono(requestDTO.getTelefono())) {
-            return Map.of("error", "Telefono invalido");
+            throw new Exception("Hay un campo vacio");
         }
         if(!validarNombre(requestDTO.getNombreCliente())){
-            return Map.of("error", "Nombre invalido");
+            throw new Exception("Hay un campo vacio");
         }
         if(ticketDtoVacio(requestDTO)){
-            return Map.of("error", "Campos vacios");
+            throw new Exception("Hay un campo vacio");
         }
 
         /*Cuando se comprueba que el producto no existe entonces crea un nuevo producto colocandole
@@ -126,8 +132,28 @@ public class TicketServiceImpl implements TicketService {
                 .productoTicket(producto)
                 .cliente(cliente)
                 .build());
-        notificacionService.crearNotificacion(ticket, "Se ha creado un nuevo ticket");
-        return Map.of("error", "");
+        NotificacionResponseDTO notiDTO = notificacionService.crearNotificacion(ticket, "Se ha creado un nuevo ticket");
+        TicketResponseDTO ticketDTO = TicketResponseDTO.builder()
+                .numeroTicket(ticket.getNumeroTicket())
+                .numeroProducto(ticket.getProductoTicket().getNumeroProducto())
+                .tipoCodigo(productoTicketRepository.obtenerIdentificadores(producto.getNumeroProducto()))
+                .numeroCompraCot(producto.getNumeroCompraCot())
+                .numeroAgente(ticket.getAgente().getNumeroAgente())
+                .asunto(ticket.getAsunto())
+                .numeroCliente(ticket.getCliente().getNumeroCliente())
+                .telefono(ticket.getCliente().getTelefono())
+                .correo(ticket.getCliente().getCorreo())
+                .descripcion(ticket.getDescripcion())
+                .estado(ticket.getEstado())
+                .fecha(ticket.getFecha())
+                .hora(ticket.getHora())
+                .build();
+
+        return DatosSocketDTOResponse.builder()
+                .notificacionResponseDTO(notiDTO)
+                .ticketResponseDTO(ticketDTO)
+                .build();
+
     }
 
     boolean ticketDtoVacio(TicketRequestDTO tr){

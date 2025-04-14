@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers("/auth/**", "/reporte-tickets/crear-ticket",
-                                        "/reporte-tickets/obtener-identificadores").permitAll()
+                                        "/reporte-tickets/obtener-identificadores","/socket/**").permitAll()
                                 .anyRequest().authenticated()
                         )
                 .sessionManagement(sessionManager ->

@@ -3,6 +3,11 @@ import { Component,EventEmitter,Input, OnInit, Output, RESPONSE_INIT} from '@ang
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment';
 import { Route, Router } from '@angular/router';
+import { WebSocketService } from '../web-socket.service';
+import { IMessage } from '@stomp/stompjs';
+import { Notificaciones } from '../reporte-clientes/reporte-clientes.component';
+import { tick } from '@angular/core/testing';
+
 
 //La estructura cambia a:
 export interface Ticket {
@@ -42,26 +47,13 @@ export class GenerarTicketComponent implements OnInit  {
   identificadores?:TipoIdentificador[];
   //Para trabajar con modulo reactivo
   formularioTickets!:FormGroup;
-  constructor(private formBuilder: FormBuilder, private route:Router){
-   this.formularioTickets= this.formBuilder.group({
-      numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
-      codigo:['',[Validators.required,Validators.maxLength(30)]],
-      codigo2:['',[]],
-      numero_identificador:['',[]],
-      asunto:['',[Validators.required]],
-      nombre:['',[Validators.required, Validators.minLength(2),Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]+$")]],
-      correo:['',[Validators.required, Validators.email, Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
-      telefono:['',[Validators.required,Validators.maxLength(10),Validators.pattern(`^[0-9]{10}$`)]],
-      descripcion:['',[Validators.required,Validators.minLength(2),Validators.maxLength(100)]],
-      ehs_approval:[false, [],[]]
-    })
-  }
+ 
 
   @Output() mostrarChange = new EventEmitter<boolean>();
   @Output() obtenerDatos = new EventEmitter<void>();
   @Output() mostrarMensajeAviso = new EventEmitter();
   @Output() aceptarActualizar = new EventEmitter();
-  @Input() ticket:Ticket ={
+  @Input() ticket :Ticket ={
     numero_ticket:0,
     numero_producto: 0,
     tipo_codigo:"",
@@ -101,6 +93,23 @@ export class GenerarTicketComponent implements OnInit  {
     hora: new Date
   };
 
+  constructor(private formBuilder: FormBuilder, private route:Router,
+    private webSocketService:WebSocketService
+  ){
+    webSocketService.ngOnInit();
+    this.formularioTickets= this.formBuilder.group({
+       numero_compra_cot:[null,[Validators.required,Validators.maxLength(20)]],
+       codigo:['',[Validators.required,Validators.maxLength(30)]],
+       codigo2:['',[]],
+       numero_identificador:['',[]],
+       asunto:['',[Validators.required]],
+       nombre:['',[Validators.required, Validators.minLength(2),Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]+$")]],
+       correo:['',[Validators.required, Validators.email, Validators.maxLength(100),Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
+       telefono:['',[Validators.required,Validators.maxLength(10),Validators.pattern(`^[0-9]{10}$`)]],
+       descripcion:['',[Validators.required,Validators.minLength(2),Validators.maxLength(100)]],
+       ehs_approval:[false, [],[]]
+     })
+   }
   ngOnInit() {
     if (this.modo === 'editar' && this.ticket) {
       this.formularioTickets.setValue({
@@ -117,6 +126,9 @@ export class GenerarTicketComponent implements OnInit  {
     this.obtenerIdentificadores();
     //llama a la función una vez generado el formulario
     this.configurarValidacionesCondicionales();
+    this.webSocketService.suscribirse('/topic',(message:IMessage)=>{
+     
+    });
   }
 
   //Método para hacer requerido el nombre del identificador solo cuando el checkbox "checkPersonalizado" esta activo
@@ -165,7 +177,7 @@ export class GenerarTicketComponent implements OnInit  {
     this.obtenerDatos.emit();
   }
   
-  crearticket(){
+  async crearticket(){
 
 
     let codigo = this.formularioTickets.get('codigo')?.value + 
@@ -180,7 +192,7 @@ export class GenerarTicketComponent implements OnInit  {
     let asunto = this.formularioTickets.get('asunto')?.value;
     let descripcion = this.formularioTickets.get('descripcion')?.value;
 
-    fetch(`${baseURL}/admin/reporte-tickets/crear-ticket`, {
+    const resultado = await fetch(`${baseURL}/admin/reporte-tickets/crear-ticket`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -201,12 +213,24 @@ export class GenerarTicketComponent implements OnInit  {
             if(error.error != ""){
               const errorMessage = error.error;
               console.log(errorMessage)
+             
             }
           })
+          return null;
         }
-        this.route.navigate(['mensaje'])
+        return  response.json();
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error =>{
+        console.error("Error:", error);
+        return null;
+      });
+      const notificacion:Notificaciones =resultado['notificacionResponseDTO'];
+      const ticket:Ticket = resultado['ticketResponseDTO']
+      console.log("Notificaciones test: ", notificacion);
+      console.log("Ticket test:",ticket)
+      this.webSocketService.solicitarmensaje(notificacion)
+      this.webSocketService.enviarTicket(ticket,notificacion.numero_usuario);
+      
   }
 
 
@@ -279,7 +303,7 @@ export class GenerarTicketComponent implements OnInit  {
         console.error("Error en la solicitud:", error);
       });
   }
-  
+
 
 
 }

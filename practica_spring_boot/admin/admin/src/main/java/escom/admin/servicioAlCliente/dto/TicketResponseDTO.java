@@ -3,6 +3,7 @@ package escom.admin.servicioAlCliente.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jdk.jfr.DataAmount;
+import lombok.Builder;
 
 
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalTime;
 @lombok.Data
 @lombok.AllArgsConstructor
 @JsonIgnoreProperties (ignoreUnknown = true)
+@Builder
 public class TicketResponseDTO {
         @JsonProperty("numero_ticket")
         private Long numeroTicket;
