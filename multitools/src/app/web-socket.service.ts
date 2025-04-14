@@ -12,11 +12,11 @@ import { Ticket } from './generar-ticket/generar-ticket.component';
 export class WebSocketService implements OnInit{
   
 
-    /**Permite hacer la conexión con el socket */
-    private stompClient?:Client;
+  /**Permite hacer la conexión con el socket */
+  private stompClient?:Client;
 
-    private conectado = false;
-  
+  private conectado = false;
+
     /**Aquí se van a guardar las notificaciones por el socket */
     /**private notificaciones : BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);*/
   private notificacion?:Notificaciones;
