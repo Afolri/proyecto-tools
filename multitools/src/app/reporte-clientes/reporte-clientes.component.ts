@@ -302,7 +302,8 @@ export class ReporteClientesComponent implements OnInit {
     console.log("se ejecuto el metodo padre");
     this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
     const ticketJson = JSON.stringify(this.ticketActual);
-    this.router.navigate(['detalles'], {queryParams: { ticket:ticketJson}});
+    localStorage.setItem("ticketseleccionado",ticketJson);
+    this.router.navigate(['detalles']);
   }
 
   notificacionesPendientes(){

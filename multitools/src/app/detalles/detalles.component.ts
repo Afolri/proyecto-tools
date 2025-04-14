@@ -17,9 +17,9 @@ export class DetallesComponent implements OnInit{
 
 
   ngOnInit(): void {
-    const ticketString = this.routerActive.snapshot.queryParamMap.get('ticket');
-    if(ticketString){
-      this.ticketactual = JSON.parse(ticketString);
+    const ticket = localStorage.getItem("ticketseleccionado");
+    if(ticket){
+      this.ticketactual = JSON.parse(ticket);
     }
 
     
