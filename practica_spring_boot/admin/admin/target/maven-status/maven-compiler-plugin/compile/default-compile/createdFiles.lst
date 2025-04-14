@@ -4,6 +4,8 @@ escom\admin\servicioAlCliente\config\ApplicationConfig.class
 escom\admin\servicioAlCliente\entities\Rol.class
 escom\admin\servicioAlCliente\services\ProductoTicketServiceImpl.class
 escom\admin\servicioAlCliente\entities\Cliente$ClienteBuilder.class
+escom\admin\servicioAlCliente\controller\TicketsScoketController.class
+escom\admin\servicioAlCliente\dto\DatosSocketDTOResponse$DatosSocketDTOResponseBuilder.class
 escom\admin\servicioAlCliente\services\UsuarioService.class
 escom\admin\servicioAlCliente\repositories\TicketRepository.class
 escom\admin\AdminApplication.class
@@ -12,6 +14,7 @@ escom\admin\servicioAlCliente\entities\TipoIdentificador.class
 escom\admin\servicioAlCliente\Auth\RegisterRequest.class
 escom\admin\servicioAlCliente\Auth\AuthResponse$AuthResponseBuilder.class
 escom\admin\servicioAlCliente\services\ProductoTicketService.class
+escom\admin\servicioAlCliente\dto\DatosSocketDTOResponse.class
 escom\admin\servicioAlCliente\services\ClienteService.class
 escom\admin\servicioAlCliente\services\ProductoTipoService.class
 escom\admin\servicioAlCliente\utils\UtilidadesDeValidacion.class
