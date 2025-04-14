@@ -21,6 +21,7 @@ export class DetallesComponent implements OnInit{
     if(ticket){
       this.ticketactual = JSON.parse(ticket);
     }
+    localStorage.setItem("ticketseleccionado","");
 
     
   }
