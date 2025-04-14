@@ -1,5 +1,5 @@
 export const environment = {
         production: true,
         URL_BASE: '/api',
-        URL_BASE_SOCKET:'/api/admin/socket/'
+        URL_BASE_SOCKET:'/socket'
 };
