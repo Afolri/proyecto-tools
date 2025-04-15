@@ -51,7 +51,7 @@ export class WebSocketService implements OnInit{
       const token = localStorage.getItem("token");
     
       this.stompClient = new Client({
-        brokerURL: `${environment.URL_BASE}/admin/socket`, // conexión WebSocket pura
+        brokerURL: `${environment.URL_BASE_SOCKET}/admin/socket`, // conexión WebSocket pura
         connectHeaders: {
           Authorization: `Bearer ${token}`
         },
