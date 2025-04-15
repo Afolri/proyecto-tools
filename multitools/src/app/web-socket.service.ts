@@ -74,7 +74,7 @@ export class WebSocketService implements OnInit{
       });
     
       this.stompClient.activate();
-    }
+  }
     suscribirse(ruta: string, callback: (message: IMessage) => void): void {
       const hacerSuscripcion = () => {
         if (this.stompClient && this.stompClient.connected) {
