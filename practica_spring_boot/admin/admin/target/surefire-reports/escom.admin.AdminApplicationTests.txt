@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: escom.admin.AdminApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.217 s -- in escom.admin.AdminApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.820 s -- in escom.admin.AdminApplicationTests
