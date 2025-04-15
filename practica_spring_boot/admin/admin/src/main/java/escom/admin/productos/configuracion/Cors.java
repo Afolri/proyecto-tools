@@ -11,7 +11,9 @@ public class Cors implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         // Permitir acceso CORS desde cualquier origen
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200",
+                        "http://localhost:8083","https://www.emultitools.com",
+                        "ws://localhost:8080","wss://www.emultitools.com")
                 // Origen permitido
                 .allowedMethods("GET", "POST", "PUT", "DELETE")  // Métodos permitidos
                 .allowedHeaders("*")  // Permitir todos los encabezados
