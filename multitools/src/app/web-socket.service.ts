@@ -49,9 +49,9 @@ export class WebSocketService implements OnInit{
       const RETRY_DELAY = 5000; // ms
     
       const token = localStorage.getItem("token");
-    
+      const urlbroker = `${environment.URL_BASE_SOCKET}/admin/socket`;
       this.stompClient = new Client({
-        brokerURL: `${environment.URL_BASE_SOCKET}/admin/socket`, // conexión WebSocket pura
+        brokerURL: urlbroker, // conexión WebSocket pura
         connectHeaders: {
           Authorization: `Bearer ${token}`
         },
@@ -70,7 +70,7 @@ export class WebSocketService implements OnInit{
         },
         onWebSocketError: (error) => {
           console.error('❌ Error en WebSocket', error);
-          console.log("PAN",environment.URL_BASE_SOCKET);
+          console.log("PAN",urlbroker);
         }
       });
     
