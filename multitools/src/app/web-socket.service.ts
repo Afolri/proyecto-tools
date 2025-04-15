@@ -70,7 +70,7 @@ export class WebSocketService implements OnInit{
         },
         onWebSocketError: (error) => {
           console.error('❌ Error en WebSocket', error);
-          console.log(environment.URL_BASE_SOCKET);
+          console.log("PAN",environment.URL_BASE_SOCKET);
         }
       });
     
