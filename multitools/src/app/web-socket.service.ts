@@ -49,16 +49,16 @@ export class WebSocketService implements OnInit{
       const RETRY_DELAY = 5000; // ms
     
       const token = localStorage.getItem("token");
-      const urlbroker = `${environment.URL_BASE_SOCKET}/admin/socket/`;
+      const urlbroker = `${environment.URL_BASE_SOCKET}/admin/socket`;
       this.stompClient = new Client({
-        brokerURL: urlbroker, // conexión WebSocket pura
+        brokerURL: urlbroker,
         connectHeaders: {
           Authorization: `Bearer ${token}`
         },
         debug: (str) => {
           console.log(str);
         },
-        reconnectDelay: RETRY_DELAY, // reconexión automática
+        reconnectDelay: RETRY_DELAY,
         onConnect: (frame) => {
           console.log('✅ Conectado al servidor WebSocket', frame);
           
