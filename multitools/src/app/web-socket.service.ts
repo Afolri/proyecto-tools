@@ -52,9 +52,6 @@ export class WebSocketService implements OnInit{
       const urlbroker = `${environment.URL_BASE_SOCKET}/admin/socket`;
       this.stompClient = new Client({
         brokerURL: urlbroker,
-        connectHeaders: {
-          Authorization: `Bearer ${token}`
-        },
         debug: (str) => {
           console.log(str);
         },
