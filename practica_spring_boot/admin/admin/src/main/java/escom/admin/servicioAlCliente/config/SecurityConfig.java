@@ -52,7 +52,8 @@ public class SecurityConfig {
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuracion = new CorsConfiguration();
         configuracion.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:4200",
-                "http://localhost:8083", "https://www.emultitools.com", "wss://www.emultitools.com"));
+                "http://localhost:8083", "https://www.emultitools.com", "wss://www.emultitools.com",
+                "wss://www.emultitools.com/admin/socket"));
         configuracion.setAllowedMethods(List.of("GET","POST","PUT","DELETE"));
         configuracion.setAllowedHeaders(List.of("Authorization","Cache-Control","Content-Type"));
         configuracion.setAllowCredentials(true);

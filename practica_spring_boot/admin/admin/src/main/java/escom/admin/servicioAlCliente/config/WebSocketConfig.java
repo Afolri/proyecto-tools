@@ -28,8 +28,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
                         "wss://www.emultitools.com","wss://www.emultitools.com/admin/socket");
     }
 
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration){
-        registration.interceptors(webSocketAuthInterceptor);
-    }
 }
