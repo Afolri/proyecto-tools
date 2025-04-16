@@ -49,7 +49,7 @@ export class WebSocketService implements OnInit{
       const RETRY_DELAY = 5000; // ms
     
       const token = localStorage.getItem("token");
-      const urlbroker = `https://www.emultitools.com/admin/socket`;
+      const urlbroker = `${environment.URL_BASE_SOCKET}/admin/socket`;
       this.stompClient = new Client({
         brokerURL: urlbroker,
         debug: (str) => {
