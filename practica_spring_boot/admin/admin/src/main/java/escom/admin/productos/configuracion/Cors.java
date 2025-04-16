@@ -12,9 +12,9 @@ public class Cors implements WebMvcConfigurer {
         // Permitir acceso CORS desde cualquier origen
         registry.addMapping("/**")
                 .allowedOrigins("http://127.0.0.1:4200", "http://localhost:4200",
-                        "http://localhost:8083","https://www.emultitools.com",
-                        "ws://localhost:4200", "wss://www.emultitools.com",
-                        "wss://www.emultitools.com/admin/socket")
+                        "http://localhost:8083","https://www.emultitools.local",
+                        "ws://localhost:4200", "wss://www.emultitools.local",
+                        "wss://www.emultitools.local/admin/socket")
                 // Origen permitido
                 .allowedMethods("GET", "POST", "PUT", "DELETE")  // Métodos permitidos
                 .allowedHeaders("*")  // Permitir todos los encabezados
