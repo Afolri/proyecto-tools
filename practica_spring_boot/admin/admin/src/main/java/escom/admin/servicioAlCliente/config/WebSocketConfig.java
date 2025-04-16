@@ -25,7 +25,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry){
         registry.addEndpoint("/socket")
                 .setAllowedOriginPatterns("http://localhost:4200", "https://www.emultitools.com",
-                        "wss://www.emultitools.com");
+                        "wss://www.emultitools.com","wss://www.emultitools.com/admin/socket");
     }
 
     @Override
