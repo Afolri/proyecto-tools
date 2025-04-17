@@ -1,5 +1,6 @@
 package escom.admin.servicioAlCliente.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,11 @@ public class Usuario implements UserDetails {
     @Column(name = "rol")
     private Rol rol;
 
+
+    @JsonBackReference
     @OneToOne (mappedBy = "numeroUsuario")
+    @JoinColumn ( name = "numero_agente")
+    @JsonProperty("numero_usuario")
     private Agente agente;
 
     @Override

@@ -30,6 +30,7 @@ public class Agente {
     private String apellidosAgente;
 
     @OneToOne
+    @JsonBackReference
     @JoinColumn(name = "numero_usuario")
     @JsonProperty("numero_usuario")
     private Usuario numeroUsuario;
