@@ -225,11 +225,10 @@ export class GenerarTicketComponent implements OnInit  {
         return null;
       });
       const notificacion:Notificaciones =resultado['notificacionResponseDTO'];
-      const ticket:Ticket = resultado['ticketResponseDTO']
-      console.log("Notificaciones test: ", notificacion);
-      console.log("Ticket test:",ticket)
-      this.webSocketService.solicitarmensaje(notificacion)
+      const ticket:Ticket = resultado['ticketResponseDTO'];
+      this.webSocketService.solicitarmensaje(notificacion);
       this.webSocketService.enviarTicket(ticket,notificacion.numero_usuario);
+      this.route.navigate(['mensaje'])
       
   }
 

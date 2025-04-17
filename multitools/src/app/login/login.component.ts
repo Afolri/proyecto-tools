@@ -26,7 +26,9 @@ const baseURL = `${environment.URL_BASE}`;
   animations:[animacioncondicional]
 })
 export class LoginComponent implements OnInit{
-    registrorechazado:boolean = true;
+    registrorechazado:boolean = false;
+    camposerroneos:boolean = false;
+    correoerroneo:boolean = false;
     faInfo =faInfo;
     usuarioActual:Usuario={
         numero_usuario:0,
@@ -84,14 +86,18 @@ export class LoginComponent implements OnInit{
     }
     /**Este método verifica si los campos del formulario estan vacios */
     camposInvalidos(form: any): boolean {
-        return form && form.controls &&
-        Object.keys(form.controls).some(
-            campo => form.controls[campo].value=== '' && form.controls[campo].touched
-        );
+         if(form && form.controls && Object.keys(form.controls).some(
+            campo => form.controls[campo].value=== '' && form.controls[campo].touched)){
+            this.camposerroneos = true;
+            return true;
+        }return false;
     }
     correoInvalido(form:any):boolean{
         const correo = form.controls?.['correo'];
-        return correo && correo.value != '' && correo.invalid && correo.touched;
+        if(correo && correo.value != '' && correo.invalid && correo.touched){
+            this.correoerroneo = true;
+            return true;
+        }return false;
     }
     correoEstilo(form:FormGroup){
         const correo = form.controls?.['correo'];

@@ -1,19 +1,18 @@
+
 .contenedor{
     position: relative;
+    display: flex;
     border: 1px solid hsla(211, 48%, 21%, 0.691);
     padding: 30px 100px;
     border-radius: 18px;
-    display: flex;
     flex-flow: column;
     align-items: stretch;
     justify-content:stretch;
-    width:100%;
+    width:500px;
     margin: 20px;
-    transition: padding .1s ease-in-out;
     background-color: rgba(8, 33, 65, 0.684) ;
     text-transform:uppercase;
-    right: 50%;
-    transform: translateX(50%);
+    transition: width 2s ease-in-out, height 2s ease-in-out;
 }
 
 .contenedor input{
@@ -80,4 +79,29 @@
     left: 50%;
     transform:translateX(-50%);
     text-align: center;
+}
+@media only screen and (max-width: 600px){
+    .contenedor{
+        display: flex;
+        flex-flow: column wrap;
+        padding:10px 20px;
+    }
+    .contenedor h1{
+        font-size: 2rem;
+    }
+  
+    .contenedor div label{
+        padding: 0px 30px;
+        font-size:1rem;
+        display: flex;
+        justify-self: start;
+        width: 100%;
+        justify-self: start;
+    }
+    input[type = text], input[type = password]{
+        
+        width: 100%;
+        height: 50px;
+    }
+
 }

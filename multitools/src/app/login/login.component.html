@@ -4,7 +4,7 @@
     <div class="elemento"><input formControlName="correo" type="text" [ngStyle]="correoEstilo(iniciarsesion)"></div>
 
     @if(correoInvalido(iniciarsesion)){
-        <div>
+        <div [@conditionalTrigger]="correoerroneo ?'shown':'void'">
             <span class="envoltura"><fa-icon [icon]="faInfo" class="icon" ></fa-icon></span>
             <span class ="alerta informacion">Ingrese un correo valido</span>
         </div>
@@ -13,7 +13,7 @@
     <div class="elemento"><input formControlName="password" type="password"></div>
     <div class="elemento"><button type="submit">Acceder</button></div>
     @if(camposInvalidos(iniciarsesion)){
-        <div class = "alerta">Llene los campos solicitados</div>
+        <div class = "alerta" [@conditionalTrigger]="camposerroneos ?'shown':'void'">Llene los campos solicitados</div>
     }
 </form>
 @if (registrorechazado) {
