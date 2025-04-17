@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { animacioncondicional } from './animacioncondicional';
 
 
 export interface Usuario{
@@ -17,12 +20,14 @@ const baseURL = `${environment.URL_BASE}`;
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule,CommonModule],
+  imports: [ReactiveFormsModule,CommonModule, FontAwesomeModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  animations:[animacioncondicional]
 })
 export class LoginComponent implements OnInit{
-
+    registrorechazado:boolean = true;
+    faInfo =faInfo;
     usuarioActual:Usuario={
         numero_usuario:0,
         nombre:"",
@@ -33,14 +38,16 @@ export class LoginComponent implements OnInit{
 
     token = localStorage.getItem('token');
     iniciarsesion!:FormGroup;
-    constructor(private formBuilder: FormBuilder, private authService:AuthService, private router:Router){
+    constructor(private library:FaIconLibrary, private formBuilder: FormBuilder, private authService:AuthService, private router:Router){
         this.iniciarsesion = this.formBuilder.group({
-            correo:['',[Validators.required],[]],
+            correo:['',[Validators.required,Validators.pattern("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")]],
             password:['',[Validators.required],[]]
         })
+        library.addIcons(faInfo);
     }
   
   ngOnInit() {
+    this.registrorechazado =false;
   }
   login() {
     let correo = this.iniciarsesion.get('correo')?.value;
@@ -53,6 +60,10 @@ export class LoginComponent implements OnInit{
     })
     .then(response => {
         if (!response.ok) {
+            this.registrorechazado = true;
+            setTimeout(() => {
+                this.registrorechazado = false; // Ocultar la advertencia después de un tiempo
+            }, 3000);
             throw new Error('Correo o contraseña incorrectos');
         }
         return response.json(); // Convertimos la respuesta a JSON
@@ -61,6 +72,7 @@ export class LoginComponent implements OnInit{
         if (data.token) {  // Suponiendo que la API devuelve un objeto con { token: "..." }
             localStorage.setItem('token', data.token);
             this.obtenerUsuarioLoggeado();
+            this.registrorechazado = false;
             return this.router.navigate(['/reporte-clientes']);
         } else {
             throw new Error("No se recibió el token en la respuesta");
@@ -69,25 +81,42 @@ export class LoginComponent implements OnInit{
     .catch(error => {
         console.error("Error:", error.message);
     });
-}
-obtenerUsuarioLoggeado(){
-    fetch(`${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
-        method:"GET",  
-        headers: {
-            "Content-Type": "application/json",
-             "Authorization": `Bearer ${localStorage.getItem('token')}` 
+    }
+    /**Este método verifica si los campos del formulario estan vacios */
+    camposInvalidos(form: any): boolean {
+        return form && form.controls &&
+        Object.keys(form.controls).some(
+            campo => form.controls[campo].value=== '' && form.controls[campo].touched
+        );
+    }
+    correoInvalido(form:any):boolean{
+        const correo = form.controls?.['correo'];
+        return correo && correo.value != '' && correo.invalid && correo.touched;
+    }
+    correoEstilo(form:FormGroup){
+        const correo = form.controls?.['correo'];
+        if(correo.valid && form.controls?.['correo'].touched){
+            return {"border":"green solid 2px"};
+        }else{
+            return {"":""}
         }
-    
-
-    }).then(response =>{
-        if(response.ok){
-            return response.json();
-            
-        }
-        return console.error("Error", "no se pudieron obtener los datos de usuario");
-    }).then(response =>{
-        this.authService.setUsuario(response);
-    })
-}
+    }
+    obtenerUsuarioLoggeado(){
+        fetch(`${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
+            method:"GET",  
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem('token')}` 
+            }
+        }).then(response =>{
+            if(response.ok){
+                return response.json();
+                
+            }
+            return console.error("Error", "no se pudieron obtener los datos de usuario");
+        }).then(response =>{
+            this.authService.setUsuario(response);
+        })
+    }
   
 }

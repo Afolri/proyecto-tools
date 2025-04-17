@@ -7,21 +7,31 @@
     flex-flow: column;
     align-items: stretch;
     justify-content:stretch;
+    width:100%;
     margin: 20px;
     transition: padding .1s ease-in-out;
     background-color: rgba(8, 33, 65, 0.684) ;
     text-transform:uppercase;
+    right: 50%;
+    transform: translateX(50%);
 }
-.contenedor:hover{
-    padding: 32px 102px;
-}
+
 .contenedor input{
     background-color:rgba(72, 125, 185, 0.322);
+    outline: none;
+    padding: 0px 20px;
 }
 .elemento [type = submit]{
     background-color: rgba(72, 125, 185, 0.684);
     color: white;
     padding:10px 30px;
+    
+}
+.elemento input:focus{
+    border: green solid 2px;
+}
+.elemento input.ng-invalid.ng-touched{
+    border: rgb(255, 0, 0) solid 2px;
 }
 .elemento [type = submit]:hover{
     color:gray;
@@ -32,5 +42,42 @@
     background-color: rgb(30, 70, 116);
 }
 .contenedor > *{
+    text-align: center;
+}
+.alerta{
+    position: relative;
+    display: inline-flex;
+    color:red;
+    opacity: .7;
+    font-size: 13px;
+    text-align: center;
+    justify-content: center;
+}
+.informacion{
+    margin-left: 1rem;
+}
+.envoltura{
+    position: relative;
+    display: inline-flex;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: space-around;
+}
+.icon{
+    position:absolute;
+    display: inline-block;
+    left: 0%;
+    width: 100%;
+}
+.advertenciaregistro{
+    position: absolute;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.402);
+    padding: 20px 100px;
+    left: 50%;
+    transform:translateX(-50%);
     text-align: center;
 }

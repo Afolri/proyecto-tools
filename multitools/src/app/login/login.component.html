@@ -1,8 +1,24 @@
 <form [formGroup]="iniciarsesion" (ngSubmit)="login()" class = "contenedor">
     <div class="elemento"><h1>LOGIN</h1></div>
     <div class="elemento"><label>Correo</label></div>
-    <div class="elemento"><input formControlName="correo" type="text" ></div>
+    <div class="elemento"><input formControlName="correo" type="text" [ngStyle]="correoEstilo(iniciarsesion)"></div>
+
+    @if(correoInvalido(iniciarsesion)){
+        <div>
+            <span class="envoltura"><fa-icon [icon]="faInfo" class="icon" ></fa-icon></span>
+            <span class ="alerta informacion">Ingrese un correo valido</span>
+        </div>
+    }
     <div class="elemento"><label>Contraseña</label></div>
     <div class="elemento"><input formControlName="password" type="password"></div>
     <div class="elemento"><button type="submit">Acceder</button></div>
+    @if(camposInvalidos(iniciarsesion)){
+        <div class = "alerta">Llene los campos solicitados</div>
+    }
 </form>
+@if (registrorechazado) {
+    <div class = "advertenciaregistro" [@conditionalTrigger]="registrorechazado ?'shown':'void'">
+        <h3>La contraseña y/o el usuario son incorrectos</h3>
+        <p>Por favor intentelo de nuevo</p>
+    </div>
+}
