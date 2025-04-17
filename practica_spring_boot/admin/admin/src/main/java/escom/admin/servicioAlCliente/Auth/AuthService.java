@@ -21,6 +21,7 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         String correo = request.getCorreo().toLowerCase();
+        System.out.println(correo);
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(correo,
                 request.getPassword()));
         UserDetails user = usuarioRepository.findByCorreo(correo).orElseThrow();
