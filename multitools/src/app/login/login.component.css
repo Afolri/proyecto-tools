@@ -84,7 +84,10 @@
     .contenedor{
         display: flex;
         flex-flow: column wrap;
-        padding:10px 20px;
+        width: 100%;
+        margin: 0%;
+        transform: initial;
+        left: initial;
     }
     .contenedor h1{
         font-size: 2rem;
