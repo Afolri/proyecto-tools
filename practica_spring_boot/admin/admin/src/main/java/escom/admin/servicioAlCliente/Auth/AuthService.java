@@ -20,15 +20,15 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo(),
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo().toLowerCase(),
                 request.getPassword()));
-        UserDetails user = usuarioRepository.findByCorreo(request.getCorreo()).orElseThrow();
+        UserDetails user = usuarioRepository.findByCorreo(request.getCorreo().toLowerCase()).orElseThrow();
         String token = jwtService.getToken(user);
         return AuthResponse.builder().token(token).build();
     }
     public AuthResponse register(RegisterRequest request){
         Usuario usuario = Usuario.builder()
-                .correo(request.getCorreo())
+                .correo(request.getCorreo().toLowerCase())
                 .nombreUsuario(request.getNombreUsuario())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .rol(Rol.AGENTE)
