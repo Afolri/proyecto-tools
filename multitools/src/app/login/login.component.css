@@ -82,12 +82,14 @@
 }
 @media only screen and (max-width: 600px){
     .contenedor{
+        position: relative;
         display: flex;
         flex-flow: column wrap;
-        width: 100%;
+        width:100%;
         margin: 0%;
         transform: initial;
         left: initial;
+        margin: 10px 300px 0px 0px;
     }
     .contenedor h1{
         font-size: 2rem;
@@ -95,7 +97,7 @@
   
     .contenedor div label{
         padding: 0px 30px;
-        font-size:1rem;
+        font-size:2rem;
         display: flex;
         justify-self: start;
         width: 100%;
