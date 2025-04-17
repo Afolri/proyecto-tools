@@ -20,9 +20,10 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getCorreo().toLowerCase(),
+        String correo = request.getCorreo().toLowerCase();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(correo,
                 request.getPassword()));
-        UserDetails user = usuarioRepository.findByCorreo(request.getCorreo().toLowerCase()).orElseThrow();
+        UserDetails user = usuarioRepository.findByCorreo(correo).orElseThrow();
         String token = jwtService.getToken(user);
         return AuthResponse.builder().token(token).build();
     }
