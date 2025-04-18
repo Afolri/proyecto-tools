@@ -85,17 +85,18 @@
         position: relative;
         display: flex;
         flex-flow: column wrap;
-        width:100%;
-        margin: 0%;
+        width: 100%;
+        margin: auto;
         transform: initial;
-        left: initial;
         margin: 10px 300px 0px 0px;
     }
     .contenedor h1{
+        position: relative;
         font-size: 2rem;
     }
   
     .contenedor div label{
+        position: relative;
         padding: 0px 30px;
         font-size:2rem;
         display: flex;

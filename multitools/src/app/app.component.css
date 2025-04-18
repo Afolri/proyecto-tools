@@ -1,8 +1,7 @@
 .container{
   display: grid;
-  grid-template-rows: minmax(200px, 1fr);
+  grid-template-rows: repeat(3, minmax(100px, 0.4fr)) 700px;
   justify-items: center;
-
 
 }
 .primeritem{
@@ -84,6 +83,9 @@
   
 }
 
-.terceritem{
+.terceritem>*{
   grid-row: 3;
+  display: grid;
+  width:100%;
+  box-sizing: border-box;
 }
