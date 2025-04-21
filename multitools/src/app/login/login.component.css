@@ -108,7 +108,7 @@
         height: 50px;
     }
     .advertenciaregistro{
-        position: absolute;
+        position: fixed;
         top: 0%;
         width: 100%;
     }
