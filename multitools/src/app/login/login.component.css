@@ -84,7 +84,7 @@
     .contenedor{
         position: relative;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column;
         width: 100%;
         margin: auto;
         transform: initial;
@@ -92,20 +92,18 @@
     }
     .contenedor h1{
         position: relative;
-        font-size: 2rem;
+        font-size: 2em;
     }
   
     .contenedor div label{
         position: relative;
-        padding: 0px 30px;
-        font-size:2rem;
+        font-size:1em;
         display: flex;
         justify-self: start;
         width: 100%;
         justify-self: start;
     }
     input[type = text], input[type = password]{
-        
         width: 100%;
         height: 50px;
     }
