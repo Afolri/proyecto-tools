@@ -54,7 +54,15 @@ export class OrganizadorComputadorasComponent implements OnInit{
     this.cargarProcesadores();
   }
   cargarProductos(){
-    fetch(`${baseURL}/admin/inicio/obtenerproductos`)
+    const token = localStorage.getItem("token");
+    fetch(`${baseURL}/admin/inicio/obtenerproductos`,{
+      method:"GET",
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${token}`
+      }
+    }
+    )
     .then(respuesta => respuesta.json())
     .then((productos:Producto[])=>{
       console.log('Productos recibidos:',productos);
@@ -83,10 +91,12 @@ export class OrganizadorComputadorasComponent implements OnInit{
   let fecha_configuracion = fecha.toISOString().split("T")[0].split("-").reverse().join("/");
 
     let usuario = this.productoGuardar.usuario;
-
+    let token = localStorage.getItem("token");
     fetch(`${baseURL}/admin/inicio/guardarproducto`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json",
+        "Authorization":`Bearer ${token}`
+       },
       body: JSON.stringify({
         noserie,
         estado_producto,
@@ -119,7 +129,16 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarMarcas() {
-    fetch(`${baseURL}/admin/inicio/obtenerMarcasComputadoras`)
+    let token = localStorage.getItem("token");
+    fetch(`${baseURL}/admin/inicio/obtenerMarcasComputadoras`,
+      {
+       method:"GET",
+       headers:{
+        "Content-Type": "application/json",
+        "Athorization":`Bearer ${token}`
+       }
+      }
+    )
       .then(response => response.json())
       .then((marcas: Marca[]) => {
         console.log('Marcas recibidas:', marcas);
@@ -129,7 +148,14 @@ export class OrganizadorComputadorasComponent implements OnInit{
   }
 
   cargarProcesadores(){
-    fetch(`${baseURL}/admin/inicio/obtenerProcesadores`)
+    let token = localStorage.getItem("token");
+    fetch(`${baseURL}/admin/inicio/obtenerProcesadores`,{
+      method:"GET",
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      }
+    })
     .then(response => response.json())
     .then((procesadores: Procesador[])=>{
       console.log('Procesadores recibidos:', procesadores);
