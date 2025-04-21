@@ -1,6 +1,6 @@
 .container{
   display: grid;
-  grid-template-rows: repeat(3, minmax(100px, 0.4fr)) 700px;
+  grid-template-rows:minmax(200px, 3fr); 
   justify-items: center;
 
 }
@@ -88,4 +88,28 @@
   display: grid;
   width:100%;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 600px){
+  .container{
+    display: flex;
+    flex-flow: column;
+    margin:2%;
+    gap: 2%;
+  }
+  .primeritem{
+    display: flex;
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+  }
+  .segundoitem{
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+    padding:0%;
+    margin: 0%;
+    text-align: center;
+    height: 100px;
+  }
 }
