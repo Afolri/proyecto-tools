@@ -196,15 +196,16 @@
 
 @media only screen and (max-width: 600px) {
     .contenedor {
-      display: flex;
-      width: 100%;
-      min-width: unset;
-      max-width: 400px;
-      overflow-y: hidden;
-      margin: 2px 2px 2px 2px;
+        position:relative;
+        width: 
+        80%;
+        min-width: unset;
+        max-width: 400px;
+        overflow-y: hidden;
+        gap:1px;
     }
     .titulos{
-        flex: 2;
+        flex: 3;
         font-size: .6em;
     }
     .tarjeta-datos>*{

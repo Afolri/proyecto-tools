@@ -61,3 +61,17 @@ div li:active{
     max-width:400px;
     overflow-wrap: break-word;
 }
+@media only screen and (max-width: 600px){
+    .contenedor{
+        display: flex;
+        flex-flow: column;
+        width: 100%;
+    }
+    .infoCampo{
+        border-radius: 7px;
+        font-size: .7em;
+    }
+    .infoCampo::after{
+        border: unset;
+    }
+}
