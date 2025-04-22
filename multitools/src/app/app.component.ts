@@ -24,6 +24,9 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService, private router:Router, private viewportFix: ViewportFixService){
 
   }
+  ngAfterViewInit(): void {
+    this.viewportFix.initFixOnPageShow();
+  }
   ngOnInit(): void {
     this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
