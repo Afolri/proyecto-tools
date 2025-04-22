@@ -3,7 +3,7 @@
   grid-template-rows:minmax(200px, 3fr); 
   justify-items: center;
   overflow-x:hidden;
-
+  gap: 20px;
 }
 .primeritem{
   grid-row: 1;
@@ -20,18 +20,18 @@
   display: flex;
   min-width: 300px;
   width: 50%;
-  align-items: center;
+  align-self: center;
   padding: 10px 70px 10px 70px;
   background-color: transparent;
   box-shadow: inset 7px 6px 9px rgba(72, 125, 185, 0.684) , 2px 2px 20px black;
   border-radius: 50px;
   word-wrap: break-word;
   background-color: hsla(211, 48%, 21%, 0.691);
-  margin: 20px;
   text-shadow: black 4px 4px 1px;
   font-size: 1.12rem;
   transition: box-shadow 1s ease;
   text-align: center;
+  justify-self: center;
 }
 .segundoitem ul{
   display: flex;
@@ -85,12 +85,10 @@
   
 }
 .terceritem{
-  width: 100%;
-}
-.terceritem>*{
   grid-row: 3;
-  display: grid;
-  width:100%;
+  display: flex;
+  justify-self: center;
+  align-self: center;
 }
 
 @media only screen and (max-width: 600px){
@@ -109,27 +107,10 @@
     display: flex;
     position:relative;
     flex-flow: row wrap;
-    left: 50%;
-    transform: translateX(-50%);
     width: 90%;
     padding:0%;
     margin: 0%;
     text-align: center;
     height: auto;
-    
-  }
-  .terceritem{
-    max-width: unset;
-    min-width: unset;
-    width: 100%;
-  
-    overflow: hidden;
-  }
-  .terceritem>*{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    position: relative;
-    width: 100%;
   }
 }

@@ -6,12 +6,6 @@
     padding: 30px 100px;
     border-radius: 18px;
     flex-flow: column;
-    align-items: stretch;
-    justify-content:stretch;
-    width:500px;
-    margin: 20px;
-    left:50%;
-    transform: translateX(-50%);
     background-color: rgba(8, 33, 65, 0.684) ;
     text-transform:uppercase;
     transition: width 2s ease-in-out, height 2s ease-in-out;
@@ -84,14 +78,7 @@
 }
 @media only screen and (max-width: 600px){
     .contenedor{
-        position:relative;
-        display: flex;
-        transform: unset;
-        width: unset;
-        left: 0;
-        margin: 0;
-        width: 100%;
-        padding: 20px 20px;
+        
     }
     .contenedor h1{
         position: relative;

@@ -353,8 +353,42 @@ textarea.ng-invalid.ng-touched {
     display: flex;
     flex-flow: row wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px;
+    justify-content: start;
+    gap: 1px;
+  }
+  .item{
+    display: flex;
+    gap: 20px;
+  }
+  @media only screen and (max-width: 600px){
+    .contenedorpadre{
+      display: flex;
+      flex-flow: column;
+      gap: 0px;
+    }
+    .contenedor2>*{
+      display: flex;
+      flex-flow: column;
+      gap: 20px;
+      justify-self: center;
+      width: 90%;
+    }
+    #descripcion{
+      width: 100%;
+    }
+    .asuntoInput{
+      gap: 20px;
+      justify-content: center;
+    }
+    .item{
+      background-color: rgb(30, 70, 116);
+      border: 1px solid rgba(85, 141, 206, 0.684);
+      padding: 7px;
+      border-radius: 7px;
+    }
+    button{
+      padding: 20px 50px;
+    }
   }
   
 

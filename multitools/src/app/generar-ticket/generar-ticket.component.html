@@ -20,29 +20,29 @@
       <!--Numero serie input/label envuelto en container para no afectar el estilo aplicado-->
       <!--Colocaremos el caso de que no cuente con el numero de serie-->
       <!--Campo activable para colocar información alterna al numero de serie-->
-      <ng-container *ngIf="!formularioTickets.get('ehs_approval')?.value; else opciones" >
+      @if(!formularioTickets.get('ehs_approval')?.value){
         <label id="tcodigo">Número de serie:</label>
-      </ng-container>
-      <ng-template #opciones>
+
+      }@else{
         <label id="tcodigo">Elija un dato opcional:</label>
-      </ng-template>
+      }
       <div class = "personalizada">
 
-        <ng-container *ngIf="formularioTickets.get('ehs_approval')?.value">
+        @if(formularioTickets.get('ehs_approval')?.value){
           <select class="tipo" formControlName="numero_identificador">
             @for(identificador of identificadores; track identificador.numero_identificador){
             <option [value]="identificador.numero_identificador">{{identificador.nombre_identificador}}</option>
             }
           </select>
-        </ng-container>
+        }
         
         <input id="codigo" type="text" class="informacion" formControlName="codigo">
 
         <!--Campo que se despliega cuando el numero identificador es 4 que corresponde a modelo marca-->
-        <ng-container *ngIf="(formularioTickets.get('numero_identificador')?.value == 4 &&
-      formularioTickets.get('ehs_approval')?.value )">
+        @if((formularioTickets.get('numero_identificador')?.value == 4 &&
+        formularioTickets.get('ehs_approval')?.value )){
           <input type="text" class = "informacion" formControlName = "codigo2">
-        </ng-container>  
+        }
         </div>
 
       <!--elemento para saber más información acerca del campo de numero de serie-->
@@ -79,12 +79,18 @@
       <!--Asunto input/label-->
       <label id="tasunto">Asunto:</label>
       <div class="asuntoInput">
-        <div class="item"><input id="soporte"  type="radio"  formControlName ="asunto" value="soporte"> </div>
-        <div class="item"><label for="soporte" >Soporte</label> </div>
-        <div class="item"><input id="garantia"  type= "radio" formControlName="asunto" value="garantia"> </div>
-        <div class="item"><label for="garantia">Garantia</label> </div>
-        <div class="item"><input id="factura"  type= "radio" formControlName="asunto" value="factura"> </div>
-        <div class="item"><label for="factura">Factura</label> </div>
+        <div class="item">
+          <input id="soporte"  type="radio"  formControlName ="asunto" value="soporte">
+          <label for="soporte" >Soporte</label> 
+        </div>
+        <div class="item">
+          <input id="garantia"  type= "radio" formControlName="asunto" value="garantia">
+          <label for="garantia">Garantia</label>
+        </div>
+        <div class="item">
+          <input id="factura"  type= "radio" formControlName="asunto" value="factura"> 
+          <label for="factura">Factura</label>
+        </div>
       </div>
 
       
