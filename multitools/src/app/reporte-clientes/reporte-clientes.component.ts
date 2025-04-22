@@ -133,12 +133,7 @@ export class ReporteClientesComponent implements OnInit {
     
   }
 
-  ngAfterViewInit() {
-    // Se llama tanto en carga inicial como al volver con botón atrás en iOS
-    window.addEventListener('pageshow', () => {
-      window.dispatchEvent(new Event('resize'));
-    });
-  }
+
   
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
   activarCheck(ticketactual:Ticket){

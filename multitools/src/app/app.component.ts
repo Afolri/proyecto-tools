@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import{Usuario} from './login/login.component'
+import { ViewportFixService } from './services/viewport-fix.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, FormsModule,RouterLink, LoginComponent],
@@ -20,7 +21,7 @@ export class AppComponent implements OnInit {
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
 
-  constructor(private authService: AuthService, private router:Router){
+  constructor(private authService: AuthService, private router:Router, private viewportFix: ViewportFixService){
 
   }
   ngOnInit(): void {
