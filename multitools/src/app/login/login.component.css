@@ -10,6 +10,8 @@
     justify-content:stretch;
     width:500px;
     margin: 20px;
+    left:50%;
+    transform: translateX(-50%);
     background-color: rgba(8, 33, 65, 0.684) ;
     text-transform:uppercase;
     transition: width 2s ease-in-out, height 2s ease-in-out;
@@ -82,13 +84,14 @@
 }
 @media only screen and (max-width: 600px){
     .contenedor{
-        position: relative;
+        position:relative;
         display: flex;
-        flex-flow: column;
+        transform: unset;
+        width: unset;
+        left: 0;
+        margin: 0;
         width: 100%;
-        margin: auto;
-        transform: initial;
-        margin: 10px 300px 0px 0px;
+        padding: 20px 20px;
     }
     .contenedor h1{
         position: relative;
@@ -100,7 +103,7 @@
         font-size:1em;
         display: flex;
         justify-self: start;
-        width: 100%;
+        width: 50%;
         justify-self: start;
     }
     input[type = text], input[type = password]{

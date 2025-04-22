@@ -15,7 +15,7 @@
 
 
 
-.titulos  {
+.titulos{
     display: flex;
     flex-flow: column;
     justify-content: space-around;
@@ -194,5 +194,20 @@
     top:100%;
 }
 
-
+@media only screen and (max-width: 600px) {
+    .contenedor {
+      display: flex;
+      width: 100%;
+      min-width: unset;
+      max-width: unset;
+    }
+    .titulos{
+        flex: 4;
+        font-size: .6em;
+    }
+    .tarjeta-datos>*{
+        font-size: .8rem;
+    }
+  }
+  
 
