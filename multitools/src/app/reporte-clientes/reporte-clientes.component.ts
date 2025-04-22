@@ -132,6 +132,14 @@ export class ReporteClientesComponent implements OnInit {
     this.notificacionesPendientes();
     
   }
+
+  ngAfterViewInit() {
+    // Se llama tanto en carga inicial como al volver con botón atrás en iOS
+    window.addEventListener('pageshow', () => {
+      window.dispatchEvent(new Event('resize'));
+    });
+  }
+  
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
   activarCheck(ticketactual:Ticket){
     const ticketencontrado = this.tablatickets.find(ticket => ticket.numero_ticket == ticketactual.numero_ticket);
