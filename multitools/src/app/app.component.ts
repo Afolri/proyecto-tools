@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import{Usuario} from './login/login.component'
-import { ViewportFixService } from './services/viewport-fix.service';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, CommonModule, FormsModule,RouterLink, LoginComponent],
@@ -15,17 +14,14 @@ import { ViewportFixService } from './services/viewport-fix.service';
   
 
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit{
   title = 'MultiTools';
   usuarioActual!:Usuario;
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
 
-  constructor(private authService: AuthService, private router:Router, private viewportFix: ViewportFixService){
+  constructor(private authService: AuthService, private router:Router){
 
-  }
-  ngAfterViewInit(): void {
-    this.viewportFix.initFixOnPageShow();
   }
   ngOnInit(): void {
     this.authService.usuarioActual$.subscribe(usuario =>{
