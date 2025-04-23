@@ -1,13 +1,3 @@
-<div class = "notificacion icono">
-  <i [ngClass]="notificacionesSinLeer?'fa-solid fa-bell fa-shake':'fa-solid fa-bell'" (click)="abrirNotificaciones()" class="campana"></i>
-  <app-notificaciones 
-  [notificacionesMostradas]="notificaciones"
-  (notificacionEvent)="abrirDetallesNotificacion($event)"
-  class="bandeja" *ngIf="mostrarNotificaciones"></app-notificaciones>
-</div>
-
-
-
 <div class = "contenedor">
   <div class ="titulos" (focus)="focus=true" [ngStyle]="focus ? estilo():null">
     <div>N. ticket</div>

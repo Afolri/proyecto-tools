@@ -5,9 +5,26 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import{Usuario} from './login/login.component'
+import { NotificacionesComponent } from './notificaciones/notificaciones.component';
+import { Notificaciones, ReporteClientesComponent } from './reporte-clientes/reporte-clientes.component';
+import { Ticket } from './generar-ticket/generar-ticket.component';
+import { WebSocketService } from './web-socket.service';
+import { IMessage } from '@stomp/stompjs';
+import { environment } from '../environments/environment';
+import { TicketServiceService } from './ticket-service.service';
+
+
+const baseURL = `${environment.URL_BASE}`;
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule, FormsModule,RouterLink, LoginComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    LoginComponent,
+    NotificacionesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   standalone: true
@@ -15,24 +32,111 @@ import{Usuario} from './login/login.component'
 
 })
 export class AppComponent implements OnInit{
+  /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
+  notificaciones:Notificaciones[] = [];
+  /**Variable que guarda si hay notificaciones pendientes */
+  notificacionesSinLeer:boolean = false;
+  mostrarNotificaciones:boolean = false;
+  /**Aquí se guardara el ticket actual */
+  ticketActual?:Ticket;
+  ticketSeleccionadoEntidad?:Ticket;
+  ticketSocket:Ticket[] =[];
+  ticketsObtenidos:Ticket[]=[];
   title = 'MultiTools';
   usuarioActual!:Usuario;
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
-
-  constructor(private authService: AuthService, private router:Router){
+  constructor(private authService: AuthService, private router:Router, private webSocketService:WebSocketService,
+    private ticketService:TicketServiceService
+  ){
 
   }
   ngOnInit(): void {
     this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
       this.modo= usuario?.rol;
+      if(usuario){
+        this.verNotificaciones();
+        this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
+          console.log("Resultado",JSON.parse(message.body));
+          this.notificaciones.unshift(JSON.parse(message.body));
+          this.notificacionesSinLeer=true;
+        })
+        this.webSocketService.suscribirse(`/topic/ticket/${this.usuarioActual.numero_usuario}`,(message:IMessage) =>{
+          this.ticketSocket.push(JSON.parse(message.body));
+        })
+        this.ticketService.tickets$.subscribe(tickets =>{
+          this.ticketsObtenidos = tickets;
+        })
+        this.notificacionesPendientes();
+      }
     })
+  
+
   }
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
   }
-  
-  
+  abrirDetallesNotificacion(numero_ticket:number){
+    this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
+    const ticketJson = JSON.stringify(this.ticketActual);
+    localStorage.setItem("ticketseleccionado",ticketJson);
+    this.router.navigate(['detalles']);
+  }
+  abrirNotificaciones(){
+    if(this.mostrarNotificaciones){
+      this.mostrarNotificaciones = false;
+    }else{
+      this.mostrarNotificaciones = true;
+    }
+  }
+
+  obtenerTicketSeleccionado(ticketSeleccionado?: number): Ticket  {
+    const tablaTicketstemp:Ticket[] = this.ticketsObtenidos;
+    console.log("variable: ",tablaTicketstemp);
+    let ticket = tablaTicketstemp?.find(obj => obj.numero_ticket === ticketSeleccionado);
+    if(ticket){
+      return this.ticketSeleccionadoEntidad = ticket;
+    }else if(!ticket){
+      ticket = this.ticketSocket?.find(obj => obj.numero_ticket === ticketSeleccionado);
+      if(ticket){
+        return ticket;
+      }else{
+        throw new Error ('Ticket no encontrado');
+      }
+    }else{
+      throw new Error ('Ticket no encontrado');
+    }
+  }
+  notificacionesPendientes(){
+    const t = localStorage.getItem('token');
+    fetch(`${baseURL}/admin/reporte-tickets/notificaciones-pendientes`,{
+      method: 'GET',
+      headers:{
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${t}`
+      }
+    }).then(response =>{
+      if(!response.ok){
+        throw new Error(`Error ${response.status}: No se pudieron obtener las notificaciones.`);
+      }
+      return response.json();
+    })
+    .then (response =>{
+      this.notificacionesSinLeer = response
+    })
+  }
+  verNotificaciones(){
+    fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json",
+          "Authorization":`Bearer ${localStorage.getItem('token')}`
+         }
+      }
+    )
+    .then(response => response.json())
+    .then(notificaciones => this.notificaciones = notificaciones);
+  }
 }

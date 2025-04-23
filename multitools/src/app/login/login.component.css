@@ -9,6 +9,7 @@
     background-color: rgba(8, 33, 65, 0.684) ;
     text-transform:uppercase;
     transition: width 2s ease-in-out, height 2s ease-in-out;
+    z-index: 0;
 }
 
 .contenedor input{

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GenerarTicketComponent, } from "../generar-ticket/generar-ticket.component";
@@ -16,6 +16,7 @@ import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { BehaviorSubject } from 'rxjs';
 import { WebSocketService } from '../web-socket.service';
+import { TicketServiceService } from '../ticket-service.service';
 
 export interface Notificaciones{
   numero_notificacion:number;
@@ -48,10 +49,15 @@ const baseURL = `${environment.URL_BASE}`;
 export class ReporteClientesComponent implements OnInit {
   /**Donde se guardaraon los tickets que se pasen por el socket */
   ticketsSocket:Ticket[] = [];
+
+
+
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
   notificaciones:Notificaciones[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
   notificacionesSinLeer:boolean = false;
+
+  
   /**Aquí se guardara el ticket actual */
   ticketActual!:Ticket;
   /**Aquí se guarda el usuario que actualmente esta loggeado */
@@ -77,7 +83,7 @@ export class ReporteClientesComponent implements OnInit {
   mostrarNotificaciones:boolean = false;
   mensajeAviso:boolean = false;
   /**array donde se reciben todos los tickets*/
-  tablatickets:Ticket [] = [];
+  public tablatickets:Ticket [] = [];
   /**mostrar la interfaz de actualizar */
   mostrar:boolean = false;
   /**el modo del mensaje de aviso para confirmar una eliminación o una actualización */
@@ -102,11 +108,11 @@ export class ReporteClientesComponent implements OnInit {
     fecha: new Date,
     hora: new Date
   };
-
+  @Output() eventTicket = new EventEmitter<any []>();
 
 
   constructor(library: FaIconLibrary, private authService: AuthService, private router: Router,
-    private webSocketService:WebSocketService
+    private webSocketService:WebSocketService, private ticketService:TicketServiceService
   ) {
     webSocketService.ngOnInit();
     library.addIcons(faComment);
@@ -118,7 +124,6 @@ export class ReporteClientesComponent implements OnInit {
       if (usuario) { 
         this.usuarioActual = usuario;
         this.cargarTickets();
-        this.verNotificaciones();
         this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
           console.log("Resultado",JSON.parse(message.body));
           this.notificaciones.unshift(JSON.parse(message.body));
@@ -129,7 +134,6 @@ export class ReporteClientesComponent implements OnInit {
         })
       }
     });
-    this.notificacionesPendientes();
     
   }
 
@@ -207,6 +211,8 @@ export class ReporteClientesComponent implements OnInit {
     })
     .then((tickets: Ticket[]) => {
         this.tablatickets = tickets;
+        this.ticketService.emitirTickets(tickets);
+
     })
     .catch(error => {
         console.error("Error:", error.message);
@@ -232,14 +238,6 @@ export class ReporteClientesComponent implements OnInit {
     } )
     .then(ticket => console.log("Ticket cerrado",ticket))
     .catch(error => console.error("Error", error));
-  }
-  
-  abrirNotificaciones(){
-    if(this.mostrarNotificaciones){
-      this.mostrarNotificaciones = false;
-    }else{
-      this.mostrarNotificaciones = true;
-    }
   }
   
 
@@ -280,64 +278,5 @@ export class ReporteClientesComponent implements OnInit {
       }
     }
     return null;
-  }
-
-  obtenerTicketSeleccionado(ticketSeleccionado?: number): Ticket  {
-  
-    let ticket = this.tablatickets?.find(obj => obj.numero_ticket === ticketSeleccionado);
-    if(ticket){
-      return this.ticketSeleccionadoEntidad = ticket;
-    }else if(!ticket){
-      this.cargarTickets();
-      ticket = this.ticketsSocket?.find(obj => obj.numero_ticket === ticketSeleccionado);
-      if(ticket){
-        return ticket;
-      }else{
-        throw new Error ('Ticket no encontrado');
-      }
-    }else{
-      throw new Error ('Ticket no encontrado');
-    }
-  }
-  
-
-  abrirDetallesNotificacion(numero_ticket:number){
-    console.log("se ejecuto el metodo padre");
-    this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
-    const ticketJson = JSON.stringify(this.ticketActual);
-    localStorage.setItem("ticketseleccionado",ticketJson);
-    this.router.navigate(['detalles']);
-  }
-
-  notificacionesPendientes(){
-    const t = localStorage.getItem('token');
-    fetch(`${baseURL}/admin/reporte-tickets/notificaciones-pendientes`,{
-      method: 'GET',
-      headers:{
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${t}`
-      }
-    }).then(response =>{
-      if(!response.ok){
-        throw new Error(`Error ${response.status}: No se pudieron obtener las notificaciones.`);
-      }
-      return response.json();
-    })
-    .then (response =>{
-      this.notificacionesSinLeer = response
-    })
-  }
-
-  verNotificaciones(){
-    fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
-      {
-        method: "GET",
-        headers: { "Content-Type": "application/json",
-          "Authorization":`Bearer ${localStorage.getItem('token')}`
-         }
-      }
-    )
-    .then(response => response.json())
-    .then(notificaciones => this.notificaciones = notificaciones);
   }
 }
