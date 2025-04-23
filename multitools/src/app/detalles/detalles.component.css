@@ -61,11 +61,12 @@ div li:active{
     max-width:400px;
     overflow-wrap: break-word;
 }
-@media only screen and (max-width: 600px){
+@media only screen and (max-width: 1000px){
     .contenedor{
+        position: relative;
         display: flex;
         flex-flow: column;
-        width: 100%;
+        width: 100vw;
     }
     .infoCampo{
         border-radius: 7px;
