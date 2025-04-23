@@ -2,9 +2,9 @@
 .contenedor{
     position: relative;
     left: 50%;
+    margin: 0 auto;
     transform: translateX(-50%);
     max-width: 1200px;
-    min-width: 1200px;
     width: 80%;
     height: 500px;
     color:white;
@@ -197,8 +197,7 @@
 @media only screen and (max-device-width: 600px) {
     .contenedor {
         position:relative;
-        width: 80%;
-        min-width: unset;
+        width: 80vw;
         max-width: 400px;
         overflow-y: hidden;
         gap:1px;
