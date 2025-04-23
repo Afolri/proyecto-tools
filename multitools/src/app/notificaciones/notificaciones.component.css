@@ -119,3 +119,10 @@
     left: -30%;
     top: 5%;
 }
+
+@media only screen and (max-device-width: 1000px){
+    .bandeja-notificaciones{
+        position:relative;
+        width: 80vw;
+    }
+}
