@@ -97,7 +97,7 @@
   width: 100%;
   text-align: center;
   right: 0%;
-  z-index: 1;
+  z-index: 2;
   transition: all .4s ease;
 }
 .icono::before{
@@ -164,6 +164,12 @@
     flex-flow: column;
     justify-content: space-around;
     text-align: center;
-    flex:1 1 auto;
+    flex:1;
+  }
+  .notili{
+    min-height: 50px;
+    justify-content: end;
+    flex: 2;
+
   }
 }
