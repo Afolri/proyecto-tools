@@ -124,14 +124,6 @@ export class ReporteClientesComponent implements OnInit {
       if (usuario) { 
         this.usuarioActual = usuario;
         this.cargarTickets();
-        this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
-          console.log("Resultado",JSON.parse(message.body));
-          this.notificaciones.unshift(JSON.parse(message.body));
-          this.notificacionesSinLeer=true;
-        })
-        this.webSocketService.suscribirse(`/topic/ticket/${this.usuarioActual.numero_usuario}`,(message:IMessage) =>{
-          this.ticketsSocket.push(JSON.parse(message.body));
-        })
       }
     });
     
