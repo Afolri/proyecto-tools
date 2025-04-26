@@ -25,7 +25,7 @@
           <div class="menu" (click)="activarCheck(ticket)" >
             <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
             <section class = "opciones-list">
-              <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
+              <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
               <fa-icon  [icon]="faLock" class="lock-icon icono" (click)="solicitareliminar(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
             </section>
           </div>
@@ -52,7 +52,7 @@
 </div>
   <div class="fondoFormulario" *ngIf="mostrar">
     <div  class="editar">
-      <app-editar-ticket [ticket]="tablaTicketstemp" (salirFormulario)="ocultar()"></app-editar-ticket>
+      <app-editar-ticket [ticket]="tablaTicketstemp" (salirFormulario)="ocultar()" [numeroTicket]="refTicketComentarios" />
       <!--<app-generar-ticket [modo]="'editar'" (mostrarChange)="ocultar()" (obtenerDatos)="cargarTickets()" (cargarTicketsEvent)="cargarTickets()"
       [ticket]="tablaTicketstemp" (mostrarMensajeAviso)="mostrarAviso('actualizar')">
       </app-generar-ticket>-->

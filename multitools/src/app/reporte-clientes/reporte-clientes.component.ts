@@ -39,7 +39,6 @@ const baseURL = `${environment.URL_BASE}`;
     FormsModule,
     MensajeAvisoComponent,
     FontAwesomeModule,
-    NotificacionesComponent,
     EditarTicketComponent,
   ],
   templateUrl: './reporte-clientes.component.html',
@@ -47,11 +46,9 @@ const baseURL = `${environment.URL_BASE}`;
 })
 
 export class ReporteClientesComponent implements OnInit {
+  refTicketComentarios!:number;
   /**Donde se guardaraon los tickets que se pasen por el socket */
   ticketsSocket:Ticket[] = [];
-
-
-
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
   notificaciones:Notificaciones[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
@@ -270,5 +267,8 @@ export class ReporteClientesComponent implements OnInit {
       }
     }
     return null;
+  }
+  obtenerRefTicketComentarios(numeroTicket:number){
+    this.refTicketComentarios = numeroTicket;
   }
 }

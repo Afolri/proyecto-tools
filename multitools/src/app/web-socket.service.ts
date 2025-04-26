@@ -5,6 +5,10 @@ import { number } from 'zod';
 import { Notificaciones } from './reporte-clientes/reporte-clientes.component';
 import { environment } from '../environments/environment';
 import { Ticket } from './generar-ticket/generar-ticket.component';
+import { Comentario } from './models/comentario';
+import { Usuario } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { ComentarioResponse } from './models/comentarioResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +18,15 @@ export class WebSocketService implements OnInit{
 
   /**Permite hacer la conexión con el socket */
   private stompClient?:Client;
-
+  private rutasSuscritas = new Set<string>();
   private conectado = false;
 
     /**Aquí se van a guardar las notificaciones por el socket */
     /**private notificaciones : BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);*/
   private notificacion?:Notificaciones;
-
-  constructor() { }
+  private usuario!:Usuario;
+  constructor() {
+  }
   ngOnInit(): void {
     
     this.initializeWebSocketConnection();
@@ -40,7 +45,17 @@ export class WebSocketService implements OnInit{
         destination:`/app/notificacion/${notificacion.numero_usuario}`,
         body:JSON.stringify(
           notificacion
+
         )
+    });
+  }
+
+  enviarComentario(numeroUsuario:number, comentario:ComentarioResponse){
+    this.stompClient?.publish({
+      destination: `/app/comentario/general`,
+      body:JSON.stringify(
+        comentario
+      )
     });
   }
 
@@ -73,42 +88,26 @@ export class WebSocketService implements OnInit{
     
       this.stompClient.activate();
   }
-    suscribirse(ruta: string, callback: (message: IMessage) => void): void {
-      const hacerSuscripcion = () => {
-        if (this.stompClient && this.stompClient.connected) {
-          this.stompClient.subscribe(ruta, callback);
-        } else {
-          // Esperar hasta que esté conectado
-          const intervalo = setInterval(() => {
-            if (this.stompClient && this.stompClient.connected) {
-              clearInterval(intervalo);
-              this.stompClient.subscribe(ruta, callback);
-            }
-          }, 500);
-        }
-      };
-    
-      hacerSuscripcion();
+  suscribirse(ruta: string, callback: (message: IMessage) => void): void {
+    if(this.rutasSuscritas.has(ruta)){
+      return;
     }
-
-    /**anterior
-     * 
-     *     suscribirse(ruta:string, callback:(message: IMessage) =>void){
-      if(!this.conectado){
-        const intervalo = setInterval(()=>{
-          if(this.conectado){
+    const hacerSuscripcion = () => {
+      if (this.stompClient && this.stompClient.connected ) {
+        this.stompClient.subscribe(ruta, callback);
+        this.rutasSuscritas.add(ruta);
+      } else {
+        // Esperar hasta que esté conectado
+        const intervalo = setInterval(() => {
+          if (this.stompClient && this.stompClient.connected) {
             clearInterval(intervalo);
-            this.stompClient?.subscribe(ruta, (message:IMessage) =>{
-              callback(message);
-            });
+            this.stompClient.subscribe(ruta, callback);
+            this.rutasSuscritas.add(ruta);
           }
-        },500);
-      }else{
-        this.stompClient?.subscribe(ruta, (message: IMessage) =>{
-          callback(message);
-        });
+        }, 500);
       }
-    }
-     */
-    
+    };
+  
+    hacerSuscripcion();
+  }   
 }

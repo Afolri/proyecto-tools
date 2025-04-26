@@ -12,12 +12,32 @@
         <div class="apartado"><label>{{ ticket.correo }}</label></div>
         <div class="apartado"><label>{{ ticket.descripcion }}</label></div>
         <div class="apartado"><label>{{ ticket.estado }}</label></div>
-        <div class="apartado"><label>{{ ticket?.numero_agente || 'No asignado' }}</label></div>
+        <div class="apartado"><label>{{ ticket.numero_agente }}</label></div>
         <div class="apartado"><label>{{ ticket.fecha }}</label></div>
-        <div class="apartado"><input><button>Enviar</button></div>
-        <div class="apartado"><button (click)="cancelar()">Salir</button></div>
+        <form [formGroup]="comentarFormulario" (submit)="onSubmit()" class="apartado">
+            <div>
+                <textarea class="estilotextarea" formControlName = "comentarioTextArea"
+                placeholder="Inserte aquí un comentario">
+
+                </textarea>
+            </div>
+            <div class="botones">
+                <button type="submit" class="estilobutton enviar">Enviar</button>
+                <button type="button" class="estilobutton salir"(click)="cancelar()">Salir</button>
+            </div>
+        </form>
     </div>
-    <div class="comentario">
-        <label>aqui va un comentario</label>
+    <div class="cajadecomentarios">
+        @if(!comentariosObtenidos){
+            <div>No hay comentarios aún</div>
+        }
+        @for(comentario of comentariosObtenidos; track comentario.numero_comentario ){
+
+            <div class = "contenedor-comentario">
+                <div class = "comentario">
+                    {{comentario.contenido}}
+                </div>
+            </div>
+        }
     </div>
 </div>

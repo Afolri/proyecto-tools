@@ -78,7 +78,28 @@
     display: flex;
     flex:2;
 }
+.asuntoInput{
+  display:flex;
+  flex-flow: row nowrap;
+  flex: 1 1 auto;
+}
+.asuntoInput>*{
+  justify-content: center;
+  align-items: center;
+  flex:1;
+  position: relative;
+  gap: 10px;
+}
+.textoInput::before{
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  cursor:pointer;
+  left: 0%;
+  z-index:1;
 
+}
 #descripcion{
     grid-area:7/2/9/3;
     resize:none;
@@ -101,7 +122,6 @@
     background-color: red;
     color: white;
 }
-
 
 .fa {
     color: rgb(111, 99, 204);
@@ -365,9 +385,9 @@ textarea.ng-invalid.ng-touched {
     .contenedorpadre{
       display: flex;
       flex-flow: column;
-      gap: 0px;
     }
     .contenedor2>*{
+      background-color: red;
       display: flex;
       flex-flow: column;
       gap: 20px;

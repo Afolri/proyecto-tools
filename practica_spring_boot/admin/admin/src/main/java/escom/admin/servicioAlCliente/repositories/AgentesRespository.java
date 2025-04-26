@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface AgentesRespository extends JpaRepository<Agente,Long> {
@@ -21,4 +22,5 @@ public interface AgentesRespository extends JpaRepository<Agente,Long> {
             LEFT JOIN soporte.clientes c  ON  t.numero_cliente = c.numero_cliente ORDER BY numero_ticket DESC
             """, nativeQuery = true)
     List<Map<String,Object>> buscarTickets( @Param("numeroAgente") Long numeroAgente);
+    Optional<Agente> findByUsuario_NumeroUsuario(Long numeroUsuario);
 }

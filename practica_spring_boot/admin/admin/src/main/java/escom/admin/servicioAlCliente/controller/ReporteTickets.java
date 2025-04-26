@@ -2,18 +2,12 @@ package escom.admin.servicioAlCliente.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import escom.admin.servicioAlCliente.dto.DatosSocketDTOResponse;
-import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
-import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
-import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
+import escom.admin.servicioAlCliente.dto.*;
 import escom.admin.servicioAlCliente.entities.Cliente;
 import escom.admin.servicioAlCliente.entities.ProductoTicket;
 import escom.admin.servicioAlCliente.entities.Ticket;
 import escom.admin.servicioAlCliente.entities.TipoIdentificador;
-import escom.admin.servicioAlCliente.services.NotificacionService;
-import escom.admin.servicioAlCliente.services.TicketService;
-import escom.admin.servicioAlCliente.services.TipoIdentificadorService;
-import escom.admin.servicioAlCliente.services.UsuarioService;
+import escom.admin.servicioAlCliente.services.*;
 import jdk.jfr.Unsigned;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +34,8 @@ public class ReporteTickets {
     private UsuarioService usuarioService;
     @Autowired
     private TipoIdentificadorService tipoIdentificadorService;
+    @Autowired
+    private ComentarioTicketService comentarioTicketService;
 
     @PostMapping("/crear-ticket")
     public ResponseEntity<?> crearTicket(@RequestBody TicketRequestDTO ticketRequestDTO) {
@@ -122,6 +118,24 @@ public class ReporteTickets {
     @GetMapping("/notificaciones-pendientes")
     public ResponseEntity<?> notificacionesPendientes(){
         return ResponseEntity.ok().body(notificacionService.notificacionesPendientes());
+    }
+    @PostMapping("/comentar-ticket")
+    public ResponseEntity<?> comentarTicket (@RequestBody ComentarioTicketRequestDTO comentDTO){
+        try{
+            return ResponseEntity.ok().body(comentarioTicketService.comentarTicket(comentDTO.getNumeroTicket(),
+                    comentDTO.getNumeroUsuario(),
+                    comentDTO.getComentario()));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Hubo un error al guardar el comentario");
+        }
+    }
+    @GetMapping("/obtener-comentario-ticket")
+    public ResponseEntity<?> obtenerComentarioPorTicket(@RequestParam ("numero-ticket")Long numeroTicket){
+        try{
+            return ResponseEntity.ok().body(comentarioTicketService.buscarComentariosPorTicket(numeroTicket));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Error al obtener los comentarios");
+        }
     }
 
 

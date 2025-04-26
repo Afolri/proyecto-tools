@@ -1,6 +1,10 @@
 package escom.admin.servicioAlCliente.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import escom.admin.servicioAlCliente.dto.ComentarioTicketResponseDTO;
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
+import escom.admin.servicioAlCliente.entities.Comentario;
+import escom.admin.servicioAlCliente.repositories.AgentesRespository;
 import escom.admin.servicioAlCliente.repositories.TicketRepository;
 import escom.admin.servicioAlCliente.services.NotificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +17,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class NotificacionesSocketController {
-
+    AgentesRespository agentesRespository;
     private final SimpMessagingTemplate messagingTemplate;
     private Message<?> message;
 
@@ -21,10 +25,22 @@ public class NotificacionesSocketController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @MessageMapping("/notificacion/{agente}")
-    @SendTo("/topic/{agente}")
-    public NotificacionResponseDTO enviarNotificacion(@DestinationVariable String agente,
+    @MessageMapping("/notificacion/{usuario}")
+    @SendTo("/topic/{usuario}")
+    public NotificacionResponseDTO enviarNotificacion(@DestinationVariable String usuario,
                                                      NotificacionResponseDTO notificacionResponseDTO){
         return notificacionResponseDTO;
+    }
+
+    @MessageMapping("/comentario/general")
+    @SendTo("/comentario-topic/general")
+    public ComentarioTicketResponseDTO enviarComentario(ComentarioTicketResponseDTO comentario){
+        return ComentarioTicketResponseDTO.builder()
+                .numeroComentario(comentario.getNumeroComentario())
+                .comentario(comentario.getComentario())
+                .numeroAgente(comentario.getNumeroAgente())
+                .numeroTicket(comentario.getNumeroTicket())
+                .build();
+
     }
 }

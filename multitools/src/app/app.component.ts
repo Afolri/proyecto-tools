@@ -12,6 +12,9 @@ import { WebSocketService } from './web-socket.service';
 import { IMessage } from '@stomp/stompjs';
 import { environment } from '../environments/environment';
 import { TicketServiceService } from './ticket-service.service';
+import { Comentario } from './models/comentario';
+import { ComentarioResponse } from './models/comentarioResponse';
+import { ComentarioService } from './comentario.service';
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -23,7 +26,6 @@ const baseURL = `${environment.URL_BASE}`;
     CommonModule,
     FormsModule,
     RouterLink,
-    LoginComponent,
     NotificacionesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -34,6 +36,7 @@ const baseURL = `${environment.URL_BASE}`;
 export class AppComponent implements OnInit{
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
   notificaciones:Notificaciones[] = [];
+  comentariosRaiz:Comentario[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
   notificacionesSinLeer:boolean = false;
   mostrarNotificaciones:boolean = false;
@@ -47,7 +50,7 @@ export class AppComponent implements OnInit{
   modo:'AGENTE'|'ADMIN'='AGENTE';
 
   constructor(private authService: AuthService, private router:Router, private webSocketService:WebSocketService,
-    private ticketService:TicketServiceService
+    private ticketService:TicketServiceService, private comentarioService:ComentarioService
   ){
 
   }
@@ -58,16 +61,20 @@ export class AppComponent implements OnInit{
       if(usuario){
         this.verNotificaciones();
         this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
-          console.log("Resultado",JSON.parse(message.body));
           this.notificaciones.unshift(JSON.parse(message.body));
           this.notificacionesSinLeer=true;
-        })
-        this.webSocketService.suscribirse(`/topic/ticket/${this.usuarioActual.numero_usuario}`,(message:IMessage) =>{
-          this.ticketSocket.push(JSON.parse(message.body));
-        })
+        });
         this.ticketService.tickets$.subscribe(tickets =>{
           this.ticketsObtenidos = tickets;
-        })
+        });
+        this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
+          const comentario:ComentarioResponse = JSON.parse(message.body)
+          const comentarioTemp:Comentario = {
+            numero_comentario:comentario.numero_comentario,
+            contenido:comentario.comentario
+          }
+          this.comentarioService.emitirComentario(comentarioTemp);
+        });
         this.notificacionesPendientes();
       }
     })

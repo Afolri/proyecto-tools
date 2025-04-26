@@ -33,6 +33,9 @@ public class Agente {
     @JsonBackReference
     @JoinColumn(name = "numero_usuario")
     @JsonProperty("numero_usuario")
-    private Usuario numeroUsuario;
+    private Usuario usuario;
 
+    @OneToMany(mappedBy = "agente")
+    @JsonManagedReference
+    private List<ComentarioTicket> comentarioTicket;
 }

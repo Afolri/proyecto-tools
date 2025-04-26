@@ -44,7 +44,7 @@ public class Usuario implements UserDetails {
 
 
     @JsonBackReference
-    @OneToOne (mappedBy = "numeroUsuario")
+    @OneToOne
     @JoinColumn ( name = "numero_agente")
     @JsonProperty("numero_usuario")
     private Agente agente;

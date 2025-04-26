@@ -52,7 +52,7 @@ public class NotificacionServiceImpl implements NotificacionService {
         return NotificacionResponseDTO.builder()
                 .numeroNotificacion(notiTemp.getNumeroNotificacion())
                 .numeroTicket(notiTemp.getTicket().getNumeroTicket())
-                .usuarioAgenteAsignado(ticket.getAgente().getNumeroUsuario().getNumeroUsuario())
+                .usuarioAgenteAsignado(ticket.getAgente().getUsuario().getNumeroUsuario())
                 .fecha(ticket.getFecha())
                 .hora(ticket.getHora())
                 .estadoNotificacion(notificacion.getEstadoNotificacion())

@@ -61,6 +61,9 @@ div li:active{
     max-width:400px;
     overflow-wrap: break-word;
 }
+.comentario{
+    background-color: gray;
+}
 @media only screen and (max-width: 1000px){
     .contenedor{
         position: relative;
