@@ -387,7 +387,6 @@ textarea.ng-invalid.ng-touched {
       flex-flow: column;
     }
     .contenedor2>*{
-      background-color: red;
       display: flex;
       flex-flow: column;
       gap: 20px;

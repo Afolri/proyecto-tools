@@ -93,6 +93,13 @@ export class AppComponent implements OnInit{
   abrirDetallesNotificacion(numero_ticket:number){
     this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
     const ticketJson = JSON.stringify(this.ticketActual);
+    let noti = this.notificaciones.find(obj => obj.numero_ticket === numero_ticket);
+    noti!.estado_notificacion = true;
+
+    if(this.notificaciones.find(obj => obj.estado_notificacion === true)){
+      this.notificacionesSinLeer = false;
+    }
+
     localStorage.setItem("ticketseleccionado",ticketJson);
     this.router.navigate(['detalles']);
   }

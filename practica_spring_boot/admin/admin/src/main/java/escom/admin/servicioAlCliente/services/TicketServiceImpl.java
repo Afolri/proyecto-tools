@@ -76,8 +76,9 @@ public class TicketServiceImpl implements TicketService {
     public DatosSocketDTOResponse crearTicketConCliente(TicketRequestDTO requestDTO) throws Exception {
         Cliente cliente;
         ProductoTicket producto;
+
+        JSONObject jsonObject = new JSONObject(requestDTO);
         ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject jsonObject = new JSONObject();
 
         //Busca un ticket por el nuemero de compra
 
@@ -86,20 +87,20 @@ public class TicketServiceImpl implements TicketService {
                 .orElse(new Ticket());
 
         if(!validarCorreo(requestDTO.getCorreo())) {
-            throw new Exception("Hay un campo vacio");
+            throw new Exception("El correo no cumple el patrón");
         }
         if(!validarTelefono(requestDTO.getTelefono())) {
-            throw new Exception("Hay un campo vacio");
+            throw new Exception("El teléfono no cumple el patrón");
         }
         if(!validarNombre(requestDTO.getNombreCliente())){
-            throw new Exception("Hay un campo vacio");
+            throw new Exception("El nombre no cumple el patrón");
         }
         if(ticketDtoVacio(requestDTO)){
             throw new Exception("Hay un campo vacio");
         }
-
         /*Cuando se comprueba que el producto no existe entonces crea un nuevo producto colocandole
         numero de identificador*/
+
         producto = productoTicketService.crearProducto(requestDTO.getNumeroCompraCot(),
                 requestDTO.getCodigo().toUpperCase(), requestDTO.getNumeroIdentificador());
         ticket.setProductoTicket(producto);
@@ -108,15 +109,9 @@ public class TicketServiceImpl implements TicketService {
         *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
         *de cliente
         */
-        cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->clienteRepository.save(
-                Cliente.builder()
-                .nombreCliente(requestDTO.getNombreCliente())
-                .correo(requestDTO.getCorreo().toLowerCase())
-                .telefono(requestDTO.getTelefono())
-                .build()));
-                /*
-                .orElseGet());
-                 */
+        Cliente clienteTemp =objectMapper.readValue(new JSONObject(requestDTO).toString(),Cliente.class);
+        cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->
+                clienteRepository.save(clienteTemp));
 
         //guarda el asunto, descripcion y la fecha en el ticket
         ticket = ticketRepository.save(Ticket.builder()
@@ -133,7 +128,11 @@ public class TicketServiceImpl implements TicketService {
                 .cliente(cliente)
                 .build());
         NotificacionResponseDTO notiDTO = notificacionService.crearNotificacion(ticket, "Se ha creado un nuevo ticket");
-        TicketResponseDTO ticketDTO = TicketResponseDTO.builder()
+
+        Ticket ticketTemp = objectMapper.readValue(new JSONObject(requestDTO).toString(), Ticket.class);
+        TicketResponseDTO ticketDTO =
+
+                TicketResponseDTO.builder()
                 .numeroTicket(ticket.getNumeroTicket())
                 .numeroProducto(ticket.getProductoTicket().getNumeroProducto())
                 .tipoCodigo(productoTicketRepository.obtenerIdentificadores(producto.getNumeroProducto()))
@@ -153,7 +152,6 @@ public class TicketServiceImpl implements TicketService {
                 .notificacionResponseDTO(notiDTO)
                 .ticketResponseDTO(ticketDTO)
                 .build();
-
     }
 
     boolean ticketDtoVacio(TicketRequestDTO tr){
