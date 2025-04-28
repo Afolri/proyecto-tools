@@ -105,9 +105,9 @@ public class TicketServiceImpl implements TicketService {
         ticket.setProductoTicket(producto);
 
         /*
-        Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
-        de cliente
-         */
+        *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
+        *de cliente
+        */
         cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->clienteRepository.save(
                 Cliente.builder()
                 .nombreCliente(requestDTO.getNombreCliente())
