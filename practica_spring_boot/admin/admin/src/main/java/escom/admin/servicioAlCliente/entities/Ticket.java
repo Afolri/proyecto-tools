@@ -104,16 +104,19 @@ public class Ticket {
     @ManyToOne
     @JoinColumn ( name = "numero_agente")
     @JsonProperty ( "agente")
+    @JsonBackReference
     private Agente agente;
 
     @ManyToOne
     @JoinColumn (name = "numero_cliente")
     @JsonProperty("cliente")
+    @JsonBackReference
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn (name = "numero_producto")
     @JsonProperty("producto")
+    @JsonBackReference
     private ProductoTicket productoTicket;
 
     @OneToMany (mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)

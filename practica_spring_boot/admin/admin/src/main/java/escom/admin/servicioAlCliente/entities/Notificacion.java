@@ -67,6 +67,7 @@ public class Notificacion {
 
     @ManyToOne
     @JoinColumn (name = "numero_ticket", nullable = false)
+    @JsonBackReference
     private Ticket ticket;
 
 }

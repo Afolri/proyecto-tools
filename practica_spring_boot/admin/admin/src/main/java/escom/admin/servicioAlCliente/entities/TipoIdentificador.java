@@ -1,9 +1,6 @@
 package escom.admin.servicioAlCliente.entities;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import escom.admin.servicioAlCliente.dto.TipoIdentificadorResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -47,6 +44,7 @@ public class TipoIdentificador {
     private String nombreIdentificador;
 
     @OneToMany(mappedBy = "tipoIdentificador", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<ProductoTipo> productoTipo = new ArrayList<>();
 
 }

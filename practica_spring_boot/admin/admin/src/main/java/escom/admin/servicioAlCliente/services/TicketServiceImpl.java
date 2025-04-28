@@ -76,9 +76,8 @@ public class TicketServiceImpl implements TicketService {
     public DatosSocketDTOResponse crearTicketConCliente(TicketRequestDTO requestDTO) throws Exception {
         Cliente cliente;
         ProductoTicket producto;
-
-        JSONObject jsonObject = new JSONObject(requestDTO);
         ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject jsonObject = new JSONObject(requestDTO);
 
         //Busca un ticket por el nuemero de compra
 
@@ -109,10 +108,15 @@ public class TicketServiceImpl implements TicketService {
         *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
         *de cliente
         */
-        Cliente clienteTemp =objectMapper.readValue(new JSONObject(requestDTO).toString(),Cliente.class);
-        cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->
-                clienteRepository.save(clienteTemp));
-
+        cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->clienteRepository.save(
+                Cliente.builder()
+                .nombreCliente(requestDTO.getNombreCliente())
+                .correo(requestDTO.getCorreo().toLowerCase())
+                .telefono(requestDTO.getTelefono())
+                .build()));
+                /*
+                .orElseGet());
+                 */
         //guarda el asunto, descripcion y la fecha en el ticket
         ticket = ticketRepository.save(Ticket.builder()
                 .numeroTicket(ticket.getNumeroTicket())
@@ -128,11 +132,7 @@ public class TicketServiceImpl implements TicketService {
                 .cliente(cliente)
                 .build());
         NotificacionResponseDTO notiDTO = notificacionService.crearNotificacion(ticket, "Se ha creado un nuevo ticket");
-
-        Ticket ticketTemp = objectMapper.readValue(new JSONObject(requestDTO).toString(), Ticket.class);
-        TicketResponseDTO ticketDTO =
-
-                TicketResponseDTO.builder()
+        TicketResponseDTO ticketDTO = TicketResponseDTO.builder()
                 .numeroTicket(ticket.getNumeroTicket())
                 .numeroProducto(ticket.getProductoTicket().getNumeroProducto())
                 .tipoCodigo(productoTicketRepository.obtenerIdentificadores(producto.getNumeroProducto()))

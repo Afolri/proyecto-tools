@@ -20,7 +20,15 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
     List<Ticket> findAllByAgente_NumeroAgente(Long numeroAgente);
     Ticket findByClienteNombreCliente(String nombreCliente);
     Optional<Ticket> findByCliente_CorreoAndProductoTicket_NumeroCompraCot(String correo, String numeroCompraCot);
-
+    @Transactional
+    @Query(value = """
+        SELECT st.numero_ticket, st.asunto, st.descripcion, st.numero_agente, st.numero_cliente,c.nombre_cliente, c.correo,c.telefono,st.fecha, st.estado, st.hora
+        ,pt.numero_producto, pt.numero_compra_cot FROM soporte.tickets st
+        LEFT JOIN soporte.clientes c ON c.numero_cliente = st.numero_cliente
+        LEFT JOIN soporte.productoticket pt ON pt.numero_producto = st.numero_producto
+        WHERE c.correo LIKE :correo AND pt.numero_compra_cot LIKE :numeroCompraCot
+            """, nativeQuery = true)
+    Optional<Ticket> obtenerTicket (@Param("correo") String correo, @Param("numeroCompraCot") String numeroCompraCot);
    @Query(value = """
            SELECT DISTINCT
                           t.numero_ticket,
