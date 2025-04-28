@@ -59,7 +59,7 @@ export class ReporteClientesComponent implements OnInit {
   ticketActual!:Ticket;
   /**Aquí se guarda el usuario que actualmente esta loggeado */
   usuarioActual!:Usuario;
-  /**creando las variables para exportar de los iconos */
+  /**creando las variables para exportar los iconos */
   faComment = faComment;
   faLock = faLock;
   faBars = faBars;

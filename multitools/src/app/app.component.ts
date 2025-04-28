@@ -67,6 +67,11 @@ export class AppComponent implements OnInit{
         this.ticketService.tickets$.subscribe(tickets =>{
           this.ticketsObtenidos = tickets;
         });
+        this.webSocketService.suscribirse(`/topic/ticket/${usuario.numero_usuario}`,(message:IMessage)=>{
+          const ticketSocket:Ticket = JSON.parse(message.body);
+          this.ticketSocket.push(ticketSocket);
+          console.log("tickets socket", ticketSocket);
+        })
         this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
           const comentario:ComentarioResponse = JSON.parse(message.body)
           const comentarioTemp:Comentario = {
