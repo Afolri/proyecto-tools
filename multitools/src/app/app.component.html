@@ -3,16 +3,23 @@
 	<div class = "primeritem"></div>
 	<nav class="segundoitem">
 		<ul>
-			<li *ngIf ="modo ==='AGENTE'"><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
-			<li *ngIf ="modo ==='ADMIN'"><a  routerLink="/organizador-computadoras" data-text="Organiza">ORGANIZADOR COMPUTADORAS</a></li>
+			<li ><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
+			@if(modo ==='ADMIN'){
+				<li><a  routerLink="/organizador-computadoras" data-text="Organiza">ORGANIZADOR COMPUTADORAS</a></li>
+			}
 			<li ><a routerLink="/generar-tickets" [queryParams]= "{modo:'crear'}"data-text="tickets">GENERAR TICKETS</a></li>
 
 			
 			@if(usuarioActual){
-				<li><a>{{usuarioActual.nombre}}</a></li>
+				<li><a>{{usuarioActual.nombre_usuario}}</a></li>
 				<li><a (click)="logout()">LOGOUT</a></li>
 			}@else {
 				<li><a routerLink="/login">LOGIN</a></li>
+			}
+			@if(usuarioActual && this.modo === "ADMIN"){
+				<li class = "registrar" routerLink="/usuarios">
+					<a>usuarios</a>
+				</li>
 			}
 			@if(usuarioActual){
 			<li class = "notili">

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Usuarios</h1>
+    <div>
+        <button type="button" class="registrar" routerLink='/registrar-usuario'>Crear Usuario</button>
+    </div>
+    <div class="container-general">
+    @for(usuario of usuariosObtenidos; track usuario.numero_usuario){
+        <div class = "container" [ngStyle]="colorRol(usuario.rol)">
+            <div class="datos">{{usuario.numero_usuario}}</div>
+            <div class="datos">{{usuario.correo}}</div>
+            <div class="datos">{{usuario.nombre_usuario}}</div>
+            <div class="datos">{{usuario.rol}}</div>
+        </div>
+    }
+</div>
+</body>
+</html>

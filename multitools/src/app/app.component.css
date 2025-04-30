@@ -16,6 +16,7 @@
   
 }
 .segundoitem{
+  --escom-color1:rgba(72, 125, 185, 0.684);
   grid-row: 2;
   display: flex;
   min-width: 300px;
@@ -23,7 +24,7 @@
   align-self: center;
   padding: 10px 70px 10px 70px;
   background-color: transparent;
-  box-shadow: inset 7px 6px 9px rgba(72, 125, 185, 0.684) , 2px 2px 20px black;
+  box-shadow: inset 7px 6px 9px var(--escom-color1) , 2px 2px 20px black;
   border-radius: 50px;
   word-wrap: break-word;
   background-color: hsla(211, 48%, 21%, 0.691);
@@ -42,6 +43,8 @@
 .segundoitem li{
   display: flex;
   list-style: none;
+  text-transform: uppercase;
+  cursor: pointer;
 }
 .segundoitem li a{
   color:white;

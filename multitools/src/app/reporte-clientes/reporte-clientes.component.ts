@@ -117,10 +117,15 @@ export class ReporteClientesComponent implements OnInit {
     library.addIcons(faBars);
   }
   ngOnInit(): void {
-    this.authService.usuarioActual$.subscribe(usuario => {
+    this.authService.usuarioActual$.subscribe((usuario:Usuario) => {
+      console.log("rol:",usuario.rol)
       if (usuario) { 
         this.usuarioActual = usuario;
+        if(usuario.rol ==='AGENTE'){
         this.cargarTickets();
+        }else if(usuario.rol ==='ADMIN' ){
+          this.cargarTodosLosTickets();
+        }
       }
     });
     
@@ -177,6 +182,25 @@ export class ReporteClientesComponent implements OnInit {
     };
   }
   
+  cargarTodosLosTickets(){
+    fetch(`${baseURL}/admin/reporte-tickets/obtener-tickets`,{
+      method:"GET",
+      headers:{
+        "Authorization":`Bearer ${localStorage.getItem("token")}`,
+        "Content-Type":"application/json"
+      }
+    })
+    .then(response =>{
+      if(!response.ok){
+        throw new Error("No se pudieron obtener los tickets");
+      }
+      return response.json();
+    })
+    .then((response:Ticket[])=>{
+      this.tablatickets = response;
+      this.ticketService.emitirTickets(response);
+    })
+  }
   cargarTickets() {
     const token = localStorage.getItem("token");
 

@@ -11,7 +11,7 @@ import { animacioncondicional } from './animacioncondicional';
 
 export interface Usuario{
     numero_usuario:number,
-    nombre:string,
+    nombre_usuario:string,
     correo:string,
     rol:string
 }
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit{
     faInfo =faInfo;
     usuarioActual:Usuario={
         numero_usuario:0,
-        nombre:"",
+        nombre_usuario:"",
         correo:"",
         rol:""
     }

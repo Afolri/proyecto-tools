@@ -26,4 +26,5 @@ public interface TicketService {
     List<TicketResponseDTO> buscarTickets( Long numeroUsuario );
     void actualizarTicket(Ticket ticket, Cliente cliente, ProductoTicket productoTicket);
     Ticket buscarPorIdentificador(String nombreIdentificador,  Long numeroTicket);
+    List<TicketResponseDTO> obtenerTodosLosTickets();
 }

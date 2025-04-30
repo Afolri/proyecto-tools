@@ -1,13 +1,15 @@
 package escom.admin.servicioAlCliente.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import escom.admin.servicioAlCliente.dto.DatosSocketDTOResponse;
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
 import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.*;
-import escom.admin.servicioAlCliente.repositories.*;
-import org.json.JSONObject;
+        import escom.admin.servicioAlCliente.repositories.*;
+        import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -18,7 +20,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-import static escom.admin.servicioAlCliente.utils.UtilidadesDeValidacion.*;
+        import static escom.admin.servicioAlCliente.utils.UtilidadesDeValidacion.*;
 
 @Service
 public class TicketServiceImpl implements TicketService {
@@ -105,15 +107,15 @@ public class TicketServiceImpl implements TicketService {
         ticket.setProductoTicket(producto);
 
         /*
-        *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
-        *de cliente
-        */
+         *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
+         *de cliente
+         */
         cliente = clienteRepository.findByCorreo(requestDTO.getCorreo()).orElseGet(() ->clienteRepository.save(
                 Cliente.builder()
-                .nombreCliente(requestDTO.getNombreCliente())
-                .correo(requestDTO.getCorreo().toLowerCase())
-                .telefono(requestDTO.getTelefono())
-                .build()));
+                        .nombreCliente(requestDTO.getNombreCliente())
+                        .correo(requestDTO.getCorreo().toLowerCase())
+                        .telefono(requestDTO.getTelefono())
+                        .build()));
                 /*
                 .orElseGet());
                  */
@@ -210,5 +212,21 @@ public class TicketServiceImpl implements TicketService {
     public Ticket buscarPorIdentificador(String nombreIdentificador, Long numeroTicket) {
         Optional<Ticket> ticket = ticketRepository.buscarPorIdentificador(nombreIdentificador, numeroTicket);
         return ticket.orElseGet(Ticket::new);
+    }
+
+    @Override
+    public List<TicketResponseDTO> obtenerTodosLosTickets() {
+        return ticketRepository.obtenerTodosLosTickets().stream()
+                .map(ticket -> {
+                    ObjectMapper objectMapper = new ObjectMapper()
+                            .registerModule(new JavaTimeModule());
+                    try {
+                        return objectMapper.readValue(new JSONObject(ticket).toString(), TicketResponseDTO.class);
+                    } catch (JsonProcessingException e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                }).toList();
     }
 }

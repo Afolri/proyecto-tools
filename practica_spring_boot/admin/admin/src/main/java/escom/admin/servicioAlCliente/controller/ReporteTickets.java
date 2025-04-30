@@ -18,6 +18,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -135,6 +136,24 @@ public class ReporteTickets {
             return ResponseEntity.ok().body(comentarioTicketService.buscarComentariosPorTicket(numeroTicket));
         }catch (Exception e){
             return ResponseEntity.badRequest().body("Error al obtener los comentarios");
+        }
+    }
+
+    @GetMapping("/obtener-usuarios")
+    public ResponseEntity<?> obtenerUsuarios(){
+        try{
+            return ResponseEntity.ok().body(usuarioService.obtenerUsuarios());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/obtener-tickets")
+    public ResponseEntity<?> obtenerTodosLosTickets(){
+        try {
+            return ResponseEntity.ok().body(ticketService.obtenerTodosLosTickets());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

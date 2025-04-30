@@ -33,7 +33,7 @@ public class AuthService {
                 .correo(request.getCorreo().toLowerCase())
                 .nombreUsuario(request.getNombreUsuario())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .rol(Rol.AGENTE)
+                .rol(Rol.obtenerRol((short)1))
                 .build();
         usuarioRepository.save(usuario);
         return AuthResponse.builder()

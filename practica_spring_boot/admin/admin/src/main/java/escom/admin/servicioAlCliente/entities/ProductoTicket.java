@@ -10,7 +10,6 @@ import java.util.List;
 @Entity
 @Table(name = "productoticket" , schema = "soporte")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_producto")
 @Data
 public class ProductoTicket {
 

@@ -3,13 +3,17 @@ package escom.admin.servicioAlCliente.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jdk.jfr.DataAmount;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-@lombok.Data
-@lombok.AllArgsConstructor
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties (ignoreUnknown = true)
 @Builder
 public class TicketResponseDTO {
