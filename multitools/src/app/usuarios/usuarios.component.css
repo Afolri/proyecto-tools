@@ -4,13 +4,24 @@
     --azul:rgba(72, 125, 185, 0.684);
     --azul-claro:hsl(215, 54%, 58%);
     --azul-oscuro:rgba(45, 67, 93, 0.684);
+    --azul-titulo:rgba(123, 170, 226, 0.684);
 }
 .container-general{
-    display: flex;
-    flex-flow: column;
     gap: 1vw;
     margin: 22px;
+    display: table;
+    border-spacing: 0px 10px;
     
+}
+.titulo{
+    border-left:1px dotted white;
+}
+.fila{
+    display: table-row;
+}
+.columna{
+    display: table-cell;
+    padding: 10px;
 }
 .registrar{
     background-color: var(--azul);
@@ -22,7 +33,6 @@
 .container{
     cursor:pointer;
     gap: 22px;
-    display:flex;
     padding: 1vw;
     align-items: center;
     border-start-end-radius: 17px;

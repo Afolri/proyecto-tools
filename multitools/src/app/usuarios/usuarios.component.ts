@@ -35,13 +35,15 @@ export class UsuariosComponent implements OnInit {
       this.usuariosObtenidos = response;
     })
   }
-  colorRol(rol:string){
+  colorRol(rol:string | null){
     if(rol === 'ADMIN'){
       return { 'background-color': 'var(--azul)' }
     }else if(rol === 'AGENTE'){
       return {'background-color':'var(--azul-claro)'}
     }
-    return {'background-color':'blue;'}
+    return {'background-color':'var(--azul-titulo)'
+      
+    }
   }
 
 }
