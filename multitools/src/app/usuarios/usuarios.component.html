@@ -11,6 +11,12 @@
         <button type="button" class="registrar" routerLink='/registrar-usuario'>Crear Usuario</button>
     </div>
     <div class="container-general">
+        <div class = "container">
+            <div class="datos">Numero de usuario</div>
+            <div class="datos">Correo</div>
+            <div class="datos">Nombre de Usuario</div>
+            <div class="datos">Rol</div>
+        </div>
     @for(usuario of usuariosObtenidos; track usuario.numero_usuario){
         <div class = "container" [ngStyle]="colorRol(usuario.rol)">
             <div class="datos">{{usuario.numero_usuario}}</div>

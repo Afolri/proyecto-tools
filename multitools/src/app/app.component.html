@@ -3,7 +3,9 @@
 	<div class = "primeritem"></div>
 	<nav class="segundoitem">
 		<ul>
-			<li ><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
+			@if(usuarioActual){
+				<li ><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
+			}
 			@if(modo ==='ADMIN'){
 				<li><a  routerLink="/organizador-computadoras" data-text="Organiza">ORGANIZADOR COMPUTADORAS</a></li>
 			}
