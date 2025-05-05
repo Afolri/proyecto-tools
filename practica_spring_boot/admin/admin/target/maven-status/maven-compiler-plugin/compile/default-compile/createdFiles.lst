@@ -43,6 +43,7 @@ escom\admin\productos\controllers\SoporteController.class
 escom\admin\servicioAlCliente\entities\Ticket.class
 escom\admin\servicioAlCliente\entities\ProductoTicket.class
 escom\admin\servicioAlCliente\services\TicketServiceImpl.class
+escom\admin\servicioAlCliente\dto\UsuarioResponseDTO$UsuarioResponseDTOBuilder.class
 escom\admin\servicioAlCliente\services\ClienteServiceImpl.class
 escom\admin\productos\repositories\ProcesadorRepository.class
 escom\admin\servicioAlCliente\repositories\NotificacionRepository.class

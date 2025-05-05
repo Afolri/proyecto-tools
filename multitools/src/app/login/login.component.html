@@ -19,7 +19,7 @@
     
 </form>
 @if (registrorechazado) {
-    <div class = "advertenciaregistro" [@conditionalTrigger]="registrorechazado ?'shown':'void'">
+    <div class = "advertenciaformulario" [@conditionalTrigger]="registrorechazado ?'shown':'void'">
         <h3>La contraseña y/o el usuario son incorrectos</h3>
         <p>Por favor intentelo de nuevo</p>
     </div>

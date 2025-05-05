@@ -28,7 +28,10 @@ public class AuthService {
         String token = jwtService.getToken(user);
         return AuthResponse.builder().token(token).build();
     }
-    public AuthResponse register(RegisterRequest request){
+    public AuthResponse register(RegisterRequest request) throws Exception {
+        if(!request.password.equals(request.passwordConfirmar)){
+            throw new Exception("Las contraseñas son diferentes");
+        }
         Usuario usuario = Usuario.builder()
                 .correo(request.getCorreo().toLowerCase())
                 .nombreUsuario(request.getNombreUsuario())

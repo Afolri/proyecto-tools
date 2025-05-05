@@ -18,7 +18,10 @@ body{
     padding: 0;
     box-sizing: border-box;
     font-family: "Carnas W03 Medium";
-
+    --azul:rgba(72, 125, 185, 0.684);
+    --azul-claro:hsl(215, 54%, 58%);
+    --azul-oscuro:rgba(45, 67, 93, 0.684);
+    --azul-titulo:rgba(123, 170, 226, 0.684);
 }
 
 form{
@@ -75,4 +78,14 @@ button{
     border:none;
     justify-content: center;     /* Centra el contenido horizontalmente */
     align-items: center;   
+}
+.advertenciaformulario{
+    position: absolute;
+    top: 0;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.402);
+    padding: 20px 100px;
+    left: 50%;
+    transform:translateX(-50%);
+    text-align: center;
 }

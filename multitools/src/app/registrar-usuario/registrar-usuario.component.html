@@ -1,10 +1,22 @@
-<div class="container">
-    <form [formGroup]="formulario" (ngSubmit)="onSubmit();">
-        <span>correo</span> <input type="text" formControlName = "correo">
-        <span>nombre de usuario</span> <input type="text" formControlName = "nombre_usuario">
-        <span>password</span> <input type="password" formControlName = "password">
-        <span>confirma password</span> <input type="password" formControlName = "password">
-        <span>rol</span> <input type="text" formControlName = "rol">
-        <button type="submit"> Registrar</button>
-    </form>
-</div>
+<h1>Registrar Usuarios</h1>
+<form [formGroup]="formulario" (ngSubmit)="onSubmit();" class= "container">
+    <div class ="info">
+        <input type="text" formControlName = "correo" [class.lleno]="(formulario.get('correo')?.value)"><span>correo</span> </div>
+    <div class ="info">
+        <input type="text" formControlName = "nombre_usuario" [class.lleno]="formulario.get('nombre_usuario')?.value"><span>nombre de usuario</span> </div>
+    <div class ="info">
+        <input type="password" formControlName = "password" [class.lleno]="formulario.get('password')?.value"><span>password</span> </div>
+    <div class ="info">
+        <input type="password" formControlName = "password_confirmar" [class.lleno]="formulario.get('password_confirmar')?.value"><span>confirma password</span> </div>
+    <div class ="info">
+        <select  formControlName = "rol" [class.lleno]="formulario.get('rol')?.value">
+            <option value="0">Admin</option>
+            <option value="1">Agente</option>
+        </select><span>rol</span> </div>
+    <div class ="info">
+        <button type="submit"> Registrar</button></div>
+</form>
+@if(registrorechazado){
+    <div class = "advertenciaformulario" [@conditionalTrigger]="registrorechazado ?'shown':'void'">Llene los campos solicitados</div>
+
+}

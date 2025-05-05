@@ -55,35 +55,34 @@ export class AppComponent implements OnInit{
 
   }
   ngOnInit(): void {
-    this.authService.usuarioActual$.subscribe(usuario =>{
+      this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
       this.modo= usuario?.rol;
-      if(usuario){
-        this.verNotificaciones();
-        this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
-          this.notificaciones.unshift(JSON.parse(message.body));
-          this.notificacionesSinLeer=true;
-        });
-        this.ticketService.tickets$.subscribe(tickets =>{
-          this.ticketsObtenidos = tickets;
-        });
-        this.webSocketService.suscribirse(`/topic/ticket/${usuario.numero_usuario}`,(message:IMessage)=>{
-          const ticketSocket:Ticket = JSON.parse(message.body);
-          this.ticketSocket.push(ticketSocket);
-          console.log("tickets socket", ticketSocket);
-        })
-        this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
-          const comentario:ComentarioResponse = JSON.parse(message.body)
-          const comentarioTemp:Comentario = {
-            numero_comentario:comentario.numero_comentario,
-            contenido:comentario.comentario
-          }
-          this.comentarioService.emitirComentario(comentarioTemp);
-        });
-        this.notificacionesPendientes();
-      }
-    })
-  
+        if(usuario){
+          this.verNotificaciones();
+          this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
+            this.notificaciones.unshift(JSON.parse(message.body));
+            this.notificacionesSinLeer=true;
+          });
+          this.ticketService.tickets$.subscribe(tickets =>{
+            this.ticketsObtenidos = tickets;
+          });
+          this.webSocketService.suscribirse(`/topic/ticket/${usuario.numero_usuario}`,(message:IMessage)=>{
+            const ticketSocket:Ticket = JSON.parse(message.body);
+            this.ticketSocket.push(ticketSocket);
+            console.log("tickets socket", ticketSocket);
+          })
+          this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
+            const comentario:ComentarioResponse = JSON.parse(message.body)
+            const comentarioTemp:Comentario = {
+              numero_comentario:comentario.numero_comentario,
+              contenido:comentario.comentario
+            }
+            this.comentarioService.emitirComentario(comentarioTemp);
+          });
+          this.notificacionesPendientes();
+        }
+      })
 
   }
   logout(){

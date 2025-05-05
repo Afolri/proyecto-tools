@@ -13,5 +13,7 @@ public class RegisterRequest {
     @JsonProperty("nombre_usuario")
     String nombreUsuario;
     String password;
+    @JsonProperty("password_confirmar")
+    String passwordConfirmar;
     String rol;
 }
