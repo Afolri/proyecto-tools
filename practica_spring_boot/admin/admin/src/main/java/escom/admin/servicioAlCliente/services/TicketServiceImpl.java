@@ -10,6 +10,7 @@ import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.*;
         import escom.admin.servicioAlCliente.repositories.*;
         import org.json.JSONObject;
+import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
@@ -165,7 +166,18 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketResponseDTO> buscarTickets(Long numeroUsuario) {
         try {
-            return ticketRepository.buscarTicketDTO(numeroUsuario);
+            return ticketRepository.buscarTicketsDTO(numeroUsuario).stream()
+                    .map(ticket ->{
+                        ObjectMapper objectMapper = new ObjectMapper();
+                        objectMapper.registerModule(new JavaTimeModule());
+
+                        try {
+                            return objectMapper.readValue(new JSONObject(ticket).toString(), TicketResponseDTO.class);
+                        } catch (JsonProcessingException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .toList();
         }catch (Exception e){
             System.out.println(e.getMessage());
             return List.of();

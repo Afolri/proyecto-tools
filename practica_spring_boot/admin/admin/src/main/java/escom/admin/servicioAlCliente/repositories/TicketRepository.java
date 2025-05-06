@@ -20,55 +20,22 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
     List<Ticket> findAllByAgente_NumeroAgente(Long numeroAgente);
     Ticket findByClienteNombreCliente(String nombreCliente);
     Optional<Ticket> findByCliente_CorreoAndProductoTicket_NumeroCompraCot(String correo, String numeroCompraCot);
+
     @Transactional
     @Query(value = """
-        SELECT st.numero_ticket, st.asunto, st.descripcion, st.numero_agente, st.numero_cliente,c.nombre_cliente, c.correo,c.telefono,st.fecha, st.estado, st.hora
-        ,pt.numero_producto, pt.numero_compra_cot FROM soporte.tickets st
-        LEFT JOIN soporte.clientes c ON c.numero_cliente = st.numero_cliente
-        LEFT JOIN soporte.productoticket pt ON pt.numero_producto = st.numero_producto
-        WHERE c.correo LIKE :correo AND pt.numero_compra_cot LIKE :numeroCompraCot
-            """, nativeQuery = true)
-    Optional<Ticket> obtenerTicket (@Param("correo") String correo, @Param("numeroCompraCot") String numeroCompraCot);
-   @Query(value = """
-           SELECT DISTINCT
-                          t.numero_ticket,
-                          pt.numero_compra_cot,
-                          pt.numero_producto,
-                          string_agg(ti.nombre_identificador::TEXT || ': ' || tipo.codigo::TEXT, ', ') AS tipo_codigo,
-                          t.asunto,
-                          t.numero_cliente,
-                          c.nombre_cliente,
-                          c.correo,
-                          c.telefono,
-                          t.descripcion,
-                          t.estado,
-                          t.numero_agente,
-                          t.fecha
-                      FROM soporte.tickets t
-                      LEFT JOIN soporte.productoticket pt ON t.numero_producto = pt.numero_producto
-                      LEFT JOIN soporte.producto_tipo tipo ON pt.numero_producto = tipo.numero_producto
-                      LEFT JOIN soporte.tipo_identificador ti ON tipo.numero_identificador = ti.numero_identificador
-                      LEFT JOIN soporte.clientes c ON t.numero_cliente = c.numero_cliente
-                      GROUP BY t.numero_ticket, pt.numero_compra_cot, pt.numero_producto, t.asunto,
-                               t.numero_cliente, c.nombre_cliente, c.correo, c.telefono, t.descripcion,
-                               t.estado, t.numero_agente, t.fecha
-                      ORDER BY t.numero_ticket DESC;
-           """, nativeQuery = true)
-   List<Map<String,String >> buscarTickets();
-   @Query(value = """
-           SELECT t.numero_ticket,t.numero_producto,  pt.numero_compra_cot, rept.codigo, ti.nombre_identificador,
-           t.asunto,t.numero_cliente, c.nombre_cliente, c.correo,
-           c.telefono, t.descripcion, t.estado, t.numero_agente,  c.nombre_cliente, t.fecha, t.hora
-           FROM soporte.tickets t
-           LEFT JOIN soporte.productoticket pt ON t.numero_producto = pt.numero_producto
-           LEFT JOIN soporte.producto_tipo rept ON pt.numero_producto = rept.numero_producto
-           LEFT JOIN soporte.tipo_identificador ti ON ti.numero_identificador = rept.numero_identificador
-           LEFT JOIN soporte.clientes c  ON  t.numero_cliente = c.numero_cliente
-           WHERE UPPER (ti.nombre_identificador) LIKE UPPER (:nombreIdentificador) AND t.numero_ticket = :numeroTicket
-           ORDER BY numero_ticket DESC
-           """,nativeQuery = true)
-   Optional<Ticket> buscarPorIdentificador(@Param("nombreIdentificador") String nombreIdentificador
-           , @Param("numeroTicket") Long numeroTicket);
+       SELECT t.numero_ticket,t.numero_producto,  pt.numero_compra_cot, rept.codigo, ti.nombre_identificador,
+       t.asunto,t.numero_cliente, c.nombre_cliente, c.correo,
+       c.telefono, t.descripcion, t.estado, t.numero_agente,  c.nombre_cliente, t.fecha, t.hora
+       FROM soporte.tickets t
+       LEFT JOIN soporte.productoticket pt ON t.numero_producto = pt.numero_producto
+       LEFT JOIN soporte.producto_tipo rept ON pt.numero_producto = rept.numero_producto
+       LEFT JOIN soporte.tipo_identificador ti ON ti.numero_identificador = rept.numero_identificador
+       LEFT JOIN soporte.clientes c  ON  t.numero_cliente = c.numero_cliente
+       WHERE UPPER (ti.nombre_identificador) LIKE UPPER (:nombreIdentificador) AND t.numero_ticket = :numeroTicket
+       ORDER BY numero_ticket DESC
+       """,nativeQuery = true)
+    Optional<Ticket> buscarPorIdentificador(@Param("nombreIdentificador") String nombreIdentificador
+       , @Param("numeroTicket") Long numeroTicket);
 
    @Transactional
    @Modifying
@@ -79,8 +46,37 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
     """,nativeQuery = true)
     void cambiarEstado( @Param("numeroTicket") Long numeroTicket, @Param ("estado") String estado);
 
-    @Query (name = "buscar_tickets_dto", nativeQuery = true)
-    List<TicketResponseDTO> buscarTicketDTO(@Param("numeroUsuario") Long numeroUsuario);
+    @Transactional
+    @Query(value = """
+             SELECT DISTINCT
+                  t.numero_ticket,
+                  pt.numero_compra_cot,
+                  pt.numero_producto,
+                  string_agg(ti.nombre_identificador::TEXT || ': ' || tipo.codigo::TEXT, ', ') AS tipo_codigo,
+                  t.asunto,
+                  t.numero_cliente,
+                  c.nombre_cliente,
+                  c.correo,
+                  c.telefono,
+                  t.descripcion,
+                  t.estado,
+                  t.numero_agente,
+                  t.fecha,
+                  t.hora
+                FROM soporte.tickets t
+                LEFT JOIN soporte.productoticket pt ON t.numero_producto = pt.numero_producto
+                LEFT JOIN soporte.producto_tipo tipo ON pt.numero_producto = tipo.numero_producto
+                LEFT JOIN soporte.tipo_identificador ti ON tipo.numero_identificador = ti.numero_identificador
+                LEFT JOIN soporte.clientes c ON t.numero_cliente = c.numero_cliente
+                LEFT JOIN soporte.agentes a ON t.numero_agente = a.numero_agente
+                LEFT JOIN soporte.usuario u ON a.numero_usuario = u.numero_usuario
+                WHERE u.numero_usuario = :numeroUsuario
+                GROUP BY t.numero_ticket, pt.numero_compra_cot, pt.numero_producto, t.asunto,
+                	   t.numero_cliente, c.nombre_cliente, c.correo, c.telefono, t.descripcion,
+                	   t.estado, t.numero_agente, t.fecha
+                ORDER BY t.numero_ticket DESC;
+            """, nativeQuery = true)
+    List<Map<String, Object>> buscarTicketsDTO(@Param("numeroUsuario") Long numeroUsuario);
 
     @Transactional
     @Query(value = """

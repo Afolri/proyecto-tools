@@ -118,8 +118,8 @@ export class ReporteClientesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.usuarioActual$.subscribe((usuario:Usuario) => {
-      console.log("rol:",usuario.rol)
       if (usuario) { 
+        console.log("rol:",usuario.rol);
         this.usuarioActual = usuario;
         if(usuario.rol ==='AGENTE'){
         this.cargarTickets();

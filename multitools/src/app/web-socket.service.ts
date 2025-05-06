@@ -18,7 +18,6 @@ export class WebSocketService implements OnInit{
 
   /**Permite hacer la conexión con el socket */
   private stompClient?:Client;
-  private rutasSuscritas = new Set<string>();
   private conectado = false;
 
     /**Aquí se van a guardar las notificaciones por el socket */
@@ -71,6 +70,8 @@ export class WebSocketService implements OnInit{
           console.log(str);
         },
         reconnectDelay: RETRY_DELAY,
+        heartbeatIncoming: 10000,  
+        heartbeatOutgoing: 10000, 
         onConnect: (frame) => {
           console.log('✅ Conectado al servidor WebSocket', frame);
           
@@ -89,20 +90,15 @@ export class WebSocketService implements OnInit{
       this.stompClient.activate();
   }
   suscribirse(ruta: string, callback: (message: IMessage) => void): void {
-    if(this.rutasSuscritas.has(ruta)){
-      return;
-    }
     const hacerSuscripcion = () => {
       if (this.stompClient && this.stompClient.connected ) {
         this.stompClient.subscribe(ruta, callback);
-        this.rutasSuscritas.add(ruta);
       } else {
         // Esperar hasta que esté conectado
         const intervalo = setInterval(() => {
           if (this.stompClient && this.stompClient.connected) {
             clearInterval(intervalo);
             this.stompClient.subscribe(ruta, callback);
-            this.rutasSuscritas.add(ruta);
           }
         }, 500);
       }

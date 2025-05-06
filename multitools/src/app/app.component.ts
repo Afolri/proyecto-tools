@@ -57,8 +57,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
       this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
-      this.modo= usuario?.rol;
-        if(usuario){
+      if(usuario){
+          this.modo = usuario?.rol;
           this.verNotificaciones();
           this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
             this.notificaciones.unshift(JSON.parse(message.body));
