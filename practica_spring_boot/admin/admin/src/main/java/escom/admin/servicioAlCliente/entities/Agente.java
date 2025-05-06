@@ -34,7 +34,5 @@ public class Agente {
     @JsonProperty("numero_usuario")
     private Usuario usuario;
 
-    @OneToMany(mappedBy = "agente")
-    @JsonManagedReference
-    private List<ComentarioTicket> comentarioTicket;
+
 }

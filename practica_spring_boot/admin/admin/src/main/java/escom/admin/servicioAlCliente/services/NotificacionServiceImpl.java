@@ -1,14 +1,22 @@
 package escom.admin.servicioAlCliente.services;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.entities.Notificacion;
+import escom.admin.servicioAlCliente.entities.Rol;
 import escom.admin.servicioAlCliente.entities.Ticket;
+import escom.admin.servicioAlCliente.entities.Usuario;
 import escom.admin.servicioAlCliente.repositories.NotificacionRepository;
 import escom.admin.servicioAlCliente.repositories.TicketRepository;
 import escom.admin.servicioAlCliente.repositories.UsuarioRepository;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -25,6 +33,20 @@ public class NotificacionServiceImpl implements NotificacionService {
     @Override
     public List<NotificacionResponseDTO> verNotificaciones(Long numeroUsuario) {
         try{
+            Usuario usuario = usuarioRepository.findById(numeroUsuario).orElseThrow();
+            ObjectMapper objectMapper = new ObjectMapper();
+            if(usuario.getRol() == Rol.ADMIN){
+              return notificacionRepository.buscarTodasLasNotificaciones().stream()
+                      .map(obj ->{
+                          objectMapper.registerModule(new JavaTimeModule());
+                          try {
+                              return objectMapper.readValue(new JSONObject(obj).toString(), NotificacionResponseDTO.class);
+                          } catch (JsonProcessingException e) {
+                              throw new RuntimeException(e);
+                          }
+                      }).toList();
+
+            }
             return notificacionRepository.buscarNotificacionDTO(numeroUsuario);
         }catch (Exception e){
             throw e;

@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface NotificacionRepository extends JpaRepository<Notificacion, Long> {
@@ -32,5 +33,15 @@ public interface NotificacionRepository extends JpaRepository<Notificacion, Long
             LIMIT 1
             """, nativeQuery = true)
     boolean notificacionesSinVer ();
+    @Query(value = """
+                    SELECT sn.numero_notificacion, st.numero_ticket, st.fecha,st.hora,sn.estado_notificacion, sn.mensaje,st.estado, sc.nombre_cliente,
+            		a.numero_usuario FROM soporte.notificacion sn
+                    LEFT JOIN soporte.tickets st ON st.numero_ticket = sn.numero_ticket
+                    LEFT JOIN soporte.clientes sc ON sc.numero_cliente = st.numero_cliente
+                    LEFT JOIN soporte.agentes a ON st.numero_agente = a.numero_agente
+                    LEFT JOIN soporte.usuario u ON a.numero_usuario = u.numero_usuario
+                    ORDER BY numero_notificacion DESC
+            """, nativeQuery = true)
+    List<Map<String,Object>> buscarTodasLasNotificaciones();
 
 }

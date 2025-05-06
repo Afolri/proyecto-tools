@@ -68,7 +68,7 @@ export class EditarTicketComponent implements OnInit {
       return response.json();
     })
     .then((response:Comentario[]) =>{
-      this.comentariosObtenidos=response;
+      this.comentariosObtenidos = response;
     })
   }
 

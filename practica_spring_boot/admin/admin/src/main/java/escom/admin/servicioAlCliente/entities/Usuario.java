@@ -46,8 +46,12 @@ public class Usuario implements UserDetails {
 
     @OneToOne
     @JoinColumn ( name = "numero_agente")
-    @JsonProperty("numero_usuario")
+    @JsonProperty("numero_agente")
     private Agente agente;
+
+    @OneToMany (mappedBy = "usuario")
+    @JsonManagedReference
+    private List<ComentarioTicket> comentarioTickets;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

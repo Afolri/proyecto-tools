@@ -37,8 +37,8 @@ public class ComentarioTicket {
     private Ticket ticket;
 
     @ManyToOne
-    @JoinColumn ( name = "numero_agente")
-    @JsonProperty ("numero_agente")
+    @JoinColumn ( name = "numero_usuario")
+    @JsonProperty ("numero_usuario")
     @JsonBackReference
-    private Agente agente;
+    private Usuario usuario;
 }

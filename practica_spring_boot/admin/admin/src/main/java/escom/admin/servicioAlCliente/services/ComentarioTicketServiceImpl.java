@@ -1,14 +1,8 @@
 package escom.admin.servicioAlCliente.services;
 
 import escom.admin.servicioAlCliente.dto.ComentarioTicketResponseDTO;
-import escom.admin.servicioAlCliente.entities.Agente;
-import escom.admin.servicioAlCliente.entities.Comentario;
-import escom.admin.servicioAlCliente.entities.ComentarioTicket;
-import escom.admin.servicioAlCliente.entities.Ticket;
-import escom.admin.servicioAlCliente.repositories.AgentesRespository;
-import escom.admin.servicioAlCliente.repositories.ComentarioRepository;
-import escom.admin.servicioAlCliente.repositories.ComentarioTicketRepository;
-import escom.admin.servicioAlCliente.repositories.TicketRepository;
+import escom.admin.servicioAlCliente.entities.*;
+import escom.admin.servicioAlCliente.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +20,8 @@ public class ComentarioTicketServiceImpl implements ComentarioTicketService{
     TicketRepository ticketRepository;
     @Autowired
     ComentarioTicketRepository comentarioTicketRepository;
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
     @Override
     public ComentarioTicketResponseDTO comentarTicket(Long numeroTicket, Long numeroUsuario, String comentario) throws Exception {
@@ -36,18 +32,17 @@ public class ComentarioTicketServiceImpl implements ComentarioTicketService{
                 Comentario.builder()
                         .contenido(comentarioTrim)
                         .build());
-            Agente agente = agentesRespository.findByUsuario_NumeroUsuario(numeroUsuario).orElseThrow();
-            System.out.println(agente.getNumeroAgente());
+            Usuario usuario = usuarioRepository.findById(numeroUsuario).orElseThrow();
             Ticket ticket = ticketRepository.findById(numeroTicket).orElseThrow();
             comentarioTicket = ComentarioTicket.builder()
                     .comentario(comentarioGuardado)
                     .ticket(ticket)
-                    .agente(agente)
+                    .usuario(usuario)
                     .build();
             comentarioTicketRepository.save(comentarioTicket);
             return ComentarioTicketResponseDTO.builder()
                     .comentario(comentarioTrim)
-                    .numeroAgente(comentarioTicket.getAgente().getNumeroAgente())
+                    .numeroUsuario(numeroUsuario)
                     .numeroTicket(comentarioTicket.getTicket().getNumeroTicket())
                     .numeroComentario(comentarioTicket.getComentario().getNumeroComentario())
                     .build();

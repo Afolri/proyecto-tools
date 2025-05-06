@@ -38,7 +38,7 @@ public class NotificacionesSocketController {
         return ComentarioTicketResponseDTO.builder()
                 .numeroComentario(comentario.getNumeroComentario())
                 .comentario(comentario.getComentario())
-                .numeroAgente(comentario.getNumeroAgente())
+                .numeroUsuario(comentario.getNumeroUsuario())
                 .numeroTicket(comentario.getNumeroTicket())
                 .build();
 

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class ComentarioTicketResponseDTO {
-    @JsonProperty ( "numero_agente")
-    Long numeroAgente;
+    @JsonProperty ( "numero_usuario")
+    Long numeroUsuario;
     @JsonProperty ("numero_ticket")
     Long numeroTicket;
     @JsonProperty("numero_comentario")

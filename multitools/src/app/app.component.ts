@@ -146,6 +146,7 @@ export class AppComponent implements OnInit{
     })
   }
   verNotificaciones(){
+    console.log("ejecutado el obtener notificaciones");
     fetch(`${baseURL}/admin/reporte-tickets/obtenerNotificaciones?numeroUsuario=${this.usuarioActual.numero_usuario}`,
       {
         method: "GET",

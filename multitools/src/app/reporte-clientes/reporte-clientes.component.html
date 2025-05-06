@@ -53,9 +53,6 @@
   <div class="fondoFormulario" *ngIf="mostrar">
     <div  class="editar">
       <app-editar-ticket [ticket]="tablaTicketstemp" (salirFormulario)="ocultar()" [numeroTicket]="refTicketComentarios" />
-      <!--<app-generar-ticket [modo]="'editar'" (mostrarChange)="ocultar()" (obtenerDatos)="cargarTickets()" (cargarTicketsEvent)="cargarTickets()"
-      [ticket]="tablaTicketstemp" (mostrarMensajeAviso)="mostrarAviso('actualizar')">
-      </app-generar-ticket>-->
     </div>
   </div>
   
