@@ -49,7 +49,7 @@ export class WebSocketService implements OnInit{
     });
   }
 
-  enviarComentario(numeroUsuario:number, comentario:ComentarioResponse){
+  enviarComentario(comentario:ComentarioResponse){
     this.stompClient?.publish({
       destination: `/app/comentario/general`,
       body:JSON.stringify(

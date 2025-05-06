@@ -101,7 +101,7 @@ export class EditarTicketComponent implements OnInit {
       return reponse;
     })
     const comentarioResponse:ComentarioResponse = valor;
-    this.webSocket.enviarComentario(numero_usuario,comentarioResponse);
+    this.webSocket.enviarComentario(comentarioResponse);
   }
 
 }
