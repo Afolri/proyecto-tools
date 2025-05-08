@@ -135,7 +135,7 @@ top:-30%;
 .info textarea:focus + span, .info textarea.lleno + span {
     color: white;
     left: 0;
-    top:-10%;
+    top:-15%;
 }
 
 .info input.ng-touched.ng-invalid{

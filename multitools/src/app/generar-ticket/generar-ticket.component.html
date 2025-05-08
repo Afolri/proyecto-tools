@@ -7,7 +7,7 @@
   </div>
   <div class = "contenedor2">
     <h1>Generar Ticket</h1>
-    <form [formGroup]="formularioTickets" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formularioTickets" (ngSubmit)="onSubmit()" class="miformulario">
       
       <!--Campo para insertar el numero de compra-->
       <div class="info">
@@ -35,7 +35,7 @@
       <!--Colocaremos el caso de que no cuente con el numero de serie-->
       <!--Campo activable para colocar información alterna al numero de serie-->
       <div class="info">
-        <input type="text" class="informacion" formControlName="codigo" [class.lleno]="formularioTickets.get('codigo')?.value">
+        <input type="text" class="informacion" formControlName = "codigo" [class.lleno]="formularioTickets.get('codigo')?.value">
         @if(!formularioTickets.get('ehs_approval')?.value){
           <span>Número de serie:</span>
           
@@ -83,19 +83,22 @@
 
 
       <!--Asunto input/label-->
-      <div>
+      <div class = "asunto-contenedor">
         <label id="tasunto">Asunto:</label>
         <div class="asuntoInput">
           <div class="item">
-            <input id="soporte"  type="radio"  formControlName ="asunto" value="soporte" class="radio-button">
-            <label for="soporte" class="textoInput" >Soporte</label> 
+            <input id="soporte"  type="radio"  formControlName ="asunto" value="soporte" class="radio-button" checked="checked">
+            <span class="checked"></span>
+            <label for="soporte" class="textoInput">Soporte</label> 
           </div>
           <div class="item">
             <input id="garantia"  type= "radio" formControlName="asunto" value="garantia" class="radio-button">
+            <span class="checked"></span>
             <label for="garantia" class="textoInput">Garantia</label>
           </div>
           <div class="item">
             <input id="factura"  type= "radio" formControlName="asunto" value="factura"  class="radio-button"> 
+            <span class="checked"></span>
             <label for="factura" class="textoInput">Factura</label>
           </div>
         </div>
@@ -110,7 +113,7 @@
 
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
       @if(contieneNumeros(formularioTickets.get('nombre')?.value)){
-        <div class="contenedorinombre" >
+        <div class="contenedorinombre errorinfo" >
           <div class="tooltip">
             <span><i class="fa fa-info-circle"></i></span>
             <div class="tooltip-text">
@@ -129,7 +132,7 @@
 
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
       @if(formularioTickets.get('correo')?.invalid && formularioTickets.get('correo')?.touched){
-        <div class="contenedoricorreo"><!-- ngModel  
+        <div class="contenedoricorreo errorinfo"><!-- ngModel  
           *ngIf="correoCtrl.invalid && correoCtrl.touched">-->
           <div class="tooltip">
             <span><i class="fa fa-info-circle"></i></span>

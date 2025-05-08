@@ -2,14 +2,11 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 
 
-.contenedorpadre{
-    display:grid;
-    grid-template-rows: 7% auto;
-    grid-template-columns: auto;
-    padding: 0 0 10% 0;
-}
+
 .contenedor1{
     position:relative;
+    display: flex;
+    flex-flow: column;
 }
 
 #eerror{
@@ -34,7 +31,6 @@
 }
 
 .contenedor2{
-  grid-row: 2/3;
   display: flex;
   flex-flow: column;
 }
@@ -63,6 +59,7 @@ input{
 }
 .asuntoInput{
   display:flex;
+  align-items: center;
   flex-flow: row nowrap;
   flex: 1 1 auto;
 }
@@ -343,27 +340,84 @@ textarea.ng-invalid.ng-touched {
   }
   .item{
     display: flex;
+    position: relative;
     gap: 20px;
   }
 
   .radio-button{
-    visibility:hidden;
+    position: absolute;
+    display: none;
   }
-  @media only screen and (max-width: 600px){
+ .checked{
+  display: inline-block;
+    position:relative;
+    --radio-tam:20px;
+    width: var(--radio-tam);
+    height: var(--radio-tam);
+    background-color: var(--azul-claro-solido); 
+    border-radius: 50%;
+ }
+ input:checked ~ .checked::after{
+    content: "";
+  
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: calc(var(--radio-tam) - 10px);
+    width: calc(var(--radio-tam) - 10px);
+    transform: translate(-50%,-50%);
+    background-color: var(--azul-oscuro-solido);
+    animation: mianimacion .5s ease;
+ }
+ @keyframes mianimacion {
+  0%{
+    border-radius: 0%;
+    background-color: var(--azul-oscuro-solido);
+  }
+  50%{
+    transform: translate(-50%,-50%) rotate(360deg);
+    background-color: var(--azul-titulo-solido);
+    
+  }
+  100%{
+    background-color: var(--azul-oscuro-solido);
+  }
+  
+ }
+ .desplegar-modelo, .contenedortooltip, .errorinfo{
+  justify-self: center;
+  align-self: center;
+}
+
+  @media only screen and (max-width: 1000px){
     .contenedorpadre{
       display: flex;
+      position: relative;
       flex-flow: column;
+      align-items: center;
+    }
+    .contenedor2{
+      display: flex;
+      position: relative;
+      padding: 20px;
+
     }
     .contenedor2>*{
       display: flex;
       flex-flow: column;
-      gap: 20px;
-      justify-self: center;
-      width: 90%;
+      gap: 30px;
     }
     .asuntoInput{
       gap: 20px;
-      justify-content: center;
+      flex-flow: column;
+    }
+    .miformulario{
+      justify-content: stretch;
+      align-items: stretch;
+    }
+  
+    input{
+      width: 100%;
     }
     .item{
       background-color: var(--azul-oscuro-solido);
@@ -373,6 +427,12 @@ textarea.ng-invalid.ng-touched {
     }
     button{
       padding: 20px 50px;
+    }
+    .asunto-contenedor{
+      display: flex;
+      flex-flow: column;
+      justify-content: center;
+      align-items: center;
     }
   }
   
