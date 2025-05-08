@@ -10,17 +10,18 @@ import { WebSocketService } from '../web-socket.service';
 import { ComentarioResponse } from '../models/comentarioResponse';
 import { IMessage } from '@stomp/stompjs';
 import { ComentarioService } from '../comentario.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-editar-ticket',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './editar-ticket.component.html',
   styleUrl: './editar-ticket.component.css',
   standalone:true
 })
 export class EditarTicketComponent implements OnInit {
   comentarFormulario!:FormGroup;
-  comentariosObtenidos:Comentario[]=[];
+  comentariosObtenidos:ComentarioResponse[]=[];
   @Input() ticket!: Ticket;
   @Input() numeroTicket!:number;
   @Output() salirFormulario = new EventEmitter<Ticket>();
@@ -67,7 +68,7 @@ export class EditarTicketComponent implements OnInit {
       }
       return response.json();
     })
-    .then((response:Comentario[]) =>{
+    .then((response:ComentarioResponse[]) =>{
       this.comentariosObtenidos = response;
     })
   }
@@ -102,6 +103,15 @@ export class EditarTicketComponent implements OnInit {
     })
     const comentarioResponse:ComentarioResponse = valor;
     this.webSocket.enviarComentario(comentarioResponse);
+  }
+
+  estiloComentarios(numeroUsuario:number){
+    const esUsuarioActual = this.usuarioActual.numero_usuario === numeroUsuario;
+
+    return {
+      "background-color": esUsuarioActual ? "var(--azul-titulo-solido)" : "var(--azul-solido)",
+      "align-self": esUsuarioActual ? "end" : "start"
+    };
   }
 
 }

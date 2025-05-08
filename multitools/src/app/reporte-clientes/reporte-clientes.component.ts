@@ -244,7 +244,12 @@ export class ReporteClientesComponent implements OnInit {
     .then(response =>{
       if(response.ok){
         this.mensajeAviso = false;
-        this.cargarTickets();
+        const ticketTemp = this.tablatickets.find(ticket => ticket.numero_ticket === numero_ticket);
+        if(ticketTemp){
+          ticketTemp.cerrado=true;
+          ticketTemp.estado='CERRADO';
+        }
+        
       }else{
         console.error('Error al cerrar el ticket');
       }

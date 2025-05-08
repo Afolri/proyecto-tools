@@ -18,6 +18,11 @@ body{
     padding: 0;
     box-sizing: border-box;
     font-family: "Carnas W03 Medium";
+    color: white;
+    --azul-solido:rgb(72, 125, 185);
+    --azul-claro-solido:hsl(215, 54%, 58%);
+    --azul-oscuro-solido:rgb(45, 67, 93);
+    --azul-titulo-solido:rgb(123, 169, 226);
     --azul:rgba(72, 125, 185, 0.684);
     --azul-claro:hsl(215, 54%, 58%);
     --azul-oscuro:rgba(45, 67, 93, 0.684);
@@ -32,13 +37,11 @@ form{
     gap: 20px;
     font-weight: 700;
     font-family:Arial, Helvetica, sans-serif;
-    color: white;
     letter-spacing: 1px;
     z-index: 2;
 }
  input, textarea, select{
     background-color: rgba(92, 133, 133, 0.535);
-    color: white;
 }
 form:not(textarea){   
     justify-content: center;
@@ -57,7 +60,6 @@ form input:not(textarea){
 }
 
 input::placeholder, textarea::placeholder{
-    color:white;
     opacity: 0.4;
     
 }
@@ -69,6 +71,8 @@ select{
 }
 
 button{
+    
+    text-transform: capitalize;
     box-shadow: rgb(88, 92, 87) 5px 4px 8px .5px ;
     cursor: pointer;
     font-weight: 600;
@@ -87,5 +91,57 @@ button{
     padding: 20px 100px;
     left: 50%;
     transform:translateX(-50%);
+    text-align: center;
+}
+.enviar{ background-color: green; }
+.enviar:active{ background-color: rgb(30, 79, 30); }
+.salir{background-color: red;}
+.salir:active{ background-color: rgb(102, 19, 19); }
+
+.info{
+    position:relative;
+}
+.info select{
+    width: 200px;
+    height: 30px;
+}
+
+.info input, .info select, .info textarea{
+    background-color: var(--azul);
+    padding: 0px 20px;
+    outline: none;
+}
+.info span{
+    text-transform: capitalize;
+    font-size: .9em;
+    position: absolute;
+    pointer-events: none;
+    top:50%;
+    transform:translateY(-50%);
+    left: 10%;
+    color: var(--azul-oscuro);
+    transition: top .5s, left .5s, color .5s ;
+}
+
+.info textarea +span{
+    top:20%
+}
+.info input:focus + span, .info input.lleno + span,
+.info select:focus + span, .info select.lleno + span{
+color: white;
+left: 0;
+top:-30%;
+}
+.info textarea:focus + span, .info textarea.lleno + span {
+    color: white;
+    left: 0;
+    top:-10%;
+}
+
+.info input.ng-touched.ng-invalid{
+    border:.3px solid red;
+}
+h1{
+    color:var(--azul-titulo-solido);
     text-align: center;
 }

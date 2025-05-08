@@ -6,32 +6,10 @@
     gap: 50px;
     height: 500px;
 }
-.info{
-    position:relative;
-}
-.info select{
-    width: 200px;
-    height: 30px;
-}
 h1{
     color:var(--azul-titulo);
 }
-.info input, .info select{
-    background-color: var(--azul);
-    padding: 0px 20px;
-    outline: none;
-}
-.info span{
-    text-transform: capitalize;
-    font-size: .9em;
-    position: absolute;
-    pointer-events: none;
-    top:50%;
-    transform:translateY(-50%);
-    left: 10%;
-    color: var(--azul-oscuro);
-    transition: transform .5s, left .5s, color .5s ;
-}
+
 button{
     display: inline-block;
     background-color: var(--azul-claro);
@@ -42,13 +20,4 @@ button{
 }
 button:active{
     background-color: var(--azul);
-}
-.info input:focus + span, .info input.lleno + span,
-.info select:focus + span, .info select.lleno + span {
-    color: white;
-    left: 0;
-    transform: translateY(-200%);
-}
-.info input.ng-touched.ng-invalid{
-    border:.3px solid red;
 }

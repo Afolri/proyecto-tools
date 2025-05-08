@@ -10,5 +10,5 @@ import java.util.List;
 @Service
 public interface ComentarioTicketService {
     ComentarioTicketResponseDTO comentarTicket(Long numeroTicket, Long numeroAgente, String comentario) throws Exception;
-    List<Comentario> buscarComentariosPorTicket(Long numeroTicket);
+    List<ComentarioTicketResponseDTO> buscarComentariosPorTicket(Long numeroTicket);
 }

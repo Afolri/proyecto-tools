@@ -44,10 +44,10 @@ const baseURL = `${environment.URL_BASE}`;
   styleUrl: './generar-ticket.component.css'
 })
 export class GenerarTicketComponent implements OnInit  {
-  identificadores?:TipoIdentificador[];
+  identificadores!:TipoIdentificador[];
   //Para trabajar con modulo reactivo
   formularioTickets!:FormGroup;
- 
+  nombreBuscado:string |null =null;
 
   @Output() mostrarChange = new EventEmitter<boolean>();
   @Output() obtenerDatos = new EventEmitter<void>();
@@ -121,9 +121,9 @@ export class GenerarTicketComponent implements OnInit  {
         descripcion: this.ticket.descripcion
         
       })
-      
     }
     this.obtenerIdentificadores();
+
     //llama a la función una vez generado el formulario
     this.configurarValidacionesCondicionales();
     this.webSocketService.suscribirse('/topic',(message:IMessage)=>{
@@ -302,7 +302,16 @@ export class GenerarTicketComponent implements OnInit  {
         console.error("Error en la solicitud:", error);
       });
   }
+  buscarNombreIdentificador(){
+    const numero:number = +this.formularioTickets.get('numero_identificador')?.value;
+    console.log("numeor a buscar",numero);
+    const obj = this.identificadores.find(obj => obj.numero_identificador === numero );
+    console.log("numero identificador", obj);
+    if(obj?.nombre_identificador){
+      this.nombreBuscado = obj?.nombre_identificador;
+    }
 
+  }
 
 
 }

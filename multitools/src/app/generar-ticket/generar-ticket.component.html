@@ -6,44 +6,45 @@
     </div>
   </div>
   <div class = "contenedor2">
+    <h1>Generar Ticket</h1>
     <form [formGroup]="formularioTickets" (ngSubmit)="onSubmit()">
-      <!--ngForm
-      #miFormulario="ngForm">-->
-
       
       <!--Campo para insertar el numero de compra-->
-      <label id="tnumerocompra" >Numero Compra / Cotización:</label>
-      <input id="numerocompra" name="numerocompra" formControlName="numero_compra_cot"> 
-      
-      
-      
-      <!--Numero serie input/label envuelto en container para no afectar el estilo aplicado-->
-      <!--Colocaremos el caso de que no cuente con el numero de serie-->
-      <!--Campo activable para colocar información alterna al numero de serie-->
-      @if(!formularioTickets.get('ehs_approval')?.value){
-        <label id="tcodigo">Número de serie:</label>
-
-      }@else{
-        <label id="tcodigo">Elija un dato opcional:</label>
-      }
+      <div class="info">
+        <input formControlName="numero_compra_cot" [class.lleno]="formularioTickets.get('numero_compra_cot')?.value"> 
+        <span  >Numero Compra / Cotización:</span>
+      </div>
       <div class = "personalizada">
 
         @if(formularioTickets.get('ehs_approval')?.value){
-          <select class="tipo" formControlName="numero_identificador">
+          <select class="tipo" formControlName="numero_identificador" (change)="buscarNombreIdentificador()">
             @for(identificador of identificadores; track identificador.numero_identificador){
             <option [value]="identificador.numero_identificador">{{identificador.nombre_identificador}}</option>
             }
           </select>
         }
-        
-        <input id="codigo" type="text" class="informacion" formControlName="codigo">
+         
 
         <!--Campo que se despliega cuando el numero identificador es 4 que corresponde a modelo marca-->
         @if((formularioTickets.get('numero_identificador')?.value == 4 &&
         formularioTickets.get('ehs_approval')?.value )){
           <input type="text" class = "informacion" formControlName = "codigo2">
         }
-        </div>
+      </div>
+      <!--Numero serie input/label envuelto en container para no afectar el estilo aplicado-->
+      <!--Colocaremos el caso de que no cuente con el numero de serie-->
+      <!--Campo activable para colocar información alterna al numero de serie-->
+      <div class="info">
+        <input type="text" class="informacion" formControlName="codigo" [class.lleno]="formularioTickets.get('codigo')?.value">
+        @if(!formularioTickets.get('ehs_approval')?.value){
+          <span>Número de serie:</span>
+          
+        }@else{
+
+            <span>{{nombreBuscado }}</span>
+          
+        }
+      </div> 
 
       <!--elemento para saber más información acerca del campo de numero de serie-->
       <div class="contenedortooltip">
@@ -52,7 +53,9 @@
           <div class="tooltip-text">En caso de ser un kit de cámaras de caja favor de colocar la serie que tiene la caja</div>
         </div>
       </div>
+
       <!--Checkbox para activar el campo especial-->
+     
       <div class="desplegar-modelo">
         <label>No cuento con el numero de serie </label>
         <div class="col-md-6 reject-checkbox">
@@ -76,75 +79,96 @@
       </div>
 
 
+      
+
+
       <!--Asunto input/label-->
-      <label id="tasunto">Asunto:</label>
-      <div class="asuntoInput">
-        <div class="item">
-          <input id="soporte"  type="radio"  formControlName ="asunto" value="soporte">
-          <label for="soporte" class="textoInput" >Soporte</label> 
-        </div>
-        <div class="item">
-          <input id="garantia"  type= "radio" formControlName="asunto" value="garantia">
-          <label for="garantia" class="textoInput">Garantia</label>
-        </div>
-        <div class="item">
-          <input id="factura"  type= "radio" formControlName="asunto" value="factura"> 
-          <label for="factura" class="textoInput">Factura</label>
+      <div>
+        <label id="tasunto">Asunto:</label>
+        <div class="asuntoInput">
+          <div class="item">
+            <input id="soporte"  type="radio"  formControlName ="asunto" value="soporte" class="radio-button">
+            <label for="soporte" class="textoInput" >Soporte</label> 
+          </div>
+          <div class="item">
+            <input id="garantia"  type= "radio" formControlName="asunto" value="garantia" class="radio-button">
+            <label for="garantia" class="textoInput">Garantia</label>
+          </div>
+          <div class="item">
+            <input id="factura"  type= "radio" formControlName="asunto" value="factura"  class="radio-button"> 
+            <label for="factura" class="textoInput">Factura</label>
+          </div>
         </div>
       </div>
 
       
       <!--Nombre de cliente input/label-->
-      <label id="tnombre_cliente">Nombre:</label>
-      <input id="nombre_cliente" type="text" formControlName="nombre">
+      <div class="info">
+        <input type="text" formControlName="nombre" [class.lleno]="formularioTickets.get('nombre')?.value">
+        <span >Nombre:</span>
+      </div>
 
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
-      <div class="contenedorinombre" *ngIf="contieneNumeros(formularioTickets.get('nombre')?.value)">
-        <div class="tooltip">
-          <span><i class="fa fa-info-circle"></i></span>
-          <div class="tooltip-text">
-            Ingrese solo letras
+      @if(contieneNumeros(formularioTickets.get('nombre')?.value)){
+        <div class="contenedorinombre" >
+          <div class="tooltip">
+            <span><i class="fa fa-info-circle"></i></span>
+            <div class="tooltip-text">
+              Ingrese solo letras
+            </div>
           </div>
         </div>
+      }
+      
+     
+      <div class="info">
+        <!--Correo input/label-->
+        <input type="email" formControlName = "correo" [class.lleno]="formularioTickets.get('correo')?.value"> 
+        <span >Correo:</span>
       </div>
-
-
-      <!--Correo input/label-->
-      <label id="tmail">Correo:</label>
-      <input id="mail" type="email" formControlName = "correo"> 
 
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
-      <div class="contenedoricorreo" *ngIf="formularioTickets.get('correo')?.invalid && formularioTickets.get('correo')?.touched"><!-- ngModel  
-         *ngIf="correoCtrl.invalid && correoCtrl.touched">-->
-        <div class="tooltip">
-          <span><i class="fa fa-info-circle"></i></span>
-          <div class="tooltip-text">Ingrese un correo válido utilizando<br> ejemplo <br>'correo&#64;hotmail.com'</div>
+      @if(formularioTickets.get('correo')?.invalid && formularioTickets.get('correo')?.touched){
+        <div class="contenedoricorreo"><!-- ngModel  
+          *ngIf="correoCtrl.invalid && correoCtrl.touched">-->
+          <div class="tooltip">
+            <span><i class="fa fa-info-circle"></i></span>
+            <div class="tooltip-text">Ingrese un correo válido utilizando<br> ejemplo <br>'correo&#64;hotmail.com'</div>
+          </div>
         </div>
-      </div>
+      }
+      
 
 
       <!--Telefono input/label-->
-      <label id="ttelefono">Teléfono:</label>
-      <input id="telefono" type="tel" formControlName = "telefono" >
+      <div class= "info">
+        <input id="telefono" type="tel" formControlName = "telefono" [class.lleno]="formularioTickets.get('telefono')?.value">
+        <span id="ttelefono">Teléfono:</span>
+      </div>
 
       <!--Descripción input/label-->
-      <label id="tdescripcion">Descripción:</label>
-      <textarea id="descripcion" formControlName = "descripcion" rows="4" cols="50"></textarea>
+      <div class="info">
+        <textarea formControlName = "descripcion" rows="4" cols="50" [class.lleno]="formularioTickets.get('descripcion')?.value"></textarea>
+        <span id="tdescripcion">Descripción:</span>
+      </div>
 
       <!--boton para interactuar con el formulario-->
-      <button *ngIf="modo === 'crear'; else actualizar" type="submit" class="item7" [disabled] = "formularioTickets.invalid"> <!--[disabled]="miFormulario.form.invalid"
-      (click)="crearticket($event)">-->
-        Guardar
-      </button>
-      <!--En caso de ser llamado como formulario de actualizar se llama el siguiente botón-->
-      <ng-template #actualizar>
-        <button type="submit" class="item7"  (click)="solicitaractualizacion()" [disabled] = "formularioTickets.invalid"><!--[disabled]="miFormulario.form.invalid"-->
-          Actualizar
-        </button>
-        <button class="cancelar" type="button" (click)="cancelarFormulario()">
-          Cancelar
-        </button>
-      </ng-template>   
+      @if(modo === 'crear'){
+        <button type="submit" class="item7" [disabled] = "formularioTickets.invalid"> <!--[disabled]="miFormulario.form.invalid"
+          (click)="crearticket($event)">-->
+            Guardar
+          </button> 
+      }@else {         
+         <!--En caso de ser llamado como formulario de actualizar se llama el siguiente botón-->
+          <button type="submit" class="item7"  (click)="solicitaractualizacion()" [disabled] = "formularioTickets.invalid"><!--[disabled]="miFormulario.form.invalid"-->
+            Actualizar
+          </button>
+          <button class="cancelar" type="button" (click)="cancelarFormulario()">
+            Cancelar
+          </button>
+        
+        }
+      
     </form>
   </div>
 </div>

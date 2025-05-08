@@ -15,6 +15,7 @@ import { TicketServiceService } from './ticket-service.service';
 import { Comentario } from './models/comentario';
 import { ComentarioResponse } from './models/comentarioResponse';
 import { ComentarioService } from './comentario.service';
+import { animacioncondicional } from './login/animacioncondicional';
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -29,7 +30,8 @@ const baseURL = `${environment.URL_BASE}`;
     NotificacionesComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  standalone: true
+  standalone: true,
+  animations:[animacioncondicional]
   
 
 })
@@ -74,11 +76,7 @@ export class AppComponent implements OnInit{
           })
           this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
             const comentario:ComentarioResponse = JSON.parse(message.body)
-            const comentarioTemp:Comentario = {
-              numero_comentario:comentario.numero_comentario,
-              contenido:comentario.comentario
-            }
-            this.comentarioService.emitirComentario(comentarioTemp);
+            this.comentarioService.emitirComentario(comentario);
           });
           this.notificacionesPendientes();
         }

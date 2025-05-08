@@ -1,8 +1,10 @@
 package escom.admin.servicioAlCliente.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import escom.admin.servicioAlCliente.dto.ComentarioTicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.*;
 import escom.admin.servicioAlCliente.repositories.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,13 +53,18 @@ public class ComentarioTicketServiceImpl implements ComentarioTicketService{
     }
 
     @Override
-    public List<Comentario> buscarComentariosPorTicket(Long numeroTicket) {
+    public List<ComentarioTicketResponseDTO> buscarComentariosPorTicket(Long numeroTicket) {
         List<ComentarioTicket> comentariosEncontrados = comentarioTicketRepository.findAllByTicket_NumeroTicket(numeroTicket);
-        List<Comentario> comentarios = new ArrayList<>();
-        comentarios = comentariosEncontrados.stream()
-                .map(ComentarioTicket::getComentario)
-                .sorted(Comparator.comparing(Comentario::getNumeroComentario))
+        return  comentariosEncontrados.stream()
+                .map(comentario ->{
+                    return ComentarioTicketResponseDTO.builder()
+                            .numeroUsuario(comentario.getUsuario().getNumeroUsuario())
+                            .numeroTicket(comentario.getTicket().getNumeroTicket())
+                            .numeroComentario(comentario.getComentario().getNumeroComentario())
+                            .comentario(comentario.getComentario().getContenido())
+                            .build();
+
+                })
                 .toList();
-        return comentarios;
     }
 }
