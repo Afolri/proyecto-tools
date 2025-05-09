@@ -11,6 +11,7 @@ import { ComentarioResponse } from '../models/comentarioResponse';
 import { IMessage } from '@stomp/stompjs';
 import { ComentarioService } from '../comentario.service';
 import { CommonModule } from '@angular/common';
+import { filter, take, takeLast } from 'rxjs';
 
 @Component({
   selector: 'app-editar-ticket',
@@ -29,13 +30,19 @@ export class EditarTicketComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerComentarios();
-    this.authService.usuarioActual$.subscribe( usuario =>{
+    this.authService.usuarioActual$
+    .pipe( 
+      filter(usuario => !!usuario),
+      take(1)
+    )
+    .subscribe( usuario =>{
       if(usuario){
         this.usuarioActual = usuario;
       }
     });
     this.comentarioService.comentario$.subscribe(comentario =>{
       /**this.comentariosRaiz= comentario;*/
+      console.log("Estos son los comentarios obtenidos antes de hacer el push", this.comentariosObtenidos);
       this.comentariosObtenidos.push(comentario);
     });
   }
@@ -102,6 +109,7 @@ export class EditarTicketComponent implements OnInit {
       return reponse;
     })
     const comentarioResponse:ComentarioResponse = valor;
+    console.log("el comentario que envia al servicio y emite ",comentarioResponse);
     this.webSocket.enviarComentario(comentarioResponse);
   }
 

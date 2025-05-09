@@ -27,7 +27,6 @@ export class WebSocketService implements OnInit{
   constructor() {
   }
   ngOnInit(): void {
-    
     this.initializeWebSocketConnection();
   }
   enviarTicket(ticket:Ticket, numerousuario:number){

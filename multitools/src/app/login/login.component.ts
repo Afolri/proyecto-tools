@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit{
             localStorage.setItem('token', data.token);
             this.obtenerUsuarioLoggeado();
             this.registrorechazado = false;
-            return this.router.navigate(['/reporte-clientes']);
+            this.router.navigate(['/reporte-clientes']);
         } else {
             throw new Error("No se recibió el token en la respuesta");
         }
@@ -108,6 +108,7 @@ export class LoginComponent implements OnInit{
         }
     }
     obtenerUsuarioLoggeado(){
+        console.log("obteniendoUsuario");
         fetch(`${baseURL}/admin/reporte-tickets/obtener-credenciales`,{
             method:"GET",  
             headers: {

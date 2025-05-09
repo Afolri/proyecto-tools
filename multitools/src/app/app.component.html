@@ -6,7 +6,7 @@
 			@if(usuarioActual){
 				<li ><a  routerLink="/reporte-clientes" data-text="reportes" >REPORTE DE CLIENTES</a></li>
 			}
-			@if(modo ==='ADMIN'){
+			@if(usuarioActual && modo ==='ADMIN'){
 				<li><a  routerLink="/organizador-computadoras" data-text="Organiza">ORGANIZADOR COMPUTADORAS</a></li>
 			}
 			<li ><a routerLink="/generar-tickets" [queryParams]= "{modo:'crear'}"data-text="tickets">GENERAR TICKETS</a></li>

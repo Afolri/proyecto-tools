@@ -16,6 +16,7 @@ import { Comentario } from './models/comentario';
 import { ComentarioResponse } from './models/comentarioResponse';
 import { ComentarioService } from './comentario.service';
 import { animacioncondicional } from './login/animacioncondicional';
+import { filter, take } from 'rxjs';
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -57,7 +58,12 @@ export class AppComponent implements OnInit{
 
   }
   ngOnInit(): void {
-      this.authService.usuarioActual$.subscribe(usuario =>{
+      this.authService.usuarioActual$
+      .pipe(
+        filter(usuario => !!usuario),
+        take(1)
+      )
+      .subscribe(usuario =>{
       this.usuarioActual=usuario;
       if(usuario){
           this.modo = usuario?.rol;
@@ -75,7 +81,7 @@ export class AppComponent implements OnInit{
             console.log("tickets socket", ticketSocket);
           })
           this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
-            const comentario:ComentarioResponse = JSON.parse(message.body)
+            const comentario:ComentarioResponse = JSON.parse(message.body);
             this.comentarioService.emitirComentario(comentario);
           });
           this.notificacionesPendientes();

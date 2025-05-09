@@ -14,7 +14,7 @@
         <input formControlName="numero_compra_cot" [class.lleno]="formularioTickets.get('numero_compra_cot')?.value"> 
         <span  >Numero Compra / Cotización:</span>
       </div>
-      <div class = "personalizada">
+      <div class = "personalizada info">
 
         @if(formularioTickets.get('ehs_approval')?.value){
           <select class="tipo" formControlName="numero_identificador" (change)="buscarNombreIdentificador()">
@@ -132,8 +132,7 @@
 
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
       @if(formularioTickets.get('correo')?.invalid && formularioTickets.get('correo')?.touched){
-        <div class="contenedoricorreo errorinfo"><!-- ngModel  
-          *ngIf="correoCtrl.invalid && correoCtrl.touched">-->
+        <div class="contenedoricorreo errorinfo">
           <div class="tooltip">
             <span><i class="fa fa-info-circle"></i></span>
             <div class="tooltip-text">Ingrese un correo válido utilizando<br> ejemplo <br>'correo&#64;hotmail.com'</div>

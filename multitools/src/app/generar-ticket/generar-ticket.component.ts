@@ -111,6 +111,7 @@ export class GenerarTicketComponent implements OnInit  {
      })
    }
   ngOnInit() {
+    console.log("init de generar-ticket");
     if (this.modo === 'editar' && this.ticket) {
       this.formularioTickets.setValue({
         numero_compra_cot: this.ticket.numero_compra_cot,
