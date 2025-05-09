@@ -37,6 +37,7 @@ const baseURL = `${environment.URL_BASE}`;
 
 })
 export class AppComponent implements OnInit{
+  yainicializado:boolean= false;
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
   notificaciones:Notificaciones[] = [];
   comentariosRaiz:Comentario[] = [];
@@ -58,32 +59,32 @@ export class AppComponent implements OnInit{
 
   }
   ngOnInit(): void {
-      this.authService.usuarioActual$
-      .pipe(
-        filter(usuario => !!usuario),
-        take(1)
-      )
-      .subscribe(usuario =>{
+      this.authService.usuarioActual$.subscribe(usuario =>{
       this.usuarioActual=usuario;
       if(usuario){
+        
           this.modo = usuario?.rol;
           this.verNotificaciones();
-          this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
-            this.notificaciones.unshift(JSON.parse(message.body));
-            this.notificacionesSinLeer=true;
-          });
-          this.ticketService.tickets$.subscribe(tickets =>{
-            this.ticketsObtenidos = tickets;
-          });
-          this.webSocketService.suscribirse(`/topic/ticket/${usuario.numero_usuario}`,(message:IMessage)=>{
-            const ticketSocket:Ticket = JSON.parse(message.body);
-            this.ticketSocket.push(ticketSocket);
-            console.log("tickets socket", ticketSocket);
-          })
-          this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
-            const comentario:ComentarioResponse = JSON.parse(message.body);
-            this.comentarioService.emitirComentario(comentario);
-          });
+          if(!this.yainicializado){
+            this.yainicializado=true;
+            this.webSocketService.suscribirse(`/topic/${this.usuarioActual.numero_usuario}`, (message:IMessage) =>{
+              this.notificaciones.unshift(JSON.parse(message.body));
+              this.notificacionesSinLeer=true;
+            });
+            this.ticketService.tickets$.subscribe(tickets =>{
+              this.ticketsObtenidos = tickets;
+            });
+            this.webSocketService.suscribirse(`/topic/ticket/${usuario.numero_usuario}`,(message:IMessage)=>{
+              const ticketSocket:Ticket = JSON.parse(message.body);
+              this.ticketSocket.push(ticketSocket);
+              console.log("tickets socket", ticketSocket);
+            })
+            this.webSocketService.suscribirse(`/comentario-topic/general`,(message:IMessage) =>{
+              const comentario:ComentarioResponse = JSON.parse(message.body);
+              this.comentarioService.emitirComentario(comentario);
+            });
+          }
+          
           this.notificacionesPendientes();
         }
       })
@@ -92,6 +93,7 @@ export class AppComponent implements OnInit{
   logout(){
     this.authService.logout();
     this.router.navigate(['/login']);
+    this.yainicializado=true;
   }
   abrirDetallesNotificacion(numero_ticket:number){
     this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);

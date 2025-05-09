@@ -170,7 +170,7 @@
     border-radius: 17px;
 
 }
-.fondoFormulario{
+.centrado{
     position: fixed;
     left: 50%;
     top: 50%;
@@ -179,7 +179,6 @@
     z-index: 3;
     width: 80%;
     height: 80%;
-    background-color: red;
 }
 
 

@@ -117,12 +117,7 @@ export class ReporteClientesComponent implements OnInit {
     library.addIcons(faBars);
   }
   ngOnInit(): void {
-    this.authService.usuarioActual$
-    .pipe(
-      filter(usuario => !!usuario),
-      take(1)
-    )
-    .subscribe((usuario:Usuario) => {
+    this.authService.usuarioActual$.subscribe((usuario:Usuario) => {
       if (usuario) { 
         console.log("rol:",usuario.rol);
         this.usuarioActual = usuario;

@@ -51,38 +51,38 @@ export class LoginComponent implements OnInit{
   ngOnInit() {
     this.registrorechazado =false;
   }
-  login() {
-    let correo = this.iniciarsesion.get('correo')?.value;
-    let password = this.iniciarsesion.get('password')?.value;
+    login() {
+        let correo = this.iniciarsesion.get('correo')?.value;
+        let password = this.iniciarsesion.get('password')?.value;
 
-    fetch(`${baseURL}/admin/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ correo, password })
-    })
-    .then(response => {
-        if (!response.ok) {
-            this.registrorechazado = true;
-            setTimeout(() => {
-                this.registrorechazado = false; // Ocultar la advertencia después de un tiempo
-            }, 3000);
-            throw new Error('Correo o contraseña incorrectos');
+        fetch(`${baseURL}/admin/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ correo, password })
+        })
+        .then(response => {
+            if (!response.ok) {
+                this.registrorechazado = true;
+                setTimeout(() => {
+                    this.registrorechazado = false; // Ocultar la advertencia después de un tiempo
+                }, 3000);
+                throw new Error('Correo o contraseña incorrectos');
+            }
+            return response.json(); // Convertimos la respuesta a JSON
+        })
+        .then(data => {
+            if (data.token) {  // Suponiendo que la API devuelve un objeto con { token: "..." }
+                localStorage.setItem('token', data.token);
+                this.obtenerUsuarioLoggeado();
+                this.registrorechazado = false;
+                this.router.navigate(['/reporte-clientes']);
+            } else {
+                throw new Error("No se recibió el token en la respuesta");
         }
-        return response.json(); // Convertimos la respuesta a JSON
-    })
-    .then(data => {
-        if (data.token) {  // Suponiendo que la API devuelve un objeto con { token: "..." }
-            localStorage.setItem('token', data.token);
-            this.obtenerUsuarioLoggeado();
-            this.registrorechazado = false;
-            this.router.navigate(['/reporte-clientes']);
-        } else {
-            throw new Error("No se recibió el token en la respuesta");
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error.message);
-    });
+        })
+        .catch(error => {
+            console.error("Error:", error.message);
+        });
     }
     /**Este método verifica si los campos del formulario estan vacios */
     camposInvalidos(form: any): boolean {

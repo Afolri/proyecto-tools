@@ -50,7 +50,7 @@
     }
   </div>
 </div>
-<div class="fondoFormulario" *ngIf="mostrar">
+<div class="centrado" *ngIf="mostrar">
   <div  class="editar">
     <app-editar-ticket [ticket]="tablaTicketstemp" (salirFormulario)="ocultar()" [numeroTicket]="refTicketComentarios" />
   </div>
@@ -58,4 +58,4 @@
   
   <app-mensaje-aviso *ngIf="mensajeAviso" (cerrarEvent)="(ocultarMensajeAviso())" 
   (cerrarTicketEvent)="cerrarTicket(tablaTicketstemp.numero_ticket)" (actualizarEvent)="aceptaractualizar()" (desmarcarEvent)="desmarcar()"
-   [modoMensajeFormulario]="modoMensajeFormulario"></app-mensaje-aviso>
+   [modoMensajeFormulario]="modoMensajeFormulario" class = "centrado"></app-mensaje-aviso>
