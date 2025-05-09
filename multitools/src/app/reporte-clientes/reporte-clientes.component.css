@@ -170,7 +170,17 @@
     border-radius: 17px;
 
 }
-
+.fondoFormulario{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0 auto;
+    z-index: 3;
+    width: 80%;
+    height: 80%;
+    background-color: red;
+}
 
 
 @media only screen and (max-device-width: 1000px) {
