@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { BehaviorSubject, distinctUntilChanged, filter, take } from 'rxjs';
+import { BehaviorSubject, filter, take } from 'rxjs';
 import { WebSocketService } from '../web-socket.service';
 import { TicketServiceService } from '../ticket-service.service';
 
@@ -118,7 +118,10 @@ export class ReporteClientesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.authService.usuarioActual$
-    .pipe(distinctUntilChanged())
+    .pipe(
+      filter(usuario => !!usuario),
+      take(1)
+    )
     .subscribe((usuario:Usuario) => {
       if (usuario) { 
         console.log("rol:",usuario.rol);
