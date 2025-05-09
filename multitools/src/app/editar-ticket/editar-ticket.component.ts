@@ -11,7 +11,7 @@ import { ComentarioResponse } from '../models/comentarioResponse';
 import { IMessage } from '@stomp/stompjs';
 import { ComentarioService } from '../comentario.service';
 import { CommonModule } from '@angular/common';
-import { filter, take, takeLast } from 'rxjs';
+import { distinctUntilChanged, filter, take, takeLast } from 'rxjs';
 
 @Component({
   selector: 'app-editar-ticket',
@@ -31,10 +31,7 @@ export class EditarTicketComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerComentarios();
     this.authService.usuarioActual$
-    .pipe( 
-      filter(usuario => !!usuario),
-      take(1)
-    )
+    .pipe(distinctUntilChanged())
     .subscribe( usuario =>{
       if(usuario){
         this.usuarioActual = usuario;
