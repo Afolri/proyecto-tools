@@ -161,6 +161,9 @@
 .edit-icon::before, .lock-icon::before{
     background-color:hsl(215, 54%, 58%);
 }
+.selector-estado{
+    text-transform: uppercase;
+}
 .estado{
     width: 50%;
     position:relative;
@@ -179,6 +182,7 @@
     z-index: 3;
     width: 80%;
     height: 80%;
+    max-width: 800px;
 }
 
 

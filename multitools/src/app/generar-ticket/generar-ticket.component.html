@@ -123,7 +123,7 @@
         </div>
       }
       
-     
+    
       <div class="info">
         <!--Correo input/label-->
         <input type="email" formControlName = "correo" [class.lleno]="formularioTickets.get('correo')?.value"> 
@@ -161,15 +161,14 @@
             Guardar
           </button> 
       }@else {         
-         <!--En caso de ser llamado como formulario de actualizar se llama el siguiente botón-->
-          <button type="submit" class="item7"  (click)="solicitaractualizacion()" [disabled] = "formularioTickets.invalid"><!--[disabled]="miFormulario.form.invalid"-->
-            Actualizar
-          </button>
-          <button class="cancelar" type="button" (click)="cancelarFormulario()">
-            Cancelar
-          </button>
-        
-        }
+        <!--En caso de ser llamado como formulario de actualizar se llama el siguiente botón-->
+        <button type="submit" class="item7"  (click)="solicitaractualizacion()" [disabled] = "formularioTickets.invalid"><!--[disabled]="miFormulario.form.invalid"-->
+          Actualizar
+        </button>
+        <button class="cancelar" type="button" (click)="cancelarFormulario()">
+          Cancelar
+        </button>
+      }
       
     </form>
   </div>

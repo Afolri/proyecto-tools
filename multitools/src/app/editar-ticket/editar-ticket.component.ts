@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Ticket } from '../generar-ticket/generar-ticket.component';
 import { environment } from '../../environments/environment';
 import { Comentario } from '../models/comentario';
@@ -20,12 +20,14 @@ import { filter, take, takeLast } from 'rxjs';
   styleUrl: './editar-ticket.component.css',
   standalone:true
 })
-export class EditarTicketComponent implements OnInit {
+export class EditarTicketComponent implements OnInit, AfterViewChecked {
+  private yaScrolleado = false;
   comentarFormulario!:FormGroup;
   comentariosObtenidos:ComentarioResponse[]=[];
   @Input() ticket!: Ticket;
   @Input() numeroTicket!:number;
   @Output() salirFormulario = new EventEmitter<Ticket>();
+  @ViewChild('comentariosDiv') private comentariosDiv!: ElementRef;
   usuarioActual!:Usuario;
 
   ngOnInit(): void {
@@ -45,6 +47,19 @@ export class EditarTicketComponent implements OnInit {
       console.log("Estos son los comentarios obtenidos antes de hacer el push", this.comentariosObtenidos);
       this.comentariosObtenidos.push(comentario);
     });
+  }
+
+  
+
+  ngAfterViewChecked(): void {
+    if (this.comentariosDiv) {
+      this.scrollToBottom();
+    }
+  }
+  scrollToBottom(): void {
+    try {
+      this.comentariosDiv.nativeElement.scrollTop = this.comentariosDiv.nativeElement.scrollHeight;
+    } catch(err) { }
   }
   constructor(private authService:AuthService,private formBuilder:FormBuilder,
     private webSocket:WebSocketService, private comentarioService:ComentarioService
@@ -121,5 +136,9 @@ export class EditarTicketComponent implements OnInit {
       "align-self": esUsuarioActual ? "end" : "start"
     };
   }
+  getMessages() {
+    let messages = document.getElementsByClassName('cajadecomentarios');
+  }
+  
 
 }

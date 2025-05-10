@@ -348,16 +348,16 @@ textarea.ng-invalid.ng-touched {
     position: absolute;
     display: none;
   }
- .checked{
-  display: inline-block;
+  .checked{
+    display: inline-block;
     position:relative;
     --radio-tam:20px;
     width: var(--radio-tam);
     height: var(--radio-tam);
     background-color: var(--azul-claro-solido); 
     border-radius: 50%;
- }
- input:checked ~ .checked::after{
+  }
+  input:checked ~ .checked::after{
     content: "";
   
     position: absolute;
@@ -368,26 +368,26 @@ textarea.ng-invalid.ng-touched {
     transform: translate(-50%,-50%);
     background-color: var(--azul-oscuro-solido);
     animation: mianimacion .5s ease;
- }
- @keyframes mianimacion {
-  0%{
-    border-radius: 0%;
-    background-color: var(--azul-oscuro-solido);
   }
-  50%{
-    transform: translate(-50%,-50%) rotate(360deg);
-    background-color: var(--azul-titulo-solido);
-    
-  }
-  100%{
-    background-color: var(--azul-oscuro-solido);
-  }
+  @keyframes mianimacion {
+    0%{
+      border-radius: 0%;
+      background-color: var(--azul-oscuro-solido);
+    }
+    50%{
+      transform: translate(-50%,-50%) rotate(360deg);
+      background-color: var(--azul-titulo-solido);
+      
+    }
+    100%{
+      background-color: var(--azul-oscuro-solido);
+    }
   
- }
- .desplegar-modelo, .contenedortooltip, .errorinfo{
-  justify-self: center;
-  align-self: center;
-}
+  }
+  .desplegar-modelo, .contenedortooltip, .errorinfo{
+    justify-self: center;
+    align-self: center;
+  }
 
   @media only screen and (max-width: 1000px){
     .contenedorpadre{
