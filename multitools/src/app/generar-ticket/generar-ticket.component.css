@@ -400,6 +400,7 @@ textarea.ng-invalid.ng-touched {
       display: flex;
       position: relative;
       padding: 20px;
+      font-size: .86rem;
 
     }
     .contenedor2>*{
@@ -411,13 +412,9 @@ textarea.ng-invalid.ng-touched {
       gap: 20px;
       flex-flow: column;
     }
-    .miformulario{
-      justify-content: stretch;
-      align-items: stretch;
-    }
   
-    input{
-      width: 100%;
+    input, textarea{
+      width: 90vw;
     }
     .item{
       background-color: var(--azul-oscuro-solido);
