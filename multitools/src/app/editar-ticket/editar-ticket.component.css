@@ -54,7 +54,8 @@
     flex: 1;
 }
 .segundoapartado{
-    flex: 4;
+    flex: 9;
+    flex:1 1 auto;
     display: flex;
     flex-flow: column;
 }
@@ -132,5 +133,19 @@
 
 
 @media only screen and (max-width:1000px){
-
+    .contenedor-principal{
+        display: flex;
+    }
+    .contenedor-comentario{
+       max-width: 100%;
+    }
+    .segundoapartado{
+        height: 50vh;
+    }
+    .cajadecomentarios{
+        height: 50vh;
+    }
+    .formulario-comentario{
+        height: 30vh;
+    }
 }
