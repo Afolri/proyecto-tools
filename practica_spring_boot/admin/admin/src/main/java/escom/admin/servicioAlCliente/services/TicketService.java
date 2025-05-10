@@ -23,7 +23,7 @@ public interface TicketService {
     void cerrarPedido(Long numeroTicket);
     void asignarAgente(Long idAgente);
     DatosSocketDTOResponse crearTicketConCliente(TicketRequestDTO requestDTO) throws Exception;
-    List<TicketResponseDTO> buscarTickets( Long numeroUsuario );
+    List<TicketResponseDTO> buscarTickets( Long numeroUsuario, String estadoTickets );
     void actualizarTicket(Ticket ticket, Cliente cliente, ProductoTicket productoTicket);
     Ticket buscarPorIdentificador(String nombreIdentificador,  Long numeroTicket);
     List<TicketResponseDTO> obtenerTodosLosTickets();

@@ -164,9 +164,9 @@ public class TicketServiceImpl implements TicketService {
 
     }
     @Override
-    public List<TicketResponseDTO> buscarTickets(Long numeroUsuario) {
+    public List<TicketResponseDTO> buscarTickets(Long numeroUsuario, String estadoTickets) {
         try {
-            return ticketRepository.buscarTicketsDTO(numeroUsuario).stream()
+            return ticketRepository.buscarTicketsDTO(numeroUsuario, estadoTickets).stream()
                     .map(ticket ->{
                         ObjectMapper objectMapper = new ObjectMapper();
                         objectMapper.registerModule(new JavaTimeModule());

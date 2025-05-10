@@ -50,9 +50,9 @@ public class ReporteTickets {
     }
 
     @GetMapping("/buscar-tickets")
-    public ResponseEntity<?> buscarTickets(@RequestParam Long numeroUsuario) {
+    public ResponseEntity<?> buscarTickets(@RequestParam Long numeroUsuario, @RequestParam String estadoTickets) {
         try {
-            return ResponseEntity.ok().body(ticketService.buscarTickets(numeroUsuario));
+            return ResponseEntity.ok().body(ticketService.buscarTickets(numeroUsuario, estadoTickets));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error al buscar los tickets");
         }

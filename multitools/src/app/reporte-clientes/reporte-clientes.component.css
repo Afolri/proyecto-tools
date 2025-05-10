@@ -10,7 +10,12 @@
     flex-flow: row;
     gap:20px;
 }
-
+.miformulario{
+    position: relative;
+    max-height: 100px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
 
 
 .titulos{

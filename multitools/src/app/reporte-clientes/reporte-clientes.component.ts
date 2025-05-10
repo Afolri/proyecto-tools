@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GenerarTicketComponent, } from "../generar-ticket/generar-ticket.component";
 import { MensajeAvisoComponent } from "../mensaje-aviso/mensaje-aviso.component";
@@ -40,12 +40,14 @@ const baseURL = `${environment.URL_BASE}`;
     MensajeAvisoComponent,
     FontAwesomeModule,
     EditarTicketComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './reporte-clientes.component.html',
   styleUrls: ['./reporte-clientes.component.css']
 })
 
 export class ReporteClientesComponent implements OnInit {
+  formulario!:FormGroup;
   refTicketComentarios!:number;
   /**Donde se guardaraon los tickets que se pasen por el socket */
   ticketsSocket:Ticket[] = [];
@@ -109,7 +111,8 @@ export class ReporteClientesComponent implements OnInit {
 
 
   constructor(library: FaIconLibrary, private authService: AuthService, private router: Router,
-    private webSocketService:WebSocketService, private ticketService:TicketServiceService
+    private webSocketService:WebSocketService, private ticketService:TicketServiceService,
+    private formBuilder:FormBuilder
   ) {
     webSocketService.ngOnInit();
     library.addIcons(faComment);
@@ -117,6 +120,9 @@ export class ReporteClientesComponent implements OnInit {
     library.addIcons(faBars);
   }
   ngOnInit(): void {
+    this.formulario = this.formBuilder.group({
+      estado:['',[],[]]
+    })
     this.authService.usuarioActual$.subscribe((usuario:Usuario) => {
       if (usuario) { 
         console.log("rol:",usuario.rol);
@@ -203,13 +209,13 @@ export class ReporteClientesComponent implements OnInit {
   }
   cargarTickets() {
     const token = localStorage.getItem("token");
-
+    const estado = this.formulario.get("estado")?.value;
     if (!token) {
         alert("No se encontró un token. Inicia sesión nuevamente.");
         return;
     }
 
-    fetch(`${baseURL}/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}`, {
+    fetch(`${baseURL}/admin/reporte-tickets/buscar-tickets?numeroUsuario=${this.usuarioActual.numero_usuario}&estadoTickets=${estado}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
