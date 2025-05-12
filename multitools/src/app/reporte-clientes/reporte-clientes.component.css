@@ -25,7 +25,8 @@
     display: flex;
     flex-flow: column;
     justify-content: space-around;
-    font-size:.8vw;
+    font-size: .9vw;
+    text-wrap: nowrap;
     align-content: right;
     font-weight: 800;
     flex:1;
