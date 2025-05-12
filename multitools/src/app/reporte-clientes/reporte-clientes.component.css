@@ -9,6 +9,8 @@
     display: flex;
     flex-flow: row;
     gap:20px;
+    overflow:hidden ;
+
 }
 .miformulario{
     position: relative;
@@ -50,6 +52,7 @@
     gap: 1%;
     margin-bottom: -1%;
     padding: 0 5% 0% 0%;
+    min-width: 100vh;
 }
 
 .tarjeta-datos>*{
