@@ -7,10 +7,12 @@
     --azul-titulo:rgba(123, 170, 226, 0.684);
 }
 .container-general{
-    gap: 1vw;
     margin: 22px;
     display: table;
     border-spacing: 0px 10px;
+    font-size:clamp(8px, 2vw, 16px);
+    white-space: wrap;
+    width: 200px;
     
 }
 .titulo{
@@ -33,7 +35,6 @@
 .container{
     cursor:pointer;
     gap: 22px;
-    padding: 1vw;
     align-items: center;
     border-start-end-radius: 17px;
     box-shadow: inset   -12px 9px 10px -12px var(--azul-oscuro);
