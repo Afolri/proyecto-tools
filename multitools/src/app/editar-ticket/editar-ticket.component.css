@@ -83,6 +83,7 @@
 
 .formulario-comentario{
     flex:1 1 auto;
+    height: 20vh;
 }
 .contenedor-textarea{
     display: flex;
@@ -98,7 +99,7 @@
 
 .cajadecomentarios{
     overflow-x: hidden;
-    height: 500px;
+    height: 50vh;
     overflow-y: auto;
     display: flex;
     flex-flow: column;  
@@ -137,7 +138,7 @@
         display: flex;
     }
     .contenedor-comentario{
-       max-width: 100%;
+        max-width: 100%;
     }
     .segundoapartado{
         height: 50vh;
@@ -147,5 +148,10 @@
     }
     .formulario-comentario{
         height: 30vh;
+    }
+}
+@media only screen and (max-width: 600px){
+    .botones{
+        width: 100%;
     }
 }
