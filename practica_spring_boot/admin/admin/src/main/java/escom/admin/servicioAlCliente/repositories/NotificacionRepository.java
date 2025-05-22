@@ -34,10 +34,11 @@ public interface NotificacionRepository extends JpaRepository<Notificacion, Long
 
     @Transactional
     @Query(value = """
-        SELECT estado FROM (SELECT CASE WHEN sun.visto IS false THEN true ELSE false END AS estado, sun.numero_usuario  FROM soporte.usuario_notificacion sun)
-        WHERE numero_usuario = :numeroUsuario
-        ORDER BY estado DESC
-        LIMIT 1
+                SELECT CASE WHEN COUNT(*) > 0   THEN true ELSE false	END AS estado	FROM
+                (SELECT CASE WHEN sun.visto IS false THEN true ELSE false END AS estado, sun.numero_usuario  FROM soporte.usuario_notificacion sun)
+                WHERE numero_usuario = :numeroUsuario AND estado = false
+                ORDER BY estado DESC
+                LIMIT 1
             """, nativeQuery = true)
     boolean notificacionesSinVer (@Param("numeroUsuario") Long numeroUsuario);
 
