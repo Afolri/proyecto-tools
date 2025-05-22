@@ -53,22 +53,23 @@ public class ProductoTicketServiceImpl implements ProductoTicketService{
         //se busca algun producto con un identificador y el valor del identificador si existe no lo guarda pero
         // si no existe lo guarda
         productoTipoOptional = productoTipoRepository.buscarProductoIdentificador(productoTicket.getNumeroProducto(),
-                tipoIdentificador.getNumeroIdentificador(), codigo);
-        if(productoTipoOptional.isPresent()){
+                tipoIdentificador.getNumeroIdentificador());
+        if(productoTipoOptional.isPresent()  ){
             productoTipo = productoTipoOptional.get();
-            productoTipo.setCodigo(codigo);
-            productoTipo = productoTipoRepository.save(productoTipo);
         }else{
-            productoTipo = guardarProducto(productoTicket, tipoIdentificador, codigo);
+            productoTipo = (guardarProducto(productoTicket, tipoIdentificador, codigo));
         }
-        return productoTipo.getProductoTicket();
+        productoTipo.setCodigo(codigo);
+        productoTipo = productoTipoRepository.save(productoTipo);
+
+        return productoTicketRepository.findById(productoTipo.getNumeroProducto()).orElseGet(ProductoTicket::new);
     }
 
     ProductoTipo guardarProducto( ProductoTicket productoTicket, TipoIdentificador tipoIdentificador, String codigo) {
         ProductoTipo productoTipo = new ProductoTipo();
         productoTipo.setCodigo(codigo);
-        productoTipo.setProductoTicket(productoTicket);
-        productoTipo.setTipoIdentificador(tipoIdentificador);
+        productoTipo.setNumeroProducto(productoTicket.getNumeroProducto());
+        productoTipo.setNumeroIdentificador(tipoIdentificador.getNumeroIdentificador());
         return productoTipoRepository.save(productoTipo);
 
     }

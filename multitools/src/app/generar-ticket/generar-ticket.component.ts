@@ -5,8 +5,8 @@ import { environment } from '../../environments/environment';
 import { Route, Router } from '@angular/router';
 import { WebSocketService } from '../web-socket.service';
 import { IMessage } from '@stomp/stompjs';
-import { Notificaciones } from '../reporte-clientes/reporte-clientes.component';
 import { tick } from '@angular/core/testing';
+import { NotificacionesResponse } from '../models/notificacionesResponse';
 
 
 //La estructura cambia a:
@@ -214,7 +214,6 @@ export class GenerarTicketComponent implements OnInit  {
             if(error.error != ""){
               const errorMessage = error.error;
               console.log(errorMessage)
-             
             }
           })
           return null;
@@ -225,10 +224,10 @@ export class GenerarTicketComponent implements OnInit  {
         console.error("Error:", error);
         return null;
       });
-      const notificacion:Notificaciones =resultado['notificacionResponseDTO'];
+      const notificacion:NotificacionesResponse =resultado['notificacionResponseDTO'];
       const ticket:Ticket = resultado['ticketResponseDTO'];
       this.webSocketService.solicitarmensaje(notificacion);
-      this.webSocketService.enviarTicket(ticket,notificacion.numero_usuario);
+      this.webSocketService.enviarTicket(ticket, notificacion.numero_usuario);
       this.route.navigate(['mensaje'])
       
   }

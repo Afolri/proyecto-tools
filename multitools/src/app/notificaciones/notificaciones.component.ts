@@ -5,7 +5,7 @@ import { Usuario } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { Router} from '@angular/router';
 import { environment } from '../../environments/environment';
-import { Notificaciones } from '../reporte-clientes/reporte-clientes.component';
+import { NotificacionesResponse } from '../models/notificacionesResponse';
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -20,7 +20,7 @@ const baseURL = `${environment.URL_BASE}`;
 })
 export class NotificacionesComponent implements OnInit {
   usuarioActual!:Usuario;
-  @Input() notificacionesMostradas:Notificaciones[] = [];
+  @Input() notificacionesMostradas:NotificacionesResponse[] = [];
   @Output() notificacionEvent = new EventEmitter<number>();
 
 
@@ -35,21 +35,23 @@ export class NotificacionesComponent implements OnInit {
   
 
 
-  leerNotificacion(numeroNotificacion:number, numeroTicketSeleccionado:number){
-    fetch(`${baseURL}/admin/reporte-tickets/abrir-notificacion?numero-notificacion=${numeroNotificacion}`,
+  leerNotificacion(numeroNotificacion:number){
+    fetch(`${baseURL}/admin/reporte-tickets/abrir-notificacion?numeroNotificacion=${numeroNotificacion}&numeroUsuario=${this.usuarioActual.numero_usuario}`,
       {
         method: "PUT",
         headers: { "Content-Type": "application/json",
           "Authorization":`Bearer ${localStorage.getItem('token')}`
-         }
+        }
       }
     ).then(response =>{
-      if(response.ok){
-        /**this.verNotificaciones();*/
-        this.abrirDetallesNotificacion(numeroTicketSeleccionado);
+      if(!response.ok){
+        throw new Error("Error al leer notificacion");
       }
+      const noti = this.notificacionesMostradas.find(obj => obj.numero_notificacion === numeroNotificacion);
+      noti!.visto = true;
     })
   }
+
   abrirDetallesNotificacion(numeroTicket:number){
     this.notificacionEvent.emit(numeroTicket);  
   }

@@ -6,7 +6,7 @@ import { AuthService } from './services/auth.service';
 import { LoginComponent } from './login/login.component';
 import{Usuario} from './login/login.component'
 import { NotificacionesComponent } from './notificaciones/notificaciones.component';
-import { Notificaciones, ReporteClientesComponent } from './reporte-clientes/reporte-clientes.component';
+import { ReporteClientesComponent } from './reporte-clientes/reporte-clientes.component';
 import { Ticket } from './generar-ticket/generar-ticket.component';
 import { WebSocketService } from './web-socket.service';
 import { IMessage } from '@stomp/stompjs';
@@ -17,6 +17,7 @@ import { ComentarioResponse } from './models/comentarioResponse';
 import { ComentarioService } from './comentario.service';
 import { animacioncondicional } from './login/animacioncondicional';
 import { filter, take } from 'rxjs';
+import { NotificacionesResponse } from './models/notificacionesResponse';
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -39,7 +40,7 @@ const baseURL = `${environment.URL_BASE}`;
 export class AppComponent implements OnInit{
   yainicializado:boolean= false;
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
-  notificaciones:Notificaciones[] = [];
+  notificaciones:NotificacionesResponse[] = [];
   comentariosRaiz:Comentario[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
   notificacionesSinLeer:boolean = false;
@@ -95,19 +96,19 @@ export class AppComponent implements OnInit{
     this.router.navigate(['/login']);
     this.yainicializado=true;
   }
-  abrirDetallesNotificacion(numero_ticket:number){
-    this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
-    const ticketJson = JSON.stringify(this.ticketActual);
-    let noti = this.notificaciones.find(obj => obj.numero_ticket === numero_ticket);
-    noti!.estado_notificacion = true;
-
-    if(this.notificaciones.find(obj => obj.estado_notificacion === true)){
-      this.notificacionesSinLeer = false;
-    }
-
-    localStorage.setItem("ticketseleccionado",ticketJson);
-    this.router.navigate(['detalles']);
-  }
+//  abrirDetallesNotificacion(numero_ticket:number){
+//    this.ticketActual = this.obtenerTicketSeleccionado(numero_ticket);
+//    const ticketJson = JSON.stringify(this.ticketActual);
+//    let noti = this.notificaciones.find(obj => obj.numero_ticket === numero_ticket);
+//    noti!.estado_notificacion = true;
+//
+//    if(this.notificaciones.find(obj => obj.estado_notificacion === true)){
+//      this.notificacionesSinLeer = false;
+//    }
+//
+//    localStorage.setItem("ticketseleccionado",ticketJson);
+//    this.router.navigate(['detalles']);
+//  }
   abrirNotificaciones(){
     if(this.mostrarNotificaciones){
       this.mostrarNotificaciones = false;
@@ -135,7 +136,7 @@ export class AppComponent implements OnInit{
   }
   notificacionesPendientes(){
     const t = localStorage.getItem('token');
-    fetch(`${baseURL}/admin/reporte-tickets/notificaciones-pendientes`,{
+    fetch(`${baseURL}/admin/reporte-tickets/notificaciones-pendientes?numeroUsuario=${this.usuarioActual.numero_usuario}`,{
       method: 'GET',
       headers:{
         "Content-Type": "application/json",
@@ -158,7 +159,7 @@ export class AppComponent implements OnInit{
         method: "GET",
         headers: { "Content-Type": "application/json",
           "Authorization":`Bearer ${localStorage.getItem('token')}`
-         }
+        }
       }
     )
     .then(response => response.json())

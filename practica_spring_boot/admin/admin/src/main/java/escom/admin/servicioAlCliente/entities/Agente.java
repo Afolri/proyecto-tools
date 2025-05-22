@@ -29,10 +29,9 @@ public class Agente {
     @JsonProperty("apellidos_agente")
     private String apellidosAgente;
 
-    @OneToOne
-    @JoinColumn(name = "numero_usuario")
+    @Column(name = "numero_usuario")
     @JsonProperty("numero_usuario")
-    private Usuario usuario;
+    private Long numeroUsuario;
 
 
 }

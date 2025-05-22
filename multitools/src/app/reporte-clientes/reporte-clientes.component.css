@@ -1,4 +1,7 @@
 
+.subtitulo{
+    text-align: left;
+}
 .contenedor{
     position: relative;
     margin: 0 auto;

@@ -1,8 +1,11 @@
 package escom.admin.servicioAlCliente.services;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import escom.admin.servicioAlCliente.Projection.TicketProjection;
 import escom.admin.servicioAlCliente.dto.DatosSocketDTOResponse;
 import escom.admin.servicioAlCliente.dto.NotificacionResponseDTO;
 import escom.admin.servicioAlCliente.dto.TicketRequestDTO;
@@ -16,6 +19,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -81,16 +86,28 @@ public class TicketServiceImpl implements TicketService {
         ProductoTicket producto;
         ObjectMapper objectMapper = new ObjectMapper();
         JSONObject jsonObject = new JSONObject(requestDTO);
-
+        Ticket ticket = new Ticket();
         //Busca un ticket por el nuemero de compra
 
-        Ticket ticket= ticketRepository
-                .findByCliente_CorreoAndProductoTicket_NumeroCompraCot(requestDTO.getCorreo(),requestDTO.getNumeroCompraCot())
-                .orElse(new Ticket());
+        Optional<TicketProjection> ticketProjection =
+                ticketRepository.buscarTicketExistente(requestDTO.getCorreo(), requestDTO.getNumeroCompraCot());
+        if(ticketProjection.isPresent()) {
+            ticket = new Ticket(
+                    ticketProjection.get().getNumeroTicket(),
+                    ticketProjection.get().getAsunto(),
+                    ticketProjection.get().getDescripcion(),
+                    ticketProjection.get().getEstado(),
+                    ticketProjection.get().getFecha(),
+                    ticketProjection.get().getHora()
+            );
+        }else{
+            ticket = new Ticket();
+        }
 
         if(!validarCorreo(requestDTO.getCorreo())) {
             throw new Exception("El correo no cumple el patrón");
         }
+
         if(!validarTelefono(requestDTO.getTelefono())) {
             throw new Exception("El teléfono no cumple el patrón");
         }
@@ -100,12 +117,14 @@ public class TicketServiceImpl implements TicketService {
         if(ticketDtoVacio(requestDTO)){
             throw new Exception("Hay un campo vacio");
         }
-        /*Cuando se comprueba que el producto no existe entonces crea un nuevo producto colocandole
-        numero de identificador*/
+        /*
+        *Cuando se comprueba que el producto no existe entonces crea un nuevo producto colocandole
+        numero de identificador
+        */
 
         producto = productoTicketService.crearProducto(requestDTO.getNumeroCompraCot(),
                 requestDTO.getCodigo().toUpperCase(), requestDTO.getNumeroIdentificador());
-        ticket.setProductoTicket(producto);
+        ticket.setNumeroProducto(producto.getNumeroProducto());
 
         /*
          *Cuando se comprueba que el cliente no existe entonces se guarda la entidad en la entidad ticket en su atributo
@@ -120,6 +139,11 @@ public class TicketServiceImpl implements TicketService {
                 /*
                 .orElseGet());
                  */
+
+        //obtener agente
+        Agente agente = (ticket.getNumeroAgente()==null)?
+                agentesRespository.findById(ticketRepository.siguienteAgente()).orElse(null):
+                agentesRespository.findById(ticket.getNumeroAgente()).orElseThrow();
         //guarda el asunto, descripcion y la fecha en el ticket
         ticket = ticketRepository.save(Ticket.builder()
                 .numeroTicket(ticket.getNumeroTicket())
@@ -127,30 +151,27 @@ public class TicketServiceImpl implements TicketService {
                 .descripcion(requestDTO.getDescripcion())
                 .fecha( LocalDate.now() )
                 .hora( LocalTime.parse(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"))))
-                .agente( (ticket.getAgente()==null)?
-                        agentesRespository.findById(ticketRepository.siguienteAgente()).orElse(null):
-                        ticket.getAgente())
+                .numeroAgente(agente.getNumeroAgente())
                 .estado(ticket.getEstado())
-                .productoTicket(producto)
-                .cliente(cliente)
+                .numeroProducto(producto.getNumeroProducto())
+                .numeroCliente(cliente.getNumeroCliente())
                 .build());
-        NotificacionResponseDTO notiDTO = notificacionService.crearNotificacion(ticket, "Se ha creado un nuevo ticket");
+        NotificacionResponseDTO notiDTO = notificacionService.crearNotificacion(agente.getNumeroUsuario(), "Se ha creado un nuevo ticket");
         TicketResponseDTO ticketDTO = TicketResponseDTO.builder()
                 .numeroTicket(ticket.getNumeroTicket())
-                .numeroProducto(ticket.getProductoTicket().getNumeroProducto())
+                .numeroProducto(ticket.getNumeroProducto())
                 .tipoCodigo(productoTicketRepository.obtenerIdentificadores(producto.getNumeroProducto()))
                 .numeroCompraCot(producto.getNumeroCompraCot())
-                .numeroAgente(ticket.getAgente().getNumeroAgente())
+                .numeroAgente(ticket.getNumeroAgente())
                 .asunto(ticket.getAsunto())
-                .numeroCliente(ticket.getCliente().getNumeroCliente())
-                .telefono(ticket.getCliente().getTelefono())
-                .correo(ticket.getCliente().getCorreo())
+                .numeroCliente(ticket.getNumeroCliente())
+                .telefono(cliente.getTelefono())
+                .correo(cliente.getCorreo())
                 .descripcion(ticket.getDescripcion())
                 .estado(ticket.getEstado())
                 .fecha(ticket.getFecha())
                 .hora(ticket.getHora())
                 .build();
-
         return DatosSocketDTOResponse.builder()
                 .notificacionResponseDTO(notiDTO)
                 .ticketResponseDTO(ticketDTO)

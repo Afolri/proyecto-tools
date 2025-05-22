@@ -17,18 +17,8 @@ import SockJS from 'sockjs-client';
 import { BehaviorSubject, filter, take } from 'rxjs';
 import { WebSocketService } from '../web-socket.service';
 import { TicketServiceService } from '../ticket-service.service';
+import { NotificacionesResponse } from '../models/notificacionesResponse';
 
-export interface Notificaciones{
-  numero_notificacion:number;
-  numero_ticket:number;
-  numero_usuario:number
-  fecha:Date,
-  hora:Date,
-  estado_notificacion:boolean,
-  mensaje:string,
-  estado:string,
-  nombre_cliente:string,
-}
 
 const baseURL = `${environment.URL_BASE}`;
 
@@ -52,7 +42,7 @@ export class ReporteClientesComponent implements OnInit {
   /**Donde se guardaraon los tickets que se pasen por el socket */
   ticketsSocket:Ticket[] = [];
   /**Se pasaran las notificaciones que se obtengan de una unica consulta a la base de datos */
-  notificaciones:Notificaciones[] = [];
+  notificaciones:NotificacionesResponse[] = [];
   /**Variable que guarda si hay notificaciones pendientes */
   notificacionesSinLeer:boolean = false;
 

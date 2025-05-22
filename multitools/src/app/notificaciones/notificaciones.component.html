@@ -2,10 +2,12 @@
 
     @for( notificacion of notificacionesMostradas; track notificacion.numero_notificacion){
     
-        <div class = "notificacion"  (click)="leerNotificacion(notificacion.numero_notificacion, notificacion.numero_ticket)">
+        <div class = "notificacion"  (click)="leerNotificacion(notificacion.numero_notificacion)">
 
-            <div id="titulo" > <div id="numero-ticket" [ngClass]="notificacion.estado_notificacion?'numero-ticket visto':'numero-ticket pendiente'">#{{notificacion.numero_ticket}}</div><div id="fecha">{{notificacion.fecha}}</div></div>
-            <div id="cuerpo"><div>{{ notificacion.mensaje }}</div><div id="nombrecliente">{{notificacion.nombre_cliente}}</div></div>
+            {{notificacion.numero_notificacion}}
+            <div id="titulo"  ><div id="fecha" [class.pendiente]="!notificacion.visto">{{notificacion.fecha}}</div></div>
+            <div id="cuerpo"><div>{{ notificacion.mensaje }}</div>
+        </div>
         
             
         </div>

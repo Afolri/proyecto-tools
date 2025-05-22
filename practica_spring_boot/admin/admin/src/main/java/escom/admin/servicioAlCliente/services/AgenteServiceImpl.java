@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class AgenteServiceImpl implements AgenteService{
@@ -20,6 +19,6 @@ public class AgenteServiceImpl implements AgenteService{
 
     @Override
     public List<Ticket> verTickets(Long numeroAgente) {
-        return ticketRepository.findAllByAgente_NumeroAgente(numeroAgente);
+        return ticketRepository.buscarTicketsPorNumeroAgente(numeroAgente);
     }
 }

@@ -19,15 +19,12 @@ public class ProductoTipo {
     @Column(name = "codigo")
     private String codigo;
 
-    @ManyToOne
-    @JoinColumn(name = "numero_producto")
-    @JsonBackReference
-    private ProductoTicket productoTicket;
+    @Column(name = "numero_producto")
+    private Long numeroProducto;
 
-    @ManyToOne
-    @JoinColumn(name = "numero_identificador")
-    @JsonBackReference
-    private TipoIdentificador tipoIdentificador;
+    @Column ( name = "numero_identificador")
+    private Long numeroIdentificador;
+
 
 
 }

@@ -103,14 +103,11 @@
           </div>
         </div>
       </div>
-
-      
       <!--Nombre de cliente input/label-->
       <div class="info">
         <input type="text" formControlName="nombre" [class.lleno]="formularioTickets.get('nombre')?.value">
         <span >Nombre:</span>
       </div>
-
       <!--Cuando no se cumple el patrón correspondiente lanza el siguiente campo de información-->
       @if(contieneNumeros(formularioTickets.get('nombre')?.value)){
         <div class="contenedorinombre errorinfo" >

@@ -18,6 +18,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     @Transactional
     @Query(value = """
+            SELECT numero_usuario FROM soporte.usuario WHERE rol = 0
+            """, nativeQuery = true)
+    List<Long> obtenerTodosLosAdmin();
+    @Transactional
+    @Query(value = """
             SELECT numero_usuario, correo, nombre_usuario, rol FROM soporte.usuario
             """, nativeQuery = true)
     List<Map<String,Object>> obtenerUsuarios();

@@ -1,8 +1,6 @@
 package escom.admin.servicioAlCliente.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_usuario")
 public class Usuario implements UserDetails {
 
     @Id
@@ -43,15 +43,9 @@ public class Usuario implements UserDetails {
     @Column(name = "rol")
     private Rol rol;
 
-
-    @OneToOne
-    @JoinColumn ( name = "numero_agente")
+    @Column ( name = "numero_agente")
     @JsonProperty("numero_agente")
-    private Agente agente;
-
-    @OneToMany (mappedBy = "usuario")
-    @JsonManagedReference
-    private List<ComentarioTicket> comentarioTickets;
+    private Long numeroAgente;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

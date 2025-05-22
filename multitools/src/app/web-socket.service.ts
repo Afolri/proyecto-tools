@@ -2,13 +2,13 @@ import { Injectable, OnInit } from '@angular/core';
 import { Client, IMessage } from '@stomp/stompjs';
 import { BehaviorSubject } from 'rxjs';
 import { number } from 'zod';
-import { Notificaciones } from './reporte-clientes/reporte-clientes.component';
 import { environment } from '../environments/environment';
 import { Ticket } from './generar-ticket/generar-ticket.component';
 import { Comentario } from './models/comentario';
 import { Usuario } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { ComentarioResponse } from './models/comentarioResponse';
+import { NotificacionesResponse } from './models/notificacionesResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class WebSocketService implements OnInit{
 
     /**Aquí se van a guardar las notificaciones por el socket */
     /**private notificaciones : BehaviorSubject<String[]> = new BehaviorSubject<String[]>([]);*/
-  private notificacion?:Notificaciones;
+  private notificacion?:NotificacionesResponse;
   private usuario!:Usuario;
   constructor() {
   }
@@ -38,7 +38,7 @@ export class WebSocketService implements OnInit{
     });
   }
 
-  solicitarmensaje(notificacion:Notificaciones){
+  solicitarmensaje(notificacion:NotificacionesResponse){
     this.stompClient?.publish({
         destination:`/app/notificacion/${notificacion.numero_usuario}`,
         body:JSON.stringify(

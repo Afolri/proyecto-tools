@@ -18,16 +18,10 @@ import java.time.LocalTime;
 public class NotificacionResponseDTO {
     @JsonProperty("numero_notificacion")
     Long numeroNotificacion;
-    @JsonProperty("numero_ticket")
-    Long numeroTicket;
     @JsonProperty("numero_usuario")
-    Long usuarioAgenteAsignado;
+    Long numeroUsuario;
     LocalDate fecha;
     LocalTime hora;
-    @JsonProperty("estado_notificacion")
-    Boolean estadoNotificacion;
+    Boolean visto;
     String mensaje;
-    String estado;
-    @JsonProperty("nombre_cliente")
-    String nombreCliente;
 }

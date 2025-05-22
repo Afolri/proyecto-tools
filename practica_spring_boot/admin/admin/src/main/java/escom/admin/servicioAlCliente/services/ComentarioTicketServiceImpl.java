@@ -1,15 +1,11 @@
 package escom.admin.servicioAlCliente.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import escom.admin.servicioAlCliente.dto.ComentarioTicketResponseDTO;
 import escom.admin.servicioAlCliente.entities.*;
 import escom.admin.servicioAlCliente.repositories.*;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -34,19 +30,17 @@ public class ComentarioTicketServiceImpl implements ComentarioTicketService{
                 Comentario.builder()
                         .contenido(comentarioTrim)
                         .build());
-            Usuario usuario = usuarioRepository.findById(numeroUsuario).orElseThrow();
-            Ticket ticket = ticketRepository.findById(numeroTicket).orElseThrow();
             comentarioTicket = ComentarioTicket.builder()
-                    .comentario(comentarioGuardado)
-                    .ticket(ticket)
-                    .usuario(usuario)
+                    .numeroComentario(comentarioGuardado.getNumeroComentario())
+                    .numeroTicket(numeroTicket)
+                    .numeroUsuario(numeroUsuario)
                     .build();
             comentarioTicketRepository.save(comentarioTicket);
             return ComentarioTicketResponseDTO.builder()
                     .comentario(comentarioTrim)
                     .numeroUsuario(numeroUsuario)
-                    .numeroTicket(comentarioTicket.getTicket().getNumeroTicket())
-                    .numeroComentario(comentarioTicket.getComentario().getNumeroComentario())
+                    .numeroTicket(comentarioTicket.getNumeroTicket())
+                    .numeroComentario(comentarioTicket.getNumeroComentario())
                     .build();
         }
         throw new Exception("Alguno de los campos esta vacio");
@@ -54,14 +48,28 @@ public class ComentarioTicketServiceImpl implements ComentarioTicketService{
 
     @Override
     public List<ComentarioTicketResponseDTO> buscarComentariosPorTicket(Long numeroTicket) {
-        List<ComentarioTicket> comentariosEncontrados = comentarioTicketRepository.findAllByTicket_NumeroTicket(numeroTicket);
+        List<ComentarioTicket> comentariosEncontrados = comentarioTicketRepository.buscarPorNumeroTicket(numeroTicket);
+        List<Long> numeroComentario = comentariosEncontrados.stream()
+                .map(ComentarioTicket::getNumeroComentario)
+                .toList();
+        List<Comentario> comentarios = comentarioRepository.findAllById(numeroComentario);
         return  comentariosEncontrados.stream()
                 .map(comentario ->{
                     return ComentarioTicketResponseDTO.builder()
-                            .numeroUsuario(comentario.getUsuario().getNumeroUsuario())
-                            .numeroTicket(comentario.getTicket().getNumeroTicket())
-                            .numeroComentario(comentario.getComentario().getNumeroComentario())
-                            .comentario(comentario.getComentario().getContenido())
+                            .numeroUsuario(comentario.getNumeroUsuario())
+                            .numeroTicket(comentario.getNumeroTicket())
+                            .numeroComentario(comentario.getNumeroComentario())
+                            .numeroComentario(comentarios.stream()
+                                    .filter(comentarioLocal -> comentarioLocal.getNumeroComentario().equals(comentario.getNumeroComentario()) )
+                                    .findFirst()
+                                    .map(Comentario::getNumeroComentario)
+                                    .orElseThrow()
+                            )
+                            .comentario(comentarios.stream()
+                                    .filter(comentarioLocal -> comentarioLocal.getNumeroComentario().equals(comentario.getNumeroComentario()) )
+                                    .findFirst()
+                                    .map(Comentario::getContenido)
+                                    .orElseThrow())
                             .build();
 
                 })

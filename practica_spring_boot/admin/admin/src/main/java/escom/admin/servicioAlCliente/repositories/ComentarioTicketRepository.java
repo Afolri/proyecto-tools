@@ -2,12 +2,16 @@ package escom.admin.servicioAlCliente.repositories;
 
 import escom.admin.servicioAlCliente.entities.ComentarioTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface ComentarioTicketRepository extends JpaRepository<ComentarioTicket, Long> {
-    List<ComentarioTicket> findAllByTicket_NumeroTicket(Long numeroTicket);
+    @Query(value = """
+            SELECT * FROM soporte.comentario_ticket WHERE numero_ticket = :numeroTicket
+            """, nativeQuery = true)
+    List<ComentarioTicket> buscarPorNumeroTicket(@Param("numeroTicket") Long numeroTicket);
 }

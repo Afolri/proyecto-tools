@@ -54,6 +54,7 @@ public class ReporteTickets {
         try {
             return ResponseEntity.ok().body(ticketService.buscarTickets(numeroUsuario, estadoTickets));
         } catch (Exception e) {
+            System.out.println("Error: "+ e.getMessage());
             return ResponseEntity.badRequest().body("Error al buscar los tickets");
         }
     }
@@ -107,8 +108,9 @@ public class ReporteTickets {
     }
 
     @PutMapping("/abrir-notificacion")
-    public ResponseEntity<?> abrirNotificacion (@RequestParam ("numero-notificacion")Long numeroNotificacion){
-        notificacionService.abrirNotificacion(numeroNotificacion);
+    public ResponseEntity<?> abrirNotificacion (@RequestParam ("numeroNotificacion")Long numeroNotificacion,
+    @RequestParam ("numeroUsuario") Long numeroUsuario){
+        notificacionService.abrirNotificacion(numeroNotificacion, numeroUsuario);
         return ResponseEntity.ok().body("Marcada como leida");
     }
 
@@ -117,8 +119,8 @@ public class ReporteTickets {
         return ResponseEntity.ok().body(tipoIdentificadorService.obtenerIdentificadores());
     }
     @GetMapping("/notificaciones-pendientes")
-    public ResponseEntity<?> notificacionesPendientes(){
-        return ResponseEntity.ok().body(notificacionService.notificacionesPendientes());
+    public ResponseEntity<?> notificacionesPendientes(@RequestParam("numeroUsuario") Long numeroUsuario){
+        return ResponseEntity.ok().body(notificacionService.notificacionesPendientes(numeroUsuario));
     }
     @PostMapping("/comentar-ticket")
     public ResponseEntity<?> comentarTicket (@RequestBody ComentarioTicketRequestDTO comentDTO){

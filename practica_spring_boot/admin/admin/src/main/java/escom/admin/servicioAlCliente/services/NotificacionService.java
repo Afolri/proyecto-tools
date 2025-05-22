@@ -12,8 +12,8 @@ import java.util.Map;
 @Service
 public interface NotificacionService {
     List<NotificacionResponseDTO> verNotificaciones(Long numeroUsuario);
-    void abrirNotificacion(Long numeroNotificacion);
-    NotificacionResponseDTO crearNotificacion(Ticket ticket, String mensaje);
+    void abrirNotificacion(Long numeroNotificacion,  Long numeroUsuario);
+    NotificacionResponseDTO crearNotificacion(Long numeroUsuario, String mensaje);
     public void marcarComoLeida(Long numeroNotificacion);
-    boolean notificacionesPendientes();
+    boolean notificacionesPendientes(Long numeroUsuario);
 }

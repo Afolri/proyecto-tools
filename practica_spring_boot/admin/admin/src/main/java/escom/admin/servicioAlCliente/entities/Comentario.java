@@ -19,9 +19,8 @@ public class Comentario {
     @JsonProperty ("numero_comentario")
     @Column (name = "numero_comentario")
     private Long numeroComentario;
+
     @Column(name = "contenido")
     private String contenido;
-    @OneToMany(mappedBy = "comentario")
-    @JsonManagedReference
-    private List<ComentarioTicket> comentarioTicket;
+
 }

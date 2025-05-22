@@ -24,21 +24,15 @@ public class ComentarioTicket {
     @JsonProperty ("numero_comentario_ticket")
     private Long numerocomentarioTicket;
 
-    @ManyToOne
-    @JoinColumn ( name = "numero_comentario")
+    @Column ( name = "numero_comentario")
     @JsonProperty ( "numero_comentario")
-    @JsonBackReference
-    private Comentario comentario;
+    private Long numeroComentario;
 
-    @ManyToOne
-    @JoinColumn ( name = "numero_ticket")
-    @JsonProperty ( "numero_ticket")
-    @JsonBackReference
-    private Ticket ticket;
+    @JsonProperty ("numero_ticket")
+    @Column ( name = "numero_ticket")
+    private Long numeroTicket;
 
-    @ManyToOne
-    @JoinColumn ( name = "numero_usuario")
+    @Column ( name = "numero_usuario")
     @JsonProperty ("numero_usuario")
-    @JsonBackReference
-    private Usuario usuario;
+    private Long numeroUsuario;
 }

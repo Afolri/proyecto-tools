@@ -119,6 +119,19 @@
     left: -30%;
     top: 5%;
 }
+.fecha{
+    position: relative;
+}
+.pendiente::before{
+    content: "";
+    --tamanio: 10px;
+    left: calc(var(--tamanio)*-1);
+    width: var(--tamanio);
+    height: var(--tamanio);
+    background-color: red;
+    position: absolute;
+    border-radius: 50%;
+}
 
 @media only screen and (max-device-width: 1000px){
     .bandeja-notificaciones{

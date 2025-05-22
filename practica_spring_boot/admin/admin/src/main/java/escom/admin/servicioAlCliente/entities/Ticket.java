@@ -1,7 +1,6 @@
 package escom.admin.servicioAlCliente.entities;
 
 import com.fasterxml.jackson.annotation.*;
-import escom.admin.servicioAlCliente.dto.TicketResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -47,30 +44,26 @@ public class Ticket {
     @Column (name = "hora")
     private LocalTime hora;
 
-    @ManyToOne
-    @JoinColumn ( name = "numero_agente")
-    @JsonProperty ( "agente")
+    @Column ( name = "numero_agente")
+    @JsonProperty ( "numero_agente")
     @JsonBackReference
-    private Agente agente;
+    private Long numeroAgente;
 
-    @ManyToOne
-    @JoinColumn (name = "numero_cliente")
-    @JsonProperty("cliente")
-    @JsonBackReference
-    private Cliente cliente;
+    @Column (name = "numero_cliente")
+    @JsonProperty("numero_cliente")
+    private Long numeroCliente;
 
-    @ManyToOne
-    @JoinColumn (name = "numero_producto")
-    @JsonProperty("producto")
-    @JsonBackReference
-    private ProductoTicket productoTicket;
+    @Column (name = "numero_producto")
+    @JsonProperty("numero_producto")
+    private Long numeroProducto;
 
-    @OneToMany (mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Notificacion> notificaciones = new ArrayList<>();
-
-    @OneToMany ( mappedBy = "ticket")
-    @JsonManagedReference
-    private List<ComentarioTicket> comentarioTicket;
+    public Ticket(Long numeroTicket, String asunto, String descripcion, String estado, LocalDate fecha, LocalTime hora){
+        this.numeroTicket = numeroTicket;
+        this.asunto = asunto;
+        this.descripcion = descripcion;
+        this.estado = estado;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
 
 }

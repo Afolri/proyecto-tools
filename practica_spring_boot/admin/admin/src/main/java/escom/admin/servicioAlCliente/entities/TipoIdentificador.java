@@ -43,8 +43,4 @@ public class TipoIdentificador {
     @JsonProperty("nombre_identificador")
     private String nombreIdentificador;
 
-    @OneToMany(mappedBy = "tipoIdentificador", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<ProductoTipo> productoTipo = new ArrayList<>();
-
 }

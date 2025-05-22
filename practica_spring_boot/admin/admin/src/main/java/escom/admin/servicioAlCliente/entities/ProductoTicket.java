@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "productoticket" , schema = "soporte")
+@JsonIdentityInfo( generator = ObjectIdGenerators.PropertyGenerator.class, property = "numero_producto")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
 public class ProductoTicket {
@@ -23,8 +24,5 @@ public class ProductoTicket {
     @JsonProperty("numero_compra_cot")
     private String numeroCompraCot;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productoTicket", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<ProductoTipo> productoTipo = new ArrayList<>();;
 
 }
