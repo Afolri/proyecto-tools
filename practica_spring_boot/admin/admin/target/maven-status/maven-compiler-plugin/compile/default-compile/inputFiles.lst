@@ -45,8 +45,10 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Ticket.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\TipoIdentificador.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\Usuario.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\entities\UsuarioNotificacion.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\jwt\JwtAuthenticationFilter.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\jwt\JwtService.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\Projection\TicketProjection.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\AgentesRespository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ClienteRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ComentarioRepository.java
@@ -56,6 +58,7 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\ProductoTipoRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\TicketRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\TipoIdentificadorRepository.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\UsuarioNotificacionRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\repositories\UsuarioRepository.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\AgenteService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\AgenteServiceImpl.java
@@ -75,6 +78,8 @@ C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admi
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\TicketServiceImpl.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\TipoIdentificadorService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\TipoIdentificadorServiceImpl.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\UsuarioNotificacionService.java
+C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\UsuarioNotificacionServiceImpl.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\UsuarioService.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\services\UsuarioServiceImpl.java
 C:\Users\devel\OneDrive\Documentos\PracticaTools\practica_spring_boot\admin\admin\src\main\java\escom\admin\servicioAlCliente\utils\UtilidadesDeValidacion.java
