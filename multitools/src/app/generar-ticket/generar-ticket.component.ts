@@ -128,7 +128,6 @@ export class GenerarTicketComponent implements OnInit  {
     //llama a la función una vez generado el formulario
     this.configurarValidacionesCondicionales();
     this.webSocketService.suscribirse('/topic',(message:IMessage)=>{
-     
     });
   }
 
@@ -179,13 +178,14 @@ export class GenerarTicketComponent implements OnInit  {
   }
   
   async crearticket(){
+    const numeroSerie = this.identificadores?.find(obj => obj.nombre_identificador === 'NUMERO DE SERIE');
 
 
     let codigo = this.formularioTickets.get('codigo')?.value + 
     (this.formularioTickets.get('ehs_approval')?.value ? 
     " " + this.formularioTickets.get('codigo2')?.value : "");
     let numero_identificador = this.formularioTickets.get('ehs_approval')?.value
-    ? this.formularioTickets.get('numero_identificador')?.value : '2';
+    ? this.formularioTickets.get('numero_identificador')?.value : numeroSerie?.numero_identificador;
     let numero_compra_cot= this.formularioTickets.get('numero_compra_cot')?.value;
     let nombre_cliente = this.formularioTickets.get('nombre')?.value;
     let correo = this.formularioTickets.get('correo')?.value;

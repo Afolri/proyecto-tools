@@ -30,6 +30,8 @@ h1{
     --azul-claro:hsl(215, 54%, 58%);
     --azul-oscuro:rgba(45, 67, 93, 0.684);
     --azul-titulo:rgba(123, 170, 226, 0.684);
+    --letra:white;
+    --letrab:rgb(255, 255, 255);
 }
 
 form{
@@ -122,7 +124,7 @@ button{
     top:50%;
     transform:translateY(-50%);
     left: 10%;
-    color: var(--azul-oscuro);
+    color: var(--letra);
     transition: top .5s, left .5s, color .5s ;
 }
 
@@ -131,7 +133,7 @@ button{
 }
 .info input:focus + span, .info input.lleno + span,
 .info select:focus + span, .info select.lleno + span{
-color: white;
+color: var(--letrab);
 left: 0;
 top:-30%;
 }
