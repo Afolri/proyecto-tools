@@ -69,7 +69,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Long>{
               LEFT JOIN soporte.clientes c ON t.numero_cliente = c.numero_cliente
               LEFT JOIN soporte.agentes a ON t.numero_agente = a.numero_agente
               LEFT JOIN soporte.usuario u ON a.numero_usuario = u.numero_usuario
-              WHERE u.numero_usuario = 10 AND t.estado LIKE CONCAT('%',:estadoticket,'%')
+              WHERE u.numero_usuario = :numeroUsuario AND t.estado LIKE CONCAT('%',:estadoticket,'%')
               GROUP BY t.numero_ticket, pt.numero_compra_cot, pt.numero_producto, t.asunto,
                    t.numero_cliente, c.nombre_cliente, c.correo, c.telefono, t.descripcion,
                    t.estado, t.numero_agente, t.fecha

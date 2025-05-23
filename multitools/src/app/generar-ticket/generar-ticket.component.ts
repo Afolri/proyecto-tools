@@ -179,7 +179,8 @@ export class GenerarTicketComponent implements OnInit  {
   
   async crearticket(){
     const numeroSerie = this.identificadores?.find(obj => obj.nombre_identificador === 'NUMERO DE SERIE');
-    console.log("😁este es el numero de serie",numeroSerie)
+    console.log("😁este es el numero de serie",numeroSerie);
+    
     let codigo = this.formularioTickets.get('codigo')?.value + 
     (this.formularioTickets.get('ehs_approval')?.value ? 
     " " + this.formularioTickets.get('codigo2')?.value : "");

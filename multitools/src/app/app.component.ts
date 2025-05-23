@@ -149,7 +149,7 @@ export class AppComponent implements OnInit{
       return response.json();
     })
     .then (response =>{
-      this.notificacionesSinLeer = response
+      this.notificacionesSinLeer = !response
     })
   }
   verNotificaciones(){
