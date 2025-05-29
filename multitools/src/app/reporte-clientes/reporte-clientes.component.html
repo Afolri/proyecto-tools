@@ -35,7 +35,7 @@
             <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
             <section class = "opciones-list">
               <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
-              <fa-icon  [icon]="faLock" class="lock-icon icono" (click)="solicitareliminar(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
+              <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
             </section>
           </div>
           <div class = primera-linea>
