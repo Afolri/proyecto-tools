@@ -27,35 +27,36 @@
   <!-- Listado de productos -->
   <div class = "datos-container">
     @for (ticket of tablatickets; track ticket.numero_ticket){
-      <div class = "tarjeta-datos">
-        <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos" >
-          
-          
-          <div class="menu" (click)="activarCheck(ticket)" >
-            <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
-            <section class = "opciones-list">
-              <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
-              <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
-            </section>
+      <div class = "envoltura-datos">
+        <div class = "tarjeta-datos" >
+          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos" (click)="abrirTicket(ticket)" >
+            <div class = primera-linea >
+              {{ ticket.numero_ticket }}
+            </div>
+            <div>{{ ticket.numero_producto }}</div>
+            <div class = "tipo-codigo">{{ticket.tipo_codigo}}</div>
+            <div>{{ ticket.numero_compra_cot }}</div>
+            <div>{{ ticket.asunto }}</div>
+            <div>{{ ticket.numero_cliente }}</div>
+            <div>{{ ticket.nombre_cliente }}</div>
+            <div>{{ ticket.telefono }}</div>
+            <div class="correo">{{ ticket.correo }}</div>
+            <div class="estado" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
+            <div>{{ ticket?.numero_agente || 'No asignado' }}</div>
+            <div>{{ ticket.fecha }}</div>
+            <div>{{ ticket.hora }}</div> 
+        
           </div>
-          <div class = primera-linea>
-            {{ ticket.numero_ticket }}
-          </div>
-          <div>{{ ticket.numero_producto }}</div>
-          <div class = "tipo-codigo">{{ticket.tipo_codigo}}</div>
-          <div>{{ ticket.numero_compra_cot }}</div>
-          <div>{{ ticket.asunto }}</div>
-          <div>{{ ticket.numero_cliente }}</div>
-          <div>{{ ticket.nombre_cliente }}</div>
-          <div>{{ ticket.telefono }}</div>
-          <div class="correo">{{ ticket.correo }}</div>
-          <div class="estado" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
-          <div>{{ ticket?.numero_agente || 'No asignado' }}</div>
-          <div>{{ ticket.fecha }}</div>
-          <div>{{ ticket.hora }}</div> 
-      
+        </div>
+        <div class="menu" (click)="activarCheck(ticket)"  >
+          <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
+          <section class = "opciones-list">
+            <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
+            <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
+          </section>
         </div>
       </div>
+
     }
   </div>
 </div>
@@ -68,3 +69,4 @@
 <app-mensaje-aviso *ngIf="mensajeAviso" (cerrarEvent)="(ocultarMensajeAviso())" 
 (cerrarTicketEvent)="cerrarTicket(tablaTicketstemp.numero_ticket)" (actualizarEvent)="aceptaractualizar()" (desmarcarEvent)="desmarcar()"
   [modoMensajeFormulario]="modoMensajeFormulario" class = "centrado"></app-mensaje-aviso>
+

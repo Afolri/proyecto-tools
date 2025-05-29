@@ -19,6 +19,7 @@ import { WebSocketService } from '../web-socket.service';
 import { TicketServiceService } from '../ticket-service.service';
 import { NotificacionesResponse } from '../models/notificacionesResponse';
 import { TicketAModificarService } from '../ticket-amodificar.service';
+import { DetallesComponent } from "../detalles/detalles.component";
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -31,8 +32,9 @@ const baseURL = `${environment.URL_BASE}`;
     MensajeAvisoComponent,
     FontAwesomeModule,
     EditarTicketComponent,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    DetallesComponent
+],
   templateUrl: './reporte-clientes.component.html',
   styleUrls: ['./reporte-clientes.component.css']
 })
@@ -135,7 +137,10 @@ export class ReporteClientesComponent implements OnInit {
   }
 
 
-  
+  abrirTicket(ticket:Ticket){
+    this.router.navigate(['detalles']);
+    this.ticketAMService.emitirTicket(ticket);
+  }
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
   activarCheck(ticketactual:Ticket){
     const ticketencontrado = this.tablatickets.find(ticket => ticket.numero_ticket == ticketactual.numero_ticket);
