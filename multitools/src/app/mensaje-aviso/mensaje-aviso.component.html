@@ -2,15 +2,13 @@
 <div class = "contenedor">
     
     <div class = "contenedor-texto">
-            <span class = "mensaje elemento">Inserte la razón por la cuál va a cerrar el ticket</span>
+            <span class = "mensaje elemento">¿Desea continuar?</span>
     </div>
     
     <div class = "contenedor-textarea info">
-        <textarea class = "motivo-cerrar elemento" formControlName = "motivo" [class.lleno]="formulario.get('motivo')?.value"></textarea>
-        <span>Motivo:</span>
     </div>
     <div class = "botones">
-        <button class = "enviar elemento"  type="submit">cerrar</button>
+        <button class = "enviar elemento"  type="submit" (click)="colocarPendiente(ticketSeleccionado.numero_ticket)">Colocar pendiente</button>
         <button class= "salir elemento"  (click)="cancelar()">Cancelar</button>
     </div>
 </div>

@@ -22,6 +22,7 @@ import { filter, take, takeLast } from 'rxjs';
 })
 export class EditarTicketComponent implements OnInit, AfterViewChecked {
   private yaScrolleado = false;
+  baseUrl=environment.URL_BASE;
   comentarFormulario!:FormGroup;
   comentariosObtenidos:ComentarioResponse[]=[];
   @Input() ticket!: Ticket;
@@ -75,7 +76,19 @@ export class EditarTicketComponent implements OnInit, AfterViewChecked {
   cancelar(){
     this.salirFormulario.emit();
   }
-
+  ponerEnEspera(numeroTicket:number){
+    fetch(`${this.baseUrl}/admin/reporte-tickets/ticket-espera?numeroTicket=${numeroTicket}`,{
+      method:"PUT",
+      headers:{
+        "Authorization":`Bearer ${localStorage.getItem("token")}`,
+        "Content-type":"application/json"
+      }
+    }).then(response =>{
+      if(!response.ok){
+        throw new Error ("Estado Espera eror ticket");
+      }
+    })
+  }
   obtenerComentarios(){
     const token = localStorage.getItem("token");
     fetch(`${environment.URL_BASE}/admin/reporte-tickets/obtener-comentario-ticket?numero-ticket=${this.numeroTicket}`,{

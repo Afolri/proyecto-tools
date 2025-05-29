@@ -26,7 +26,7 @@
 			@if(usuarioActual){
 			<li class = "notili">
 				<div class = "notificacion icono">
-				<i [ngClass]="notificacionesSinLeer?'fa-solid fa-bell fa-shake':'fa-solid fa-bell'" (click)="abrirNotificaciones()" class="campana"></i>
+				<i [ngClass]="!notificacionesSinLeer?'fa-solid fa-bell fa-shake':'fa-solid fa-bell'" (click)="abrirNotificaciones()" class="campana"></i>
 				<!--Notifiaciones componente-->
 				<app-notificaciones 
 					[notificacionesMostradas]="notificaciones"
