@@ -1,4 +1,3 @@
-
 .subtitulo{
     text-align: left;
 }
@@ -220,6 +219,14 @@
     .tarjeta-datos>*{
         font-size: .8rem;
     }
-  }
-  
+    .datos-container {
+        min-width: 600vw; /* Fuerza el scroll horizontal en móvil */
+        overflow-x: auto;
+    }
+    .envoltura-datos {
+        min-width: 220px;
+        flex: 0 0 auto;
+    }
+}
+
 
