@@ -9,8 +9,8 @@
     height: 500px;
     color:white;
     display: flex;
-    flex-direction: row;
-    overflow: visible;
+    flex-flow: row;
+    display:flex;
     gap:2px;;
 
 }
@@ -20,7 +20,6 @@
     margin-bottom: 0;
     padding-bottom: 0;
     z-index: 1;
-    overflow: auto;
 }
 
 
@@ -33,11 +32,8 @@
     text-wrap: nowrap;
     align-content: right;
     font-weight: 800;
-    flex:0 0 auto;
-    min-width: 150px; /* Ajusta según tu diseño */
+    flex:1;
     padding: 0 5%;
-    background: hsl(215, 54%, 58%);
-    z-index: 2;
 }
 .titulos div{
     flex:0 0 auto;
@@ -50,15 +46,16 @@
     text-transform: uppercase;
 }
 .datos-container{
-    flex: 1 1 auto;
-    overflow-x: auto;
     display: flex;
-    flex-direction: row;
-    gap: 10px;
-    min-width: 600px; /* Ajusta según la cantidad de datos */
-    margin-bottom: -1%;
-    padding: 0 5% 0% 0%;
-    max-width: 100vh;   
+    flex-flow: row nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    gap: 2px;
+    padding: 0 5px;
+    scroll-behavior: smooth;
 }
 .envoltura-datos{
     position: relative;
