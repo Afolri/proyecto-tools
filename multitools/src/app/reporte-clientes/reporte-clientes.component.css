@@ -6,6 +6,7 @@
     display: flex;
     height: 80vw;
     max-width: 80vw;
+    overflow: hidden;
 }
 .miformulario{
     position: relative;
