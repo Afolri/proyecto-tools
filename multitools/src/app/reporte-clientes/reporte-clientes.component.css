@@ -6,7 +6,6 @@
     display: flex;
     height: 80vw;
     max-width: 80vw;
-    overflow: hidden;
 }
 .miformulario{
     position: relative;
@@ -36,10 +35,13 @@
 }
 .datos-container{
     display: flex;
-    position: relative;
-    flex-flow: row;
+    flex-flow: row nowrap;
     gap: 2px;
-    width: 200px;
+    min-width: 700px; /* Ajusta según la cantidad de columnas */
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
 }
 .envoltura-datos{
     overflow: visible;
