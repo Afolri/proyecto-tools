@@ -32,7 +32,7 @@
     @for (ticket of tablatickets; track ticket.numero_ticket){
       <div class = "envoltura-datos">
         <div class = "tarjeta-datos" >
-          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto" (click)="abrirTicket(ticket)" >
+          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto"><!--(click)="abrirTicket(ticket)"-->
             <div class = "primera-linea" >
               {{ ticket.numero_ticket }}
             </div>
