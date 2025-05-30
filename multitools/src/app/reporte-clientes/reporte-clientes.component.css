@@ -11,7 +11,8 @@
     display: flex;
     flex-flow: row;
     display:flex;
-    gap:2px;;
+    gap:2px;
+    overflow: hidden;
 
 }
 .miformulario{
@@ -50,7 +51,7 @@
     flex-flow: row nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     position: relative;
     gap: 2px;
