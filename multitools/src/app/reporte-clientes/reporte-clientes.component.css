@@ -28,7 +28,7 @@
     display: flex;
     flex-flow: column;
     justify-content: space-around;
-    font-size: .7vw;
+    font-size: clamp(12px, .7vw, 8px);
     text-wrap: nowrap;
     align-content: right;
     font-weight: 800;
@@ -82,7 +82,11 @@
     width: 150px;
     transition: width .4s ease-in-out;
 }
-.tarjeta-datos>*:hover{
+
+.texto{
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     
 }
 
@@ -110,14 +114,6 @@
 }
 .tipo-codigo, .correo{
     display: flex;
-    flex:10;
-    overflow: hidden;
-    max-height: 20px;
-}
-.descripcion{
-    max-height: 1.5rem;
-    overflow-wrap: break-word;
-    overflow-y: auto;
 }
 .descripcion::-webkit-scrollbar{
     display: block;
@@ -188,10 +184,11 @@
     text-transform: uppercase;
 }
 .estado{
-    width: 50%;
+    width: 90%;
     position:relative;
     text-align: center;
-    left:10%;
+    left:50%;
+    transform: translateX(-50%);
     align-items: center;
     border-radius: 17px;
 

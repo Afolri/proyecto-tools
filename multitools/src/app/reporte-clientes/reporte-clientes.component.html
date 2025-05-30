@@ -32,23 +32,22 @@
     @for (ticket of tablatickets; track ticket.numero_ticket){
       <div class = "envoltura-datos">
         <div class = "tarjeta-datos" >
-          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos" (click)="abrirTicket(ticket)" >
-            <div class = primera-linea >
+          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto" (click)="abrirTicket(ticket)" >
+            <div class = "primera-linea" >
               {{ ticket.numero_ticket }}
             </div>
-            <div>{{ ticket.numero_producto }}</div>
-            <div class = "tipo-codigo">{{ticket.tipo_codigo}}</div>
-            <div>{{ ticket.numero_compra_cot }}</div>
-            <div>{{ ticket.asunto }}</div>
-            <div>{{ ticket.numero_cliente }}</div>
-            <div>{{ ticket.nombre_cliente }}</div>
-            <div>{{ ticket.telefono }}</div>
-            <div class="correo">{{ ticket.correo }}</div>
-            <div class="estado" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
-            <div>{{ ticket?.numero_agente || 'No asignado' }}</div>
-            <div>{{ ticket.fecha }}</div>
-            <div>{{ ticket.hora }}</div> 
-        
+            <div class = "texto">{{ ticket.numero_producto }}</div>
+            <div class = "tipo-codigo texto">{{ticket.tipo_codigo}}</div>
+            <div class="texto">{{ ticket.numero_compra_cot }}</div>
+            <div class= "texto">{{ ticket.asunto }}</div>
+            <div class= "texto">{{ ticket.numero_cliente }}</div>
+            <div class= "texto">{{ ticket.nombre_cliente }}</div>
+            <div class= "texto">{{ ticket.telefono }}</div>
+            <div class="correo texto">{{ ticket.correo }}</div>
+            <div class="estado texto" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
+            <div class = "texto">{{ ticket?.numero_agente || 'No asignado' }}</div>
+            <div class = "texto">{{ ticket.fecha }}</div>
+            <div class = "texto">{{ ticket.hora }}</div> 
           </div>
         </div>
         <div class="menu" (click)="activarCheck(ticket)"  >
