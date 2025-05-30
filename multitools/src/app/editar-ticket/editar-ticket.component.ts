@@ -1,17 +1,15 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Ticket } from '../generar-ticket/generar-ticket.component';
 import { environment } from '../../environments/environment';
-import { Comentario } from '../models/comentario';
-import { ComentarioTicket } from '../models/comentarioTicket';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../login/login.component';
 import { WebSocketService } from '../web-socket.service';
 import { ComentarioResponse } from '../models/comentarioResponse';
-import { IMessage } from '@stomp/stompjs';
 import { ComentarioService } from '../comentario.service';
 import { CommonModule } from '@angular/common';
 import { filter, take, takeLast } from 'rxjs';
+import { TicketAModificarService } from '../ticket-amodificar.service';
 
 @Component({
   selector: 'app-editar-ticket',
@@ -31,6 +29,16 @@ export class EditarTicketComponent implements OnInit, AfterViewChecked {
   @ViewChild('comentariosDiv') private comentariosDiv!: ElementRef;
   usuarioActual!:Usuario;
 
+
+  constructor(private authService:AuthService,private formBuilder:FormBuilder,
+    private webSocket:WebSocketService, private comentarioService:ComentarioService,
+    private ticketService:TicketAModificarService
+  ){
+    this.comentarFormulario = this.formBuilder.group({
+      comentarioTextArea:['',[],[]]
+    })
+    
+  }
   ngOnInit(): void {
     this.obtenerComentarios();
     this.authService.usuarioActual$
@@ -62,21 +70,15 @@ export class EditarTicketComponent implements OnInit, AfterViewChecked {
       this.comentariosDiv.nativeElement.scrollTop = this.comentariosDiv.nativeElement.scrollHeight;
     } catch(err) { }
   }
-  constructor(private authService:AuthService,private formBuilder:FormBuilder,
-    private webSocket:WebSocketService, private comentarioService:ComentarioService
-  ){
-    this.comentarFormulario = this.formBuilder.group({
-      comentarioTextArea:['',[],[]]
-    })
-    
-  }
+
   onSubmit(){
     this.comentar();
   }
   cancelar(){
     this.salirFormulario.emit();
   }
-  ponerEnEspera(numeroTicket:number){
+  ponerEnEspera(ticket:Ticket){
+    let numeroTicket = ticket.numero_ticket;
     fetch(`${this.baseUrl}/admin/reporte-tickets/ticket-espera?numeroTicket=${numeroTicket}`,{
       method:"PUT",
       headers:{
@@ -87,6 +89,8 @@ export class EditarTicketComponent implements OnInit, AfterViewChecked {
       if(!response.ok){
         throw new Error ("Estado Espera eror ticket");
       }
+      ticket.estado = "EN ESPERA";
+      this.ticketService.emitirTicket(ticket);
     })
   }
   obtenerComentarios(){
