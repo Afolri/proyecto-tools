@@ -12,7 +12,7 @@
 </select>
 </form>
 <div class = "contenedor">
-  
+
   <div class ="titulos" (focus)="focus=true" [ngStyle]="focus ? estilo():null">
     <div>N. ticket</div>
     <div>N. producto</div>
@@ -31,12 +31,18 @@
   <!-- Listado de productos -->
   <div class = "datos-container">
     @for (ticket of tablatickets; track ticket.numero_ticket){
-      <div class = "envoltura-datos">
 
         <div class = "tarjeta-datos" >
           <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto" (click)="abrirTicket(ticket)" >
             <div class = "primera-linea" >
               {{ ticket.numero_ticket }}
+                      <div class="menu" (click)="activarCheck(ticket)"  >
+          <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
+          <section class = "opciones-list">
+            <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
+            <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
+          </section>
+        </div>
             </div>
             <div class = "texto">{{ ticket.numero_producto }}</div>
             <div class = "tipo-codigo texto">{{ticket.tipo_codigo}}</div>
@@ -53,15 +59,6 @@
           </div>
         </div>
 
-        <div class="menu" (click)="activarCheck(ticket)"  >
-          <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
-          <section class = "opciones-list">
-            <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
-            <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
-          </section>
-        </div>
-
-      </div>
 
     }
   </div>
