@@ -69,7 +69,7 @@
     justify-content:center;
     align-items: center;
     top:5%;
-    right: 20%;
+    right: 50%;
     transform: translateX(50%);
     width: 23px;
 }
@@ -223,6 +223,10 @@
     .datos-container {
         min-width: 300vw; /* Ajusta según la cantidad de tarjetas */
         overflow-x: auto;
+    }
+    .envoltura-datos {
+        min-width: 220px;
+        flex: 0 0 auto;
     }
   }
 
