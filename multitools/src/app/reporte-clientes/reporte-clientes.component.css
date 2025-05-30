@@ -1,13 +1,25 @@
-.subtitulo{
-    text-align: left;
-}
-.contenedor{
-    position: relative;
+
+.contenedor {
     display: flex;
-    height: 80vw;
-    max-width: 80vw;
     overflow: hidden;
+    width: 100vw;
 }
+.contenedor > *{
+    display: flex;
+}
+.titulos{
+    flex: 10;
+}
+.datos-container{
+    flex:1;
+    gap: 2px;
+    max-width: 300px;
+}
+.tarjeta-datos{
+    background-color: var(--azul-oscuro-solido);
+}
+
+
 .miformulario{
     position: relative;
     max-height: 100px;
@@ -20,37 +32,12 @@
 .titulos{
     position: relative;
     display: flex;
+    flex: 2;
     flex-flow: column;
     justify-content: space-around;
     white-space: nowrap;
 }
-.titulos div{
-    flex:0 0 auto;
-    background-color: var(--azul-claro-solido);
-    text-align: right;
-    text-indent: 2%;
-    align-items: right;
-    padding: 2% 10% 3% 0;
-    border-radius: 7px;
-    text-transform: uppercase;
-}
-.datos-container{
-    display: flex;
-    flex-flow: row nowrap;
-    gap: 2px;
-    min-width: 700px; /* Ajusta según la cantidad de columnas */
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
-}
-.envoltura-datos{
-    overflow: visible;
-    position: relative;
-    height: 100%;
-    gap:0px;
-    
-}
+
 .menu{
     display: block;
     position: absolute;
@@ -64,9 +51,6 @@
 .menu:hover{
     cursor: pointer;
 }
-.tarjeta-datos{
-    height: 100%;
-}
 .tarjeta-datos>*{
     width: 150px;
     transition: width .4s ease-in-out;
@@ -78,56 +62,6 @@
     text-overflow: ellipsis;
     
 }
-
-.datos{
-    height: 100%;
-    display: flex;
-    position:relative;
-    flex-direction: column;
-    justify-content: space-around;
-    text-indent: 2%;
-    background-color: hsla(211, 48%, 21%, 0.904);
-    border-radius: 17px;
-    transition: background-color 200ms ease-in-out;
-    flex:1 1 auto;
-    
-}
-.datos:hover{
-    cursor: pointer;
-    background-color: hsl(215, 35%, 45%);
-    
-}
-.datos div :not(.tipo-codigo) {
-    flex-flow: row ;
-    
-}
-.tipo-codigo, .correo{
-    display: flex;
-}
-.descripcion::-webkit-scrollbar{
-    display: block;
-    width: 5px;
-    height: 10px;
-    border:2px solid black;
-    margin-top: -5px;
-}
-.descripcion::-webkit-scrollbar-thumb{
-    background-color: hsl(215, 35%, 45%);
-}
-.descripcion::-webkit-scrollbar-track{
-
-    background-color: white;
-}
-.descripcion::-webkit-scrollbar-button{
-    display:none;
-}
-
-.primera-linea{
-    display: flex;
-    text-indent: 20%;
-    flex-flow: row nowrap;
-}
-
 
 .icono{
     display: block;
