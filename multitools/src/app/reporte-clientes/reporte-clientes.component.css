@@ -10,6 +10,7 @@
     color:white;
     display: flex;
     flex-flow: row;
+    display:flex;
     gap:2px;
     overflow:hidden ;
 
@@ -61,6 +62,7 @@
 .envoltura-datos{
     position: relative;
     height: 100%;
+    gap:0px;
     
 }
 .menu{
@@ -70,7 +72,7 @@
     align-items: center;
     top:5%;
     right: 20%;
-    transform: translateX(50%);
+    transform: translateX(-50%);
     width: 23px;
 }
 .menu:hover{
@@ -221,8 +223,11 @@
         font-size: .8rem;
     }
     .datos-container {
-        min-width: 300vw; /* Ajusta según la cantidad de tarjetas */
+        min-width: 600vw; /* Ajusta según la cantidad de tarjetas */
         overflow-x: auto;
+    }
+    .envoltura-datos {
+        flex: 0 0 auto;
     }
   }
 
