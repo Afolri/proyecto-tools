@@ -1,3 +1,4 @@
+
 .subtitulo{
     text-align: left;
 }
@@ -209,6 +210,7 @@
 @media only screen and (max-device-width: 1000px) {
     .contenedor {
         position:relative;
+        overflow-x: scroll;
         width: 100vw;
         gap:1px;
     }
@@ -219,14 +221,6 @@
     .tarjeta-datos>*{
         font-size: .8rem;
     }
-    .datos-container {
-        min-width: 600vw; /* Fuerza el scroll horizontal en móvil */
-        overflow-x: auto;
-    }
-    .envoltura-datos {
-        min-width: 220px;
-        flex: 0 0 auto;
-    }
-}
-
+  }
+  
 
