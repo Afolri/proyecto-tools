@@ -12,7 +12,7 @@
     flex-flow: row;
     display:flex;
     gap:2px;
-    overflow: hidden;
+    overflow-x: hidden;
 
 }
 .miformulario{
@@ -49,9 +49,10 @@
 .datos-container{
     display: flex;
     flex-flow: row nowrap;
+    flex: 1 1 auto;
     overflow-x: auto;
     overflow-y: hidden;
-    width: 100vw;
+    max-width: 10vw;
     height: 100%;
     position: relative;
     gap: 2px;
