@@ -30,34 +30,35 @@
   <!-- Listado de productos -->
   <div class = "datos-container">
     @for (ticket of tablatickets; track ticket.numero_ticket){
-      <div class = "envoltura-datos">
-        <div class = "tarjeta-datos" >
-          <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto"><!--(click)="abrirTicket(ticket)"-->
-            <div class = "primera-linea" >
-              {{ ticket.numero_ticket }}
-            </div>
-            <div class = "texto">{{ ticket.numero_producto }}</div>
-            <div class = "tipo-codigo texto">{{ticket.tipo_codigo}}</div>
-            <div class="texto">{{ ticket.numero_compra_cot }}</div>
-            <div class= "texto">{{ ticket.asunto }}</div>
-            <div class= "texto">{{ ticket.numero_cliente }}</div>
-            <div class= "texto">{{ ticket.nombre_cliente }}</div>
-            <div class= "texto">{{ ticket.telefono }}</div>
-            <div class="correo texto">{{ ticket.correo }}</div>
-            <div class="estado texto" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
-            <div class = "texto">{{ ticket?.numero_agente || 'No asignado' }}</div>
-            <div class = "texto">{{ ticket.fecha }}</div>
-            <div class = "texto">{{ ticket.hora }}</div> 
+      <div class = "tarjeta-datos" >
+        <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto"><!--(click)="abrirTicket(ticket)"-->
+          <div class = "primera-linea" >
+            {{ ticket.numero_ticket }}
           </div>
-        </div>
-        <div class="menu" (click)="activarCheck(ticket)"  >
-          <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
-          <section class = "opciones-list">
-            <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
-            <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
-          </section>
+          <div class = "texto">{{ ticket.numero_producto }}</div>
+          <div class = "tipo-codigo texto">{{ticket.tipo_codigo}}</div>
+          <div class="texto">{{ ticket.numero_compra_cot }}</div>
+          <div class= "texto">{{ ticket.asunto }}</div>
+          <div class= "texto">{{ ticket.numero_cliente }}</div>
+          <div class= "texto">{{ ticket.nombre_cliente }}</div>
+          <div class= "texto">{{ ticket.telefono }}</div>
+          <div class="correo texto">{{ ticket.correo }}</div>
+          <div class="estado texto" [ngStyle]="estiloEstado(ticket.estado)">{{ ticket.estado }}</div>
+          <div class = "texto">{{ ticket?.numero_agente || 'No asignado' }}</div>
+          <div class = "texto">{{ ticket.fecha }}</div>
+          <div class = "texto">{{ ticket.hora }}</div> 
         </div>
       </div>
+      <div class="menu" (click)="activarCheck(ticket)"  >
+        <fa-icon [icon]="faBars"  for="activable" class = "bar-icon icono" ></fa-icon>
+        <section class = "opciones-list">
+          <fa-icon [icon]="faComment" class= "edit-icon icono" (click)="editar(ticket);  obtenerRefTicketComentarios(ticket.numero_ticket)" [ngStyle]="ticket.opciones ?estiloEdit():null"></fa-icon> 
+          <fa-icon  [icon]="faHourgalss" class="lock-icon icono" (click)="mensajeConfirmacionPendiente(ticket)" [ngStyle]="ticket.opciones ?estiloLock():null"></fa-icon>
+        </section>
+      </div>
+      <!--
+      <div class = "envoltura-datos">
+      </div>-->
 
     }
   </div>
