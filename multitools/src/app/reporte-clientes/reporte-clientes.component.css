@@ -104,7 +104,11 @@
     flex:1 1 auto;
     
 }
-
+.datos:hover{
+    cursor: pointer;
+    background-color: hsl(215, 35%, 45%);
+    
+}
 .datos div :not(.tipo-codigo) {
     flex-flow: row ;
     
