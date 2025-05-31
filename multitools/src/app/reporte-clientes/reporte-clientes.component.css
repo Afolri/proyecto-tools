@@ -1,33 +1,63 @@
 
-.contenedor {
-    display: flex;
-    width: 100vw;      /* El ancho del padre es fijo */
-    max-width: 100vw;
-    overflow: hidden;  /* Oculta cualquier desborde del hijo */
-}
 
-.titulos {
-    flex: 0 0 auto;    /* No se estira ni se encoge */
-    min-width: 150px;  /* Ajusta según tu diseño */
-    background: hsl(215, 54%, 58%);
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
 
-.datos-container {
-    flex: 1 1 auto;
+.contenedor{
+    position: relative;
     display: flex;
-    flex-direction: row;
-    overflow-x: auto;           /* Scroll solo aquí */
-    min-width: 800px;           /* Ajusta según la cantidad de columnas */
-    -webkit-overflow-scrolling: touch;
-    touch-action: pan-x;
-    background: #1a1a2e;
+    flex-flow: row ;
+    width: 80vw;
+    height: 30vw;
+    min-height: 350px;
 }
-.tarjeta-datos{
+.titulos{
+    display: flex;
+    flex-flow: column;
+    justify-content: space-evenly;
+    background-color: var(--azul-claro-solido);
+    border-radius: 17px;
+    height: 97%;
+    padding: 10px 10px;
+    text-align: right;
+}
+.datos-container{
+    position:relative;
+    display: flex;
+    height: 100%;
+    overflow: auto;
+    flex-flow: row;
+    gap: 2%;
+}
+.datos-container::-webkit-scrollbar{
+    height: 10px;
+    color: red;
     background-color: var(--azul-oscuro-solido);
+}
+.datos-container::-webkit-scrollbar-button{
+    background-color: var(--azul-oscuro);
+}
+.datos-container::-webkit-scrollbar-thumb{
+    background-color:var(--azul-claro-solido);
+    box-shadow: inset 0 7px 5px var(--azul-oscuro);
+    border-radius: 7px;
+}
+.datos{
+    padding: 10px 10px;
+    display: flex;
+    position: relative;
+    border-radius: 17px;
+    background-color: var(--azul-oscuro-solido);
+    height: 100%;
+    flex-flow:column;
+    justify-content: space-evenly;
+}
+.envoltura{
+    position:relative;
+    display: flex;
+    height: 100%;
+}
+.tarjeta-datos>*{
+    width: 150px;
+    transition: width .4s ease-in-out;
 }
 
 
@@ -50,7 +80,6 @@
 }
 
 .menu{
-    display: block;
     position: absolute;
     justify-content:center;
     align-items: center;
@@ -61,10 +90,6 @@
 }
 .menu:hover{
     cursor: pointer;
-}
-.tarjeta-datos>*{
-    width: 150px;
-    transition: width .4s ease-in-out;
 }
 
 .texto{
@@ -138,28 +163,5 @@
     height: 80%;
     max-width: 800px;
 }
-
-
-@media only screen and (max-device-width: 1000px) {
-    .contenedor {
-        position:relative;
-        width: 100vw;
-        gap:1px;
-    }
-    .titulos{
-        flex: auto;
-        font-size: .6em;
-    }
-    .tarjeta-datos>*{
-        font-size: .8rem;
-    }
-    .datos-container {
-        min-width: 600vw; /* Ajusta según la cantidad de tarjetas */
-        overflow-x: auto;
-    }
-    .envoltura-datos {
-        flex: 0 0 auto;
-    }
-  }
 
 
