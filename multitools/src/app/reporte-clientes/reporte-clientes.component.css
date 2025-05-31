@@ -6,7 +6,7 @@
     display: flex;
     flex-flow: row ;
     width: 80vw;
-    height: 30vw;
+    height: 460px;
     min-height: 350px;
 }
 .titulos{
@@ -15,7 +15,7 @@
     justify-content: space-evenly;
     background-color: var(--azul-claro-solido);
     border-radius: 17px;
-    height: 97%;
+    height: 450px;
     padding: 10px 10px;
     text-align: right;
 }
@@ -23,12 +23,16 @@
     position:relative;
     display: flex;
     height: 100%;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     flex-flow: row;
     gap: 2%;
 }
+.tarjeta-datos{
+    margin-bottom: -20px;
+}
 .datos-container::-webkit-scrollbar{
-    height: 10px;
+    height: 5px;
     color: red;
     background-color: var(--azul-oscuro-solido);
 }
@@ -46,7 +50,7 @@
     position: relative;
     border-radius: 17px;
     background-color: var(--azul-oscuro-solido);
-    height: 100%;
+    height: 450px;
     flex-flow:column;
     justify-content: space-evenly;
 }

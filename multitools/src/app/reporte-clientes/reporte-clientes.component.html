@@ -29,8 +29,10 @@
   </div>
   <!-- Listado de productos -->
 
+
     <div class = "datos-container">
       @for (ticket of tablatickets; track ticket.numero_ticket){
+
         <div class = "envoltura">
           <div class = "tarjeta-datos" >
             <div [ngStyle]="ticket.seleccionado?estilosMarcado():null" class = "datos texto" (click)="abrirTicket(ticket)" >
