@@ -18,6 +18,7 @@
     height: 450px;
     padding: 10px 10px;
     text-align: right;
+    max-width: 150px;
 }
 .datos-container{
     position:relative;
