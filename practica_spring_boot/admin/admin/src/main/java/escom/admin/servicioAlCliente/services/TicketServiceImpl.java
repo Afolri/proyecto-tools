@@ -187,6 +187,21 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public List<TicketResponseDTO> buscarTickets(Long numeroUsuario, String estadoTickets) {
         try {
+            Usuario usuarioTemp = usuarioRepository.findById(numeroUsuario).orElseThrow();
+            if(usuarioTemp.getRol() == Rol.ADMIN){
+                return ticketRepository.obtenerTodosLosTicketsPorEstado(estadoTickets).stream()
+                        .map(ticket ->{
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            objectMapper.registerModule(new JavaTimeModule());
+
+                            try {
+                                return objectMapper.readValue(new JSONObject(ticket).toString(), TicketResponseDTO.class);
+                            } catch (JsonProcessingException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .toList();
+            }
             return ticketRepository.buscarTicketsDTO(numeroUsuario, estadoTickets).stream()
                     .map(ticket ->{
                         ObjectMapper objectMapper = new ObjectMapper();

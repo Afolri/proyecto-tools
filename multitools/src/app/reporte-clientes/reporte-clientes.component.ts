@@ -8,16 +8,18 @@ import { NotificacionesComponent } from "../notificaciones/notificaciones.compon
 import{Ticket} from "../generar-ticket/generar-ticket.component";
 import { EditarTicketComponent } from "../editar-ticket/editar-ticket.component";
 import { LoginComponent, Usuario } from '../login/login.component';
-import { faBars, faComment, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faComment, faHourglass, faLock } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Client, IMessage } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
-import { BehaviorSubject, filter, take } from 'rxjs';
+import { BehaviorSubject, filter, take, throwError } from 'rxjs';
 import { WebSocketService } from '../web-socket.service';
 import { TicketServiceService } from '../ticket-service.service';
 import { NotificacionesResponse } from '../models/notificacionesResponse';
+import { TicketAModificarService } from '../ticket-amodificar.service';
+import { DetallesComponent } from "../detalles/detalles.component";
 
 
 const baseURL = `${environment.URL_BASE}`;
@@ -30,8 +32,9 @@ const baseURL = `${environment.URL_BASE}`;
     MensajeAvisoComponent,
     FontAwesomeModule,
     EditarTicketComponent,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    DetallesComponent
+],
   templateUrl: './reporte-clientes.component.html',
   styleUrls: ['./reporte-clientes.component.css']
 })
@@ -55,6 +58,7 @@ export class ReporteClientesComponent implements OnInit {
   faComment = faComment;
   faLock = faLock;
   faBars = faBars;
+  faHourgalss = faHourglass;
   focus = false;
 
   /**exportación de los detalles de ticket actual */
@@ -102,12 +106,13 @@ export class ReporteClientesComponent implements OnInit {
 
   constructor(library: FaIconLibrary, private authService: AuthService, private router: Router,
     private webSocketService:WebSocketService, private ticketService:TicketServiceService,
-    private formBuilder:FormBuilder
+    private formBuilder:FormBuilder, private ticketAMService:TicketAModificarService
   ) {
     webSocketService.ngOnInit();
     library.addIcons(faComment);
     library.addIcons(faLock);
     library.addIcons(faBars);
+    library.addIcons(faHourglass);
   }
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -125,10 +130,17 @@ export class ReporteClientesComponent implements OnInit {
       }
     });
     
+    this.ticketAMService.ticket$.subscribe(ticket =>{
+      let ticketSeleccionado = this.tablatickets.find( obj => obj.numero_ticket === ticket.numero_ticket);
+      ticketSeleccionado = ticket;
+    })
   }
 
 
-  
+  abrirTicket(ticket:Ticket){
+    this.router.navigate(['detalles']);
+    this.ticketAMService.emitirTicket(ticket);
+  }
   /**Activa el atributo de opciones cuando es verdadero aplica un estilo */
   activarCheck(ticketactual:Ticket){
     const ticketencontrado = this.tablatickets.find(ticket => ticket.numero_ticket == ticketactual.numero_ticket);
@@ -155,6 +167,11 @@ export class ReporteClientesComponent implements OnInit {
     }
     this.mostrarAviso('eliminar');
   }
+  mensajeConfirmacionPendiente(ticket:Ticket){
+    this.mensajeAviso = true;
+    this.ticketAMService.emitirTicket(ticket);
+  }
+
   mostrarAviso(modo:'actualizar'|'eliminar'){
     this.modoMensajeFormulario = modo;
     this.mensajeAviso = true;
@@ -289,6 +306,16 @@ export class ReporteClientesComponent implements OnInit {
     else if(ticketEstado == "ABIERTO"){
       return{
         "background-color":"blue"
+      }
+    }
+    else if(ticketEstado == "PENDIENTE"){
+      return{
+        "background-color":"PURPLE"
+      }
+    }
+    else if(ticketEstado == "EN ESPERA"){
+      return{
+        "background-color":"var(--azul-claro)"
       }
     }
     return null;

@@ -67,6 +67,33 @@ public class ReporteTickets {
             return ResponseEntity.badRequest().body("Error al cerrar el ticket");
         }
     }
+    @PutMapping("/ticket-pendiente")
+    public ResponseEntity<?> asignarPendiente (@RequestParam Long numeroTicket){
+        try {
+            ticketService.cambiarEstado(numeroTicket, "PENDIENTE");
+            return ResponseEntity.ok().body("Ticket cerrado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al cerrar el ticket");
+        }
+    }
+    @PutMapping("/ticket-espera")
+    public ResponseEntity<?> asignarEnEspera (@RequestParam Long numeroTicket){
+        try {
+            ticketService.cambiarEstado(numeroTicket, "EN ESPERA");
+            return ResponseEntity.ok().body("Ticket cerrado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al cerrar el ticket");
+        }
+    }
+    @PutMapping("/ticket-resuelto")
+    public ResponseEntity<?> asginarResuelto (@RequestParam Long numeroTicket){
+        try {
+            ticketService.cambiarEstado(numeroTicket, "RESUELTO");
+            return ResponseEntity.ok().body("Ticket cerrado");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error al cerrar el ticket");
+        }
+    }
     @PutMapping("/actualizar-ticket")
     public ResponseEntity<?> actualizarTicket(@RequestBody String json) {
         try {
