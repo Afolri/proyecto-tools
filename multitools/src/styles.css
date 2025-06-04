@@ -98,10 +98,11 @@ button{
     transform:translateX(-50%);
     text-align: center;
 }
-.enviar{ background-color: green; }
-.enviar:active{ background-color: rgb(30, 79, 30); }
+.enviar{ background-color: var(--azul-claro-solido); }
+.enviar:active{ background-color: var(--azul-oscuro-solido);; }
 .salir{background-color: red;}
 .salir:active{ background-color: rgb(102, 19, 19); }
+.espera{background-color: rgb(197, 162, 49);}
 
 .info{
     position:relative;

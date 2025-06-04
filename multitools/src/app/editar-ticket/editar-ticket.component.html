@@ -1,8 +1,9 @@
-
 <div class="contenedor-principal">
-    <div class = "primerapartado">
-        <div class="apartado"><label class = "ticket-ref">{{ ticket.numero_ticket }}</label></div>
-        <!--<div class="apartado"><label>{{ ticket.numero_producto }}</label></div>
+  <div class="primerapartado">
+    <div class="apartado">
+      <label class="ticket-ref">{{ ticket.numero_ticket }}</label>
+    </div>
+    <!--<div class="apartado"><label>{{ ticket.numero_producto }}</label></div>
         <div class="apartado"><label>{{ticket.tipo_codigo}}</label></div>
         <div class="apartado"><label>{{ ticket.numero_compra_cot }}</label></div>
         <div class="apartado"><label>{{ ticket.asunto }}</label></div>
@@ -14,35 +15,54 @@
         <div class="apartado"><label>{{ ticket.estado }}</label></div>
         <div class="apartado"><label>{{ ticket.numero_agente }}</label></div>
         <div class="apartado"><label>{{ ticket.fecha }}</label></div>-->
-        
-    </div>
-    <div class = "segundoapartado">
-        <div class="cajadecomentarios" #comentariosDiv >
-            @if(!comentariosObtenidos){
-                <div>No hay comentarios aún</div>
-            }
-            @for(comentario of comentariosObtenidos; track comentario.numero_comentario ){
+  </div>
+  <div class="segundoapartado">
+    <div class="cajadecomentarios" #comentariosDiv>
+      @if(!comentariosObtenidos){
+      <div>No hay comentarios aún</div>
+      } @for(comentario of comentariosObtenidos; track
+      comentario.numero_comentario ){
 
-                <div class = "contenedor-comentario" [ngStyle]="estiloComentarios(comentario.numero_usuario)">
-                    <div class = "comentario" >
-                        {{comentario.comentario}}
-                    </div>
-                </div>
-            }
+      <div
+        class="contenedor-comentario"
+        [ngStyle]="estiloComentarios(comentario.numero_usuario)"
+      >
+        <div class="comentario">
+          {{ comentario.comentario }}
         </div>
-        <div>
-        <form [formGroup]="comentarFormulario" (submit)="onSubmit()" class="apartado formulario-comentario">
-            <div class = "contenedor-textarea info">
-                <textarea class="estilotextarea" formControlName = "comentarioTextArea"
-                placeholder="Inserte aquí un comentario">
-                </textarea>
-            </div>
-            <div class="botones">
-                <button type="submit" class="estilobutton enviar">Enviar</button>
-                <button type="button" class="estilobutton salir"(click)="cancelar()">Salir</button>
-                <button type="button" class="estiulobutton" (click)="ponerEnEspera(ticket)">poner en espera</button>
-            </div>
-        </form>
-        
+      </div>
+      }
     </div>
+    <div>
+      <form
+        [formGroup]="comentarFormulario"
+        (submit)="onSubmit()"
+        class="apartado formulario-comentario"
+      >
+        <div class="contenedor-textarea info">
+          <textarea
+            class="estilotextarea"
+            formControlName="comentarioTextArea"
+            placeholder="Inserte aquí un comentario"
+          >
+          </textarea>
+        </div>
+        <div class="botones">
+          <button type="submit" class="estilobutton enviar">
+            <fa-icon [icon]="planeIcon"></fa-icon>
+          </button>
+          <button type="button" class="estilobutton salir" (click)="cancelar()">
+            <fa-icon [icon]="exitIcon"></fa-icon>
+          </button>
+          <button
+            type="button"
+            class="estilobutton espera"
+            (click)="ponerEnEspera(ticket)"
+          >
+            poner en espera
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

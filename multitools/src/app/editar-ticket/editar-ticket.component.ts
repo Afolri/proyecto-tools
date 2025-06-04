@@ -10,10 +10,12 @@ import { ComentarioService } from '../comentario.service';
 import { CommonModule } from '@angular/common';
 import { filter, take, takeLast } from 'rxjs';
 import { TicketAModificarService } from '../ticket-amodificar.service';
+import { faArrowRightFromBracket, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-editar-ticket',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FontAwesomeModule],
   templateUrl: './editar-ticket.component.html',
   styleUrl: './editar-ticket.component.css',
   standalone:true
@@ -28,15 +30,19 @@ export class EditarTicketComponent implements OnInit, AfterViewChecked {
   @Output() salirFormulario = new EventEmitter<Ticket>();
   @ViewChild('comentariosDiv') private comentariosDiv!: ElementRef;
   usuarioActual!:Usuario;
+  planeIcon = faPaperPlane;
+  exitIcon = faArrowRightFromBracket;
 
 
   constructor(private authService:AuthService,private formBuilder:FormBuilder,
     private webSocket:WebSocketService, private comentarioService:ComentarioService,
-    private ticketService:TicketAModificarService
+    private ticketService:TicketAModificarService, private library:FaIconLibrary
   ){
     this.comentarFormulario = this.formBuilder.group({
       comentarioTextArea:['',[],[]]
     })
+    library.addIcons(faPaperPlane);
+    library.addIcons(faArrowRightFromBracket);
     
   }
   ngOnInit(): void {
